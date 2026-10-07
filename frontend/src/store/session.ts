@@ -16,6 +16,8 @@ type SessionState = {
     error: string | null;
     open: boolean;
     speaking: boolean;
+    /** Why the spoken reply did not play, shown next to "Nghe lại". */
+    speakHint: string | null;
   };
   patchVoice: (p: Partial<SessionState["voice"]>) => void;
   closeVoice: () => void;
@@ -34,7 +36,7 @@ export const useSession = create<SessionState>((set, get) => ({
     if (prev) URL.revokeObjectURL(prev.url);
     set({ image: f ? { file: f, url: URL.createObjectURL(f), id: ++imageId } : null });
   },
-  voice: { phase: "idle", transcript: "", reply: null, total: null, error: null, open: false, speaking: false },
+  voice: { phase: "idle", transcript: "", reply: null, total: null, error: null, open: false, speaking: false, speakHint: null },
   patchVoice: (p) => set((s) => ({ voice: { ...s.voice, ...p } })),
   closeVoice: () =>
     set((s) => ({ voice: { ...s.voice, open: false, speaking: false, phase: s.voice.phase === "listening" ? "idle" : s.voice.phase } })),

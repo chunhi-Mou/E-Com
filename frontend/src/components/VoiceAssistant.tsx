@@ -116,6 +116,12 @@ export function VoiceAssistant() {
                             {speakReplies ? "Tự đọc: bật" : "Tự đọc: tắt"}
                           </button>
                         </div>
+                        {v.speakHint && (
+                          <p role="status" className="mt-2.5 flex items-start gap-1.5 text-[12.5px] leading-snug text-hl-ink">
+                            <TriangleAlert size={14} className="mt-px shrink-0" />
+                            <span>{v.speakHint}</span>
+                          </p>
+                        )}
                       </div>
                     </motion.div>
                   )}

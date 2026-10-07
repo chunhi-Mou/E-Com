@@ -134,6 +134,7 @@ export async function searchImage(file: File, text = "", limit = 60, filters?: S
   const fd = new FormData();
   fd.append("image", file);
   if (text.trim()) fd.append("text", text.trim());
+  fd.append("limit", String(limit));
   return normResponse(await http<SearchResponse>("/api/search/image", { method: "POST", body: fd }, 40000), mode);
 }
 
@@ -145,7 +146,8 @@ export async function searchSimilar(p: Product): Promise<SearchResponse> {
     return normResponse(similarTo(p), mode);
   }
   try {
-    const blob = await (await fetch(p.images[0], { signal: AbortSignal.timeout(8000) })).blob();
+    // no-store: the <img> tag already cached this URL without CORS headers, and a cached entry would make this fetch fail
+    const blob = await (await fetch(p.images[0], { signal: AbortSignal.timeout(8000), cache: "no-store" })).blob();
     const r = await searchImage(new File([blob], "main.jpg", { type: blob.type || "image/jpeg" }), "", 16);
     return { ...r, results: r.results.filter((x) => x.product.id !== p.id).slice(0, 12) };
   } catch {

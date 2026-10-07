@@ -5,7 +5,7 @@ import { AnimatePresence, motion, useMotionValue, useSpring, useTransform } from
 import { Camera, Check, Clock, ImagePlus, Mic, Search, X } from "lucide-react";
 import { suggest, transcribe } from "@/lib/api";
 import { EXAMPLE_QUERIES } from "@/mocks/engine";
-import { MicError, sttSupported, startCapture, type Capture } from "@/lib/speech";
+import { MicError, sttSupported, startCapture, warmVoices, type Capture } from "@/lib/speech";
 import { acceptImage, runImageSearch, searchUrl } from "@/lib/searchActions";
 import { stopSpeaking } from "@/lib/voiceFlow";
 import { useSession } from "@/store/session";
@@ -138,8 +138,9 @@ export function SearchBar() {
   const startVoice = useCallback(async () => {
     if (capRef.current) return;
     stopSpeaking();
+    warmVoices(); // the browser loads its voices lazily; start now so the reply can be spoken on time
     setFocused(false);
-    patchVoice({ phase: "listening", transcript: "", reply: null, total: null, error: null, open: false, speaking: false });
+    patchVoice({ phase: "listening", transcript: "", reply: null, total: null, error: null, open: false, speaking: false, speakHint: null });
     setText("");
     try {
       capRef.current = await startCapture({

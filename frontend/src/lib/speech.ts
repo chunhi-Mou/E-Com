@@ -167,39 +167,106 @@ export async function startCapture(opts: CaptureOpts): Promise<Capture> {
 // ---------- Spoken replies ----------
 export type Speaker = { stop: () => void };
 
-function pickVoice(lang: "vi" | "en"): SpeechSynthesisVoice | undefined {
-  if (typeof window === "undefined" || !("speechSynthesis" in window)) return undefined;
-  const voices = window.speechSynthesis.getVoices();
-  const matching = voices.filter((v) => v.lang.toLowerCase().replace("_", "-").startsWith(lang));
-  if (!matching.length) return undefined;
-  // Ưu tiên các giọng Neural / Natural / Google tiếng Việt cao cấp
-  const natural = matching.find(
-    (v) =>
-      v.name.includes("Natural") ||
-      v.name.includes("HoaiMy") ||
-      v.name.includes("NamMinh") ||
-      v.name.includes("Google") ||
-      v.name.includes("Neural")
-  );
-  return natural || matching[0];
+/** Why a spoken reply did not play. The UI turns these into a short hint next to "Nghe lại". */
+export type SpeakFail = "no-voice" | "blocked" | "no-start" | "failed";
+
+const synthSupported = () => typeof window !== "undefined" && "speechSynthesis" in window;
+const sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
+
+// Chrome garbage-collects an utterance that nothing references and silently drops its events (and sometimes the speech).
+let keep: SpeechSynthesisUtterance | null = null;
+
+/** getVoices() is empty until the browser has loaded them; wait for `voiceschanged` instead of guessing. */
+function loadVoices(timeoutMs = 1500): Promise<SpeechSynthesisVoice[]> {
+  const synth = window.speechSynthesis;
+  const now = synth.getVoices();
+  if (now.length) return Promise.resolve(now);
+  return new Promise((resolve) => {
+    const done = () => {
+      synth.removeEventListener("voiceschanged", done);
+      clearTimeout(timer);
+      resolve(synth.getVoices());
+    };
+    const timer = setTimeout(done, timeoutMs);
+    synth.addEventListener("voiceschanged", done);
+  });
 }
 
-export function speakWithSynthesis(text: string, lang: "vi" | "en", onEnd: () => void): Speaker | null {
-  if (typeof window === "undefined" || !("speechSynthesis" in window)) return null;
-  window.speechSynthesis.cancel();
+/** Call early (for example when the mic opens) so voices are ready by the time a reply is spoken. */
+export function warmVoices() {
+  if (synthSupported()) window.speechSynthesis.getVoices();
+}
+
+function pickVoice(voices: SpeechSynthesisVoice[], lang: "vi" | "en"): SpeechSynthesisVoice | undefined {
+  const matching = voices.filter((v) => v.lang.toLowerCase().replace("_", "-").startsWith(lang));
+  // Natural/Neural voices first, then on-device ones. Remote "Google" voices go last: Chrome cuts them off after ~15s.
+  const rank = (v: SpeechSynthesisVoice) => (/natural|neural|hoaimy|namminh/i.test(v.name) ? 3 : v.localService ? 2 : /google/i.test(v.name) ? 0 : 1);
+  return [...matching].sort((x, y) => rank(y) - rank(x))[0];
+}
+
+export async function speakWithSynthesis(text: string, lang: "vi" | "en", onEnd: () => void, onFail?: (r: SpeakFail) => void): Promise<Speaker | null> {
+  if (!synthSupported()) {
+    onFail?.("failed");
+    return null;
+  }
+  const synth = window.speechSynthesis;
+  const voices = await loadVoices();
+  const voice = pickVoice(voices, lang);
+  if (voices.length && !voice) {
+    // Reading Vietnamese with an English voice is unintelligible, so say so instead of mumbling.
+    onFail?.("no-voice");
+    return null;
+  }
+
+  if (synth.speaking || synth.pending) {
+    synth.cancel();
+    await sleep(80); // speak() straight after cancel() is dropped by some Chrome builds
+  }
+  synth.resume(); // a previous page can leave the queue paused
+
   const u = new SpeechSynthesisUtterance(text);
   u.lang = lang === "vi" ? "vi-VN" : "en-US";
-  const v = pickVoice(lang);
-  if (v) u.voice = v;
+  if (voice) u.voice = voice;
   u.rate = 1.02;
-  u.onend = onEnd;
-  u.onerror = onEnd;
-  window.speechSynthesis.speak(u);
-  return { stop: () => window.speechSynthesis.cancel() };
+  keep = u;
+
+  let started = false;
+  let finished = false;
+  const finish = () => {
+    if (finished) return;
+    finished = true;
+    clearTimeout(watchdog);
+    if (keep === u) keep = null;
+    onEnd();
+  };
+  // If the engine never begins (no output device, blocked, crashed voice) do not leave the UI "speaking" forever.
+  const watchdog = setTimeout(() => {
+    if (started) return;
+    synth.cancel();
+    onFail?.("no-start");
+    finish();
+  }, 4500);
+
+  u.onstart = () => {
+    started = true;
+    clearTimeout(watchdog);
+  };
+  u.onend = finish;
+  u.onerror = (e) => {
+    if (e.error !== "canceled" && e.error !== "interrupted") onFail?.(e.error === "not-allowed" ? "blocked" : "failed");
+    finish();
+  };
+  synth.speak(u);
+  return {
+    stop: () => {
+      synth.cancel();
+      finish();
+    },
+  };
 }
 
 /** Plays backend TTS when given, otherwise speechSynthesis. Resolves a handle that can stop playback. */
-export async function speakReply(opts: { text: string; audioUrl?: string; lang: "vi" | "en"; onEnd: () => void }): Promise<Speaker | null> {
+export async function speakReply(opts: { text: string; audioUrl?: string; lang: "vi" | "en"; onEnd: () => void; onFail?: (r: SpeakFail) => void }): Promise<Speaker | null> {
   if (opts.audioUrl) {
     try {
       const a = new Audio(opts.audioUrl);
@@ -208,8 +275,8 @@ export async function speakReply(opts: { text: string; audioUrl?: string; lang: 
       await a.play();
       return { stop: () => { a.pause(); opts.onEnd(); } };
     } catch {
-      // fall through to speechSynthesis
+      // file missing or autoplay blocked: fall through to speechSynthesis
     }
   }
-  return speakWithSynthesis(opts.text, opts.lang, opts.onEnd);
+  return speakWithSynthesis(opts.text, opts.lang, opts.onEnd, opts.onFail);
 }

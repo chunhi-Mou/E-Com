@@ -27,3 +27,9 @@ export function composeReply(rep: QueryRepresentation, total: number, topNames: 
     ? `I found ${total} products${cond}.${lead}`
     : `Mình tìm thấy ${total} sản phẩm${cond}.${lead}`;
 }
+
+/** Marketplace titles are stuffed with keywords. For speech keep the part before the first separator, at most 8 words. */
+export function spokenName(name: string): string {
+  const head = name.split(/\s[-–—|/]\s|[,(\[]/)[0].trim() || name.trim();
+  return head.split(/\s+/).slice(0, 8).join(" ");
+}
