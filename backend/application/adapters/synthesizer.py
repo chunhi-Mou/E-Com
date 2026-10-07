@@ -63,3 +63,42 @@ class ElevenLabsSynthesizer(SpeechSynthesizer):
         if not resp.content:
             raise RemoteError("elevenlabs-tts: empty audio")
         return resp.content
+
+
+class EdgeTtsSynthesizer(SpeechSynthesizer):
+    """Studio-quality Microsoft Edge Neural TTS: free, no API key required, human-grade voice."""
+
+    def __init__(self, cache_dir: Path, vi_voice: str = "vi-VN-HoaiMyNeural",
+                 en_voice: str = "en-US-JennyNeural") -> None:
+        self.cache_dir = Path(cache_dir)
+        self.vi_voice = vi_voice
+        self.en_voice = en_voice
+
+    def _name(self, text: str, lang: str) -> str:
+        voice = self.vi_voice if lang == "vi" else self.en_voice
+        return sha256_hex("edge-tts", voice, text) + ".mp3"
+
+    def synthesize_to_file(self, text: str, lang: str) -> str:
+        name = self._name(text, lang)
+        path = self.cache_dir / name
+        if not path.exists():
+            import asyncio
+            import edge_tts
+
+            voice = self.vi_voice if lang == "vi" else self.en_voice
+
+            async def _run():
+                comm = edge_tts.Communicate(text, voice)
+                await comm.save(str(path))
+
+            try:
+                asyncio.run(_run())
+            except RuntimeError:
+                loop = asyncio.new_event_loop()
+                loop.run_until_complete(_run())
+                loop.close()
+        return name
+
+    def synthesize(self, text: str, lang: str) -> bytes:
+        return (self.cache_dir / self.synthesize_to_file(text, lang)).read_bytes()
+

@@ -168,8 +168,20 @@ export async function startCapture(opts: CaptureOpts): Promise<Capture> {
 export type Speaker = { stop: () => void };
 
 function pickVoice(lang: "vi" | "en"): SpeechSynthesisVoice | undefined {
+  if (typeof window === "undefined" || !("speechSynthesis" in window)) return undefined;
   const voices = window.speechSynthesis.getVoices();
-  return voices.find((v) => v.lang.toLowerCase().startsWith(lang));
+  const matching = voices.filter((v) => v.lang.toLowerCase().replace("_", "-").startsWith(lang));
+  if (!matching.length) return undefined;
+  // Ưu tiên các giọng Neural / Natural / Google tiếng Việt cao cấp
+  const natural = matching.find(
+    (v) =>
+      v.name.includes("Natural") ||
+      v.name.includes("HoaiMy") ||
+      v.name.includes("NamMinh") ||
+      v.name.includes("Google") ||
+      v.name.includes("Neural")
+  );
+  return natural || matching[0];
 }
 
 export function speakWithSynthesis(text: string, lang: "vi" | "en", onEnd: () => void): Speaker | null {
