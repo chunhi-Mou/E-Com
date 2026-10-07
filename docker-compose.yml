@@ -1,0 +1,22 @@
+# PostgreSQL 16 + pgvector for the optional vector-database mode (see backend/db/README.md).
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    container_name: ecom-db
+    environment:
+      POSTGRES_USER: ecom
+      POSTGRES_PASSWORD: ecom
+      POSTGRES_DB: ecom
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ecom -d ecom"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
+
+volumes:
+  pgdata:
