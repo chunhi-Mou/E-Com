@@ -134,10 +134,11 @@ curl -sI localhost:8000/static/images/P000001_0.jpg
 ```
 CORS cho `http://localhost:3000` (đổi bằng `CORS_ORIGINS`). URL ảnh tuyệt đối lấy từ host của request (hoặc `PUBLIC_BASE_URL`).
 
-## Dữ liệu mẫu
-`dataset/` là dữ liệu giả (`source: "seed"`): 59 sản phẩm, 49 danh mục (cây 3 cấp, 34 danh mục lá, gồm thời trang nam/nữ,
-giày, túi, điện tử, gia dụng), 6 đơn hàng (có `20261001`), ảnh sản phẩm là silhouette vẽ bằng Pillow (`tools/render.py`).
-Định dạng dữ liệu cố định, nên có thể thay bằng dữ liệu cào thật.
+## Dữ liệu
+`dataset/` là dữ liệu cào từ Tiki (`source: "tiki"`): 1.148 sản phẩm, 49 danh mục (cây 3 cấp, 34 danh mục lá, gồm thời trang nam/nữ,
+giày, túi, điện tử, gia dụng), 2.130 ảnh (480px, JPEG, khoảng 55 MB) và 6 đơn hàng demo (có `20261001`, sinh ngẫu nhiên từ sản phẩm thật).
+Cách cào và chuẩn hóa: `scripts/data/README.md`. Danh mục lá gán theo từ khóa tìm kiếm nên có nhiễu (ví dụ "giày chạy bộ nam" lẫn máy chạy bộ).
+Catalog tổng hợp 59 sản phẩm (`source: "seed"`) chỉ dùng cho test và eval, nằm ở `tests/fixtures/dataset/`.
 
 ## Đánh giá
 `eval/queries.json`: 36 query có nhãn (explicit, implicit, bilingual, unaccented, voice, image, multimodal, order). Nhãn trỏ tới catalog tổng hợp trong `tests/fixtures/dataset/` (mặc định của `--dataset-dir`), chưa có nhãn cho dữ liệu Tiki.
@@ -165,4 +166,5 @@ Nếu đổi `TEXT_ENCODER` hoặc `IMAGE_ENCODER`, chạy lại `python -m db.l
 - Rule parser: giá chỉ hiểu các mẫu phổ biến (không có "khoảng", "triệu rưỡi"). "dưới 500" không đơn vị được hiểu là 500k (vi) hoặc 500 USD (en). "xanh" ánh xạ cả xanh dương và xanh lá.
 - Ngưỡng nới filter là 3 kết quả. Filter bị nới được báo trong `relaxed_filters`.
 - Bộ eval hiện tại (36 query, catalog tổng hợp 59 sản phẩm) có nhãn do người viết hệ thống tạo. Điểm cao chỉ chứng minh pipeline chạy đúng, chưa phải chất lượng trên dữ liệu Tiki. Cần gán nhãn bộ query riêng cho `dataset/`.
+- Dữ liệu Tiki chỉ có thuộc tính màu, chất liệu, giới tính khi nguồn hoặc tên sản phẩm nêu rõ (khoảng 50 đến 70% sản phẩm); phần còn lại để trống.
 - Dữ liệu Tiki chưa có `tags` (mùa, dịp, phong cách, độ ấm). Các tag này được điền bằng `python -m tools.enrich` (cần LLM key). Chưa chạy thì soft boost theo tag không có tác dụng.

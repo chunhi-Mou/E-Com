@@ -1,0 +1,101 @@
+[
+  {
+    "order_code": "20260915",
+    "customer_id": "C001",
+    "status": "DELIVERED",
+    "created_at": "2026-09-15T10:12:00+07:00",
+    "total": 477000,
+    "items": [
+      {
+        "product_id": "P000487",
+        "quantity": 1,
+        "unit_price": 199000
+      },
+      {
+        "product_id": "P000657",
+        "quantity": 2,
+        "unit_price": 139000
+      }
+    ]
+  },
+  {
+    "order_code": "20260928",
+    "customer_id": "C001",
+    "status": "DELIVERED",
+    "created_at": "2026-09-28T19:40:00+07:00",
+    "total": 2000000,
+    "items": [
+      {
+        "product_id": "P000803",
+        "quantity": 1,
+        "unit_price": 2000000
+      }
+    ]
+  },
+  {
+    "order_code": "20261001",
+    "customer_id": "C001",
+    "status": "SHIPPING",
+    "created_at": "2026-10-01T09:30:00+07:00",
+    "total": 4799000,
+    "items": [
+      {
+        "product_id": "P000308",
+        "quantity": 1,
+        "unit_price": 4799000
+      }
+    ]
+  },
+  {
+    "order_code": "20261005",
+    "customer_id": "C001",
+    "status": "CONFIRMED",
+    "created_at": "2026-10-05T21:05:00+07:00",
+    "total": 710500,
+    "items": [
+      {
+        "product_id": "P000160",
+        "quantity": 1,
+        "unit_price": 115500
+      },
+      {
+        "product_id": "P000280",
+        "quantity": 1,
+        "unit_price": 595000
+      }
+    ]
+  },
+  {
+    "order_code": "20260920",
+    "customer_id": "C002",
+    "status": "CANCELLED",
+    "created_at": "2026-09-20T08:00:00+07:00",
+    "total": 328000,
+    "items": [
+      {
+        "product_id": "P000948",
+        "quantity": 1,
+        "unit_price": 328000
+      }
+    ]
+  },
+  {
+    "order_code": "20261002",
+    "customer_id": "C002",
+    "status": "PENDING",
+    "created_at": "2026-10-02T14:25:00+07:00",
+    "total": 787916,
+    "items": [
+      {
+        "product_id": "P000438",
+        "quantity": 1,
+        "unit_price": 149000
+      },
+      {
+        "product_id": "P000698",
+        "quantity": 2,
+        "unit_price": 319458
+      }
+    ]
+  }
+]
