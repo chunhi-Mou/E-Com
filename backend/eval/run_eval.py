@@ -41,8 +41,8 @@ def metrics(ranked: list[str], relevant: set[str]) -> dict[str, float]:
             "ndcg": dcg / idcg if idcg else 0.0, "mrr": 1 / first if first else 0.0}
 
 
-def run(profile: str, queries: list[dict], verbose: bool) -> tuple[dict, dict]:
-    container = build_container(Settings(profile=profile))
+def run(profile: str, queries: list[dict], verbose: bool, dataset_dir: Path) -> tuple[dict, dict]:
+    container = build_container(Settings(profile=profile, dataset_dir=dataset_dir))
     rows, per_group = [], defaultdict(list)
     for q in queries:
         ranked = ranked_ids(container, q, profile)
@@ -60,6 +60,8 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--config", default="all", choices=["all", *PROFILES])
     ap.add_argument("--queries", default=str(ROOT / "eval" / "queries.json"))
+    ap.add_argument("--dataset-dir", default=str(ROOT / "tests" / "fixtures" / "dataset"),
+                    help="catalog the labels in --queries refer to")
     ap.add_argument("-v", "--verbose", action="store_true")
     args = ap.parse_args()
     queries = json.loads(Path(args.queries).read_text(encoding="utf-8"))
@@ -69,7 +71,7 @@ def main() -> None:
     for p in profiles:
         if args.verbose:
             print(f"[{p}]")
-        results[p] = run(p, queries, args.verbose)
+        results[p] = run(p, queries, args.verbose, Path(args.dataset_dir))
 
     groups = sorted({q["group"] for q in queries}, key=[q["group"] for q in queries].index)
     counts = {g: sum(q["group"] == g for q in queries) for g in groups}

@@ -1,7 +1,7 @@
 import pytest
 
-from tools.render import render
-from tools.seed_data import COLOR_RGB, build_products
+from render import render
+from seed_data import COLOR_RGB, build_products
 
 SHAPES = {f"P{i:06d}": p["_shape"] for i, p in enumerate(build_products(), start=1)}
 

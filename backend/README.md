@@ -26,10 +26,10 @@ python eval/run_eval.py                          # bảng ablation (-v: từng q
 uvicorn presentation.api.app:app --port 8000     # API (docs tại /docs)
 ```
 
-Sinh lại dữ liệu mẫu và bộ đánh giá (đã commit sẵn trong `dataset/` và `eval/`):
+`dataset/` là dữ liệu cào từ Tiki (xem `scripts/data/README.md`). Test và bộ đánh giá `eval/` chạy trên catalog tổng hợp nhỏ ở `tests/fixtures/dataset/`. Sinh lại catalog đó và bộ đánh giá (đã commit sẵn):
 ```bash
-python -m tools.generate_seed          # categories, vocabulary, products, orders, ảnh tổng hợp
-python -m tools.make_eval_queries      # eval/queries.json và eval/query_images/
+python tests/fixtures/generate_seed.py        # categories, vocabulary, products, orders, ảnh tổng hợp
+python tests/fixtures/make_eval_queries.py    # eval/queries.json và eval/query_images/
 ```
 
 ## Kiến trúc 3 lớp
@@ -140,7 +140,7 @@ giày, túi, điện tử, gia dụng), 6 đơn hàng (có `20261001`), ảnh s�
 Định dạng dữ liệu cố định, nên có thể thay bằng dữ liệu cào thật.
 
 ## Đánh giá
-`eval/queries.json`: 36 query có nhãn (explicit, implicit, bilingual, unaccented, voice, image, multimodal, order).
+`eval/queries.json`: 36 query có nhãn (explicit, implicit, bilingual, unaccented, voice, image, multimodal, order). Nhãn trỏ tới catalog tổng hợp trong `tests/fixtures/dataset/` (mặc định của `--dataset-dir`), chưa có nhãn cho dữ liệu Tiki.
 `eval/run_eval.py` in Success@1, P@10 (chia cho min(10, số nhãn đúng)), nDCG@10, MRR cho 4 cấu hình:
 `keyword` (BM25 tên + mô tả, text thô) -> `enriched` (+ làm giàu lúc index) -> `parser` (+ rule parser, filter, soft) -> `full`
 (+ expansion, dense, reranker, business). Nhãn viết tay dựa trên danh mục/thuộc tính/giá của sản phẩm, không dùng tag của search.
@@ -164,4 +164,5 @@ Nếu đổi `TEXT_ENCODER` hoặc `IMAGE_ENCODER`, chạy lại `python -m db.l
 - LLM parser chỉ bổ sung sở thích mềm và từ mở rộng (danh mục do LLM suy ra cũng chỉ là soft). Giá và mã đơn luôn do rule parser quyết định. Nếu LLM quá `LLM_TIMEOUT_S` thì hệ thống quay về rule parser.
 - Rule parser: giá chỉ hiểu các mẫu phổ biến (không có "khoảng", "triệu rưỡi"). "dưới 500" không đơn vị được hiểu là 500k (vi) hoặc 500 USD (en). "xanh" ánh xạ cả xanh dương và xanh lá.
 - Ngưỡng nới filter là 3 kết quả. Filter bị nới được báo trong `relaxed_filters`.
-- Bộ eval hiện tại (36 query, catalog tổng hợp 59 sản phẩm) có nhãn do người viết hệ thống tạo. Điểm cao chỉ chứng minh pipeline chạy đúng, chưa phải chất lượng trên dữ liệu thật.
+- Bộ eval hiện tại (36 query, catalog tổng hợp 59 sản phẩm) có nhãn do người viết hệ thống tạo. Điểm cao chỉ chứng minh pipeline chạy đúng, chưa phải chất lượng trên dữ liệu Tiki. Cần gán nhãn bộ query riêng cho `dataset/`.
+- Dữ liệu Tiki chưa có `tags` (mùa, dịp, phong cách, độ ấm). Các tag này được điền bằng `python -m tools.enrich` (cần LLM key). Chưa chạy thì soft boost theo tag không có tác dụng.

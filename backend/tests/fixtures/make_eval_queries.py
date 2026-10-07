@@ -1,16 +1,17 @@
 """Create eval/query_images/ and eval/queries.json. Labels come from product fields, not from search tags.
 
-Run: python -m tools.make_eval_queries
+Labels refer to the synthetic fixture catalog (fixtures/dataset), not to the crawled data.
+Run from backend/: python tests/fixtures/make_eval_queries.py
 """
 from __future__ import annotations
 
 import json
 from pathlib import Path
 
-from tools.render import render
-from tools.seed_data import COLOR_RGB, build_products
+from render import render
+from seed_data import COLOR_RGB, build_products
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parents[2]
 EVAL = ROOT / "eval"
 WARM_MATERIALS = {"wool", "down", "fleece", "knit"}
 

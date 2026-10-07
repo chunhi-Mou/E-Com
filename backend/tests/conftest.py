@@ -1,6 +1,15 @@
+import os
+import sys
+from pathlib import Path
+
 import pytest
 
-from container import Settings, build_container
+FIXTURES = Path(__file__).resolve().parent / "fixtures"
+# Tests run on the small synthetic catalog in fixtures/, not on the crawled data in dataset/.
+os.environ["DATASET_DIR"] = str(FIXTURES / "dataset")
+sys.path.insert(0, str(FIXTURES))
+
+from container import Settings, build_container  # noqa: E402
 
 
 @pytest.fixture(scope="session")

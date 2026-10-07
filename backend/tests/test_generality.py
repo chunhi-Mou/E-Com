@@ -1,11 +1,9 @@
 """Adding data (not code) must make new kinds of products searchable."""
 import json
 import shutil
-from pathlib import Path
 
 from container import Settings, build_container
-
-DATASET = Path(__file__).resolve().parent.parent / "dataset"
+from data.product_repository import DATASET_DIR as DATASET
 
 
 def test_new_category_and_product_without_code_change(tmp_path):

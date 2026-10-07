@@ -2,13 +2,14 @@
 from __future__ import annotations
 
 import json
+import os
 from abc import ABC, abstractmethod
 from pathlib import Path
 from typing import Any, Iterable
 
 from domain.models import Category, Product
 
-DATASET_DIR = Path(__file__).resolve().parent.parent / "dataset"
+DATASET_DIR = Path(os.environ.get("DATASET_DIR") or Path(__file__).resolve().parent.parent / "dataset")
 ENRICHMENT_MIN_CONFIDENCE = 0.6
 
 

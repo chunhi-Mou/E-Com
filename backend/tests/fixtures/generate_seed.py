@@ -1,13 +1,16 @@
-"""Generate dataset/ (JSON files + synthetic images). Run: python -m tools.generate_seed"""
+"""Regenerate the synthetic test catalog in fixtures/dataset/ (JSON files + drawn images).
+
+Run from backend/: python tests/fixtures/generate_seed.py
+"""
 from __future__ import annotations
 
 import json
 from pathlib import Path
 
-from tools.render import render
-from tools.seed_data import (CATEGORIES, COLOR_RGB, ORDERS, VOCABULARY, build_products)
+from render import render
+from seed_data import (CATEGORIES, COLOR_RGB, ORDERS, VOCABULARY, build_products)
 
-DATASET = Path(__file__).resolve().parent.parent / "dataset"
+DATASET = Path(__file__).resolve().parent / "dataset"
 
 
 def write_json(name: str, obj) -> None:
