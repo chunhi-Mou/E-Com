@@ -45,18 +45,18 @@ export function ProductCard({ product: p, index = 0, animate, scores, rank, comp
 
   return (
     <article
-      className={`group relative flex flex-col overflow-hidden rounded-lg border border-line bg-sheet transition-[border-color,box-shadow,transform] duration-200 hover:border-ink-300 hover:shadow-lift ${animate ? "rise-in" : ""}`}
+      className={`group relative flex flex-col overflow-hidden rounded-2xl border border-line bg-sheet transition-[border-color,box-shadow,transform] duration-300 ease-out hover:-translate-y-1 hover:border-ink-200 hover:shadow-lift ${animate ? "rise-in" : ""}`}
       style={{ "--i": index } as React.CSSProperties}
     >
       <Link href={href} onClick={onOpen} className="flex flex-1 flex-col rounded-none outline-offset-[-2px]">
         <div ref={imgBox} className="relative aspect-square overflow-hidden">
-          <ProductImage src={p.images[0]} alt={p.name} className="transition-transform duration-500 ease-out group-hover:scale-[1.04]" />
+          <ProductImage src={p.images[0]} alt={p.name} className="transition-[transform,opacity] duration-700 ease-out group-hover:scale-[1.05]" />
           {pct > 0 && (
-            <span className="label-cond absolute left-0 top-2.5 rounded-r-[4px] bg-seal-600 py-1 pl-2 pr-2.5 text-[12px] leading-none text-white">-{pct}%</span>
+            <span className="num absolute left-2.5 top-2.5 rounded-full bg-white/90 px-2 py-1 text-[11.5px] font-bold leading-none text-ink-700 shadow-sm backdrop-blur-sm">-{pct}%</span>
           )}
         </div>
-        <div className={`flex flex-1 flex-col gap-1.5 ${compact ? "p-2.5" : "p-3"}`}>
-          <h3 className="clamp-2 min-h-[2.6em] text-[13.5px] leading-[1.3] text-fg">{p.name}</h3>
+        <div className={`flex flex-1 flex-col gap-2 ${compact ? "p-3" : "p-3.5"}`}>
+          <h3 className="clamp-2 min-h-[2.7em] text-[13.5px] leading-[1.35] text-fg">{p.name}</h3>
           <Price price={p.price} original={p.original_price} size={compact ? "sm" : "md"} hideBadge />
           <Rating rating={p.rating} sold={p.sold_count} />
         </div>
@@ -65,7 +65,7 @@ export function ProductCard({ product: p, index = 0, animate, scores, rank, comp
         type="button"
         onClick={quickAdd}
         aria-label={`Thêm vào giỏ: ${p.name}`}
-        className="absolute right-2.5 top-2.5 grid size-9 place-items-center rounded-full border border-line bg-white/95 text-ink-700 opacity-0 shadow-sm transition-[opacity,background-color,color,transform] duration-150 hover:bg-ink-600 hover:text-white focus-visible:opacity-100 active:scale-90 group-hover:opacity-100 max-md:opacity-100"
+        className="absolute right-2.5 top-2.5 grid size-9 translate-y-1 place-items-center rounded-full bg-white text-ink-700 opacity-0 shadow-md transition-[opacity,background-color,color,transform] duration-200 hover:bg-ink-600 hover:text-white focus-visible:translate-y-0 focus-visible:opacity-100 active:scale-90 group-hover:translate-y-0 group-hover:opacity-100 max-md:translate-y-0 max-md:opacity-100"
       >
         <Plus size={18} strokeWidth={2.25} />
       </button>

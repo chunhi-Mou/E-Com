@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Barlow_Condensed, Be_Vietnam_Pro } from "next/font/google";
+import { Be_Vietnam_Pro } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/Providers";
 import { AuthGuard } from "@/components/AuthGuard";
@@ -9,6 +9,7 @@ import { SearchScrim } from "@/components/SearchScrim";
 import { ImageDropzone } from "@/components/ImageDropzone";
 import { VoiceAssistant } from "@/components/VoiceAssistant";
 import { Toaster } from "@/components/Toaster";
+import { RouteCurtain } from "@/components/RouteCurtain";
 
 const beVietnam = Be_Vietnam_Pro({
   subsets: ["latin", "latin-ext", "vietnamese"],
@@ -16,23 +17,17 @@ const beVietnam = Be_Vietnam_Pro({
   variable: "--font-be-vietnam",
   display: "swap",
 });
-const barlow = Barlow_Condensed({
-  subsets: ["latin", "latin-ext", "vietnamese"],
-  weight: ["600", "700"],
-  variable: "--font-barlow",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
-  title: { default: "LUMINA: Multimodal Intelligent E-Commerce", template: "%s | LUMINA" },
+  title: { default: "Lumina: mua sắm bằng giọng nói, hình ảnh và văn bản", template: "%s | Lumina" },
   description: "Trải nghiệm mua sắm thông minh thế hệ mới với công nghệ tìm kiếm bằng văn bản, giọng nói và hình ảnh.",
 };
 
-export const viewport: Viewport = { themeColor: "#1E1B4B", width: "device-width", initialScale: 1 };
+export const viewport: Viewport = { themeColor: "#FFFFFF", width: "device-width", initialScale: 1 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="vi" className={`${beVietnam.variable} ${barlow.variable}`} suppressHydrationWarning>
+    <html lang="vi" className={beVietnam.variable} suppressHydrationWarning>
       <body className="flex min-h-dvh flex-col" suppressHydrationWarning>
         <Providers>
           <AuthGuard>
@@ -44,6 +39,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <VoiceAssistant />
             <Toaster />
           </AuthGuard>
+          <RouteCurtain />
         </Providers>
       </body>
     </html>

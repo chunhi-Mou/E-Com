@@ -34,14 +34,14 @@ export function CategoryNav() {
   }, [open]);
 
   return (
-    <nav aria-label="Danh mục" className="border-t border-white/10 max-lg:hidden">
-      <div className="shell flex h-10 items-center gap-1 text-[14px]" ref={ref}>
+    <nav aria-label="Danh mục" className="max-lg:hidden">
+      <div className="shell flex h-11 items-center gap-1 text-[14px]" ref={ref}>
         <div className="relative">
           <button
             type="button"
             aria-expanded={open}
             onClick={() => setOpen((o) => !o)}
-            className="flex h-8 items-center gap-2 rounded-md bg-white/10 pl-2.5 pr-2 font-semibold text-white transition-colors hover:bg-white/18"
+            className="flex h-8 items-center gap-2 rounded-lg bg-ink-50 pl-2.5 pr-2 font-semibold text-ink-700 transition-colors hover:bg-ink-100"
           >
             <LayoutGrid size={16} />
             Tất cả danh mục
@@ -54,7 +54,7 @@ export function CategoryNav() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -4, transition: { duration: 0.1 } }}
                 transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute left-0 top-[calc(100%+6px)] z-50 w-[min(920px,92vw)] rounded-xl border border-line bg-sheet p-5 text-fg shadow-pop"
+                className="absolute left-0 top-[calc(100%+8px)] z-50 w-[min(920px,92vw)] rounded-2xl border border-line bg-sheet p-6 text-fg shadow-pop"
               >
                 <div className="grid grid-cols-3 gap-x-8 gap-y-5 xl:grid-cols-4">
                   {tree.map((r) => (
@@ -79,7 +79,7 @@ export function CategoryNav() {
           </AnimatePresence>
         </div>
         {tree.slice(0, 7).map((r) => (
-          <Link key={r.slug} href={searchUrl({ category: r.slug })} className="rounded-md px-2.5 py-1.5 text-white/85 transition-colors hover:bg-white/10 hover:text-white">
+          <Link key={r.slug} href={searchUrl({ category: r.slug })} className="rounded-lg px-3 py-1.5 font-medium text-muted transition-colors hover:bg-paper hover:text-fg">
             {r.name}
           </Link>
         ))}

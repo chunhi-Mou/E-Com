@@ -167,11 +167,9 @@ def build_container(settings: Settings | None = None) -> Container:
                                       queries, search, ranking, orders, s.default_customer_id)
     llm = OpenAICompatibleLLM.from_env() if OpenAICompatibleLLM.configured(os.environ) else None
     tts_dir = s.dataset_dir / "cache" / "tts"
-    edge = EdgeTtsSynthesizer(tts_dir)
-    synth: SpeechSynthesizer = edge
+    synth: SpeechSynthesizer | None = None
     if os.environ.get("ELEVENLABS_API_KEY") and os.environ.get("ELEVENLABS_VOICE_ID"):
-        eleven = ElevenLabsSynthesizer.from_env(tts_dir)
-        synth = FallbackSpeechSynthesizer(primary=eleven, fallback=edge)
+        synth = ElevenLabsSynthesizer.from_env(tts_dir)
     suggestions = SuggestService(products.categories(), vocabulary, [p.name for p in products.all()])
     return Container(s, vocabulary, CatalogService(products), orders, orchestrator, search, ranking, queries,
                      lexicon, s.dataset_dir, AssistantReplier(llm, synth), suggestions, synth, tts_dir)

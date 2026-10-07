@@ -15,7 +15,7 @@ export function ProductImage({ src, alt, className = "", priority, style, imgRef
   const [loaded, setLoaded] = useState(false);
   const [failed, setFailed] = useState(false);
   return (
-    <div className="absolute inset-0 bg-ink-50">
+    <div className="absolute inset-0 bg-paper">
       {src && !failed && (
         <img
           ref={imgRef}

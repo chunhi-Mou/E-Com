@@ -1,39 +1,82 @@
 "use client";
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { motion, AnimatePresence } from "motion/react";
-import { User, Lock, Eye, EyeOff, ArrowRight, CheckCircle2, AlertCircle, Sparkles } from "lucide-react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { AlertCircle, ArrowRight, Check, Eye, EyeOff, Lock, User } from "lucide-react";
 import { useAuth } from "@/store/auth";
-import { useToasts } from "@/store/toast";
+import { useCurtain } from "@/store/curtain";
 import { Logo } from "@/components/Logo";
-import { AmbientBackground } from "@/components/auth/AmbientBackground";
-import { MotionShowreel } from "@/components/auth/MotionShowreel";
-import { TechVisualBox } from "@/components/auth/TechVisualBox";
-import { AppleKeynoteTransition } from "@/components/auth/AppleKeynoteTransition";
+import { Intro } from "@/components/auth/Intro";
+import { LoginShowcase } from "@/components/auth/LoginShowcase";
+
+const EXPO = [0.16, 1, 0.3, 1] as const;
+const SEEN_KEY = "lumina_intro_seen";
+
+const stagger = { hidden: {}, show: { transition: { staggerChildren: 0.075, delayChildren: 0.06 } } };
+const rise = { hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0, transition: { duration: 0.75, ease: EXPO } } };
+
+const inputCls =
+  "h-12 w-full rounded-xl border border-line bg-white pl-11 text-[15px] text-fg outline-none transition-[border-color,box-shadow] duration-200 placeholder:text-faint hover:border-line-strong focus:border-ink-500 focus:ring-4 focus:ring-ink-500/15";
 
 export default function LoginPage() {
   const router = useRouter();
   const login = useAuth((s) => s.login);
+  const reduce = useReducedMotion();
 
-  // Màn hình showreel mở đầu 15s (có nút bỏ qua)
-  const [showIntro, setShowIntro] = useState(true);
+  // pending: deciding (white cover, no flash) / intro: playing / done: gone
+  const [phase, setPhase] = useState<"pending" | "intro" | "done">("pending");
+  const [entered, setEntered] = useState(false);
 
-  // Hiệu ứng chuyển cảnh một cú máy liên tục Apple-Keynote vào trang chủ
-  const [isTransitioningKeynote, setIsTransitioningKeynote] = useState(false);
-
-  // Form states
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const submitRef = useRef<HTMLButtonElement>(null);
+  const shakeRef = useRef<HTMLDivElement>(null);
 
-  // Lắc thẻ khi sai
-  const [shakeKey, setShakeKey] = useState(0);
+  // The intro plays once per browser session; reduced-motion users never see it.
+  useEffect(() => {
+    useCurtain.getState().reset();
+    router.prefetch("/");
+    const id = requestAnimationFrame(() => {
+      let seen = false;
+      try {
+        seen = sessionStorage.getItem(SEEN_KEY) === "1";
+      } catch {}
+      if (seen || reduce) {
+        setPhase("done");
+        setEntered(true);
+      } else {
+        setPhase("intro");
+      }
+    });
+    return () => cancelAnimationFrame(id);
+  }, [reduce, router]);
 
-  // Điền nhanh tài khoản admin demo
-  const handleQuickFill = () => {
+  // Mark as seen only once it has played: StrictMode runs the effect above twice in dev.
+  const onIntroLeaving = useCallback(() => {
+    setEntered(true);
+    try {
+      sessionStorage.setItem(SEEN_KEY, "1");
+    } catch {}
+  }, []);
+  const onIntroDone = useCallback(() => setPhase("done"), []);
+
+  const replayIntro = () => {
+    setEntered(false);
+    setPhase("intro");
+  };
+
+  // Shake without remounting, so focus and typed values stay put.
+  const shake = () =>
+    shakeRef.current?.animate(
+      { transform: ["translateX(0)", "translateX(-9px)", "translateX(9px)", "translateX(-6px)", "translateX(6px)", "translateX(-3px)", "translateX(3px)", "translateX(0)"] },
+      { duration: 420, easing: "ease-out" },
+    );
+
+  const fillDemo = () => {
     setUsername("admin");
     setPassword("admin1234");
     setErrorMsg(null);
@@ -41,9 +84,10 @@ export default function LoginPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmitting || isSuccess) return;
     if (!username.trim() || !password.trim()) {
       setErrorMsg("Vui lòng nhập đầy đủ tài khoản và mật khẩu");
-      setShakeKey((k) => k + 1);
+      shake();
       return;
     }
 
@@ -56,249 +100,169 @@ export default function LoginPage() {
 
       if (res.success) {
         setIsSuccess(true);
-        useToasts.getState().push({ text: "Đăng nhập thành công! Khởi động chuyển cảnh...", tone: "ok" });
-        setTimeout(() => {
-          setIsTransitioningKeynote(true);
-        }, 350);
+        if (reduce) {
+          router.push("/");
+          return;
+        }
+        const r = submitRef.current?.getBoundingClientRect();
+        const origin = r ? { x: r.left + r.width / 2, y: r.top + r.height / 2 } : { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+        setTimeout(() => useCurtain.getState().cover(origin, "/"), 260);
       } else {
         setErrorMsg(res.message || "Tài khoản hoặc mật khẩu không chính xác");
-        setShakeKey((k) => k + 1);
+        shake();
       }
-    }, 400);
+    }, 300);
   };
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden flex items-center justify-center p-4 sm:p-6 lg:p-8 font-sans bg-[#F1F5F9]">
-      {/* Nền đồ họa mạng hạt công nghệ màu xám chạy 60fps trên canvas */}
-      <AmbientBackground />
+    <div className="relative min-h-dvh bg-white lg:grid lg:grid-cols-[minmax(440px,0.85fr)_1.15fr] lg:gap-4 lg:p-4">
+      {/* Form side */}
+      <motion.div
+        variants={stagger}
+        initial="hidden"
+        animate={entered ? "show" : "hidden"}
+        className="flex min-h-dvh flex-col px-6 py-8 sm:px-12 lg:min-h-0 lg:px-14 lg:py-10 xl:px-20"
+      >
+        <motion.div variants={rise}>
+          <Logo />
+        </motion.div>
 
-      <AnimatePresence mode="wait">
-        {isTransitioningKeynote ? (
-          /* MÀN HÌNH CHUYỂN CẢNH MỘT CÚ MÁY LIÊN TỤC APPLE-KEYNOTE VÀO TRANG CHỦ */
-          <motion.div
-            key="keynote-container"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50"
-          >
-            <AppleKeynoteTransition
-              onComplete={() => {
-                router.push("/");
-              }}
-            />
-          </motion.div>
-        ) : showIntro ? (
-          /* MÀN HÌNH SHOWREEL 15 GIÂY (Mở đầu đẳng cấp) */
-          <motion.div
-            key="showreel-container"
-            suppressHydrationWarning
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0, scale: 1.04, filter: "blur(10px)" }}
-            transition={{ duration: 0.6, ease: "easeInOut" }}
-            className="fixed inset-0 z-50"
-          >
-            <MotionShowreel onComplete={() => setShowIntro(false)} />
-          </motion.div>
-        ) : (
-          /* BỐ CỤC 2 PHẦN: BÊN TRÁI LÀ FORM TINH GIẢN, BÊN PHẢI LÀ BOX CÔNG NGHỆ CHUYỂN ĐỘNG RÕ NÉT */
-          <motion.div
-            key="login-container"
-            initial={{ opacity: 0, scale: 0.96, y: 16 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-            className="relative z-10 w-full max-w-5xl rounded-[32px] border border-slate-200/90 bg-white/95 p-3.5 sm:p-5 shadow-[0_30px_70px_-20px_rgba(15,23,42,0.18),0_10px_25px_-5px_rgba(0,0,0,0.04)] backdrop-blur-2xl flex flex-col lg:flex-row items-stretch gap-6"
-          >
-            {/* 1. NỬA BÊN TRÁI: FORM ĐĂNG NHẬP TINH GIẢN (Chiếm ~42% chiều rộng) */}
-            <motion.div
-              key={shakeKey}
-              animate={
-                shakeKey > 0
-                  ? {
-                      x: [0, -8, 8, -6, 6, -3, 3, 0],
-                      transition: { duration: 0.4 },
-                    }
-                  : {}
-              }
-              className="w-full lg:w-[42%] flex flex-col justify-between p-4 sm:p-6 lg:p-7"
-            >
-              {/* Phần đầu: Logo và Tiêu đề gọn gàng */}
-              <div>
-                <div className="inline-block">
-                  <Logo showTagline={true} theme="dark" />
+        <div className="flex flex-1 items-center py-10">
+          <div ref={shakeRef} className="w-full max-w-[400px]">
+            <motion.h1 variants={rise} className="text-[clamp(2rem,3.4vw,2.6rem)] font-extrabold leading-[1.05] tracking-[-0.04em]">
+              Đăng nhập
+            </motion.h1>
+            <motion.p variants={rise} className="mt-3 text-[16px] leading-relaxed text-muted">
+              Chào mừng trở lại. Nhập tài khoản để vào cửa hàng.
+            </motion.p>
+
+            <AnimatePresence initial={false}>
+              {errorMsg && (
+                <motion.div
+                  role="alert"
+                  initial={{ opacity: 0, height: 0, y: -6 }}
+                  animate={{ opacity: 1, height: "auto", y: 0 }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.3, ease: EXPO }}
+                  className="overflow-hidden"
+                >
+                  <div className="mt-6 flex items-start gap-2.5 rounded-xl bg-rose-50 px-4 py-3 text-[13.5px] font-medium text-rose-800 ring-1 ring-rose-200">
+                    <AlertCircle size={17} className="mt-px shrink-0 text-rose-600" />
+                    <span>{errorMsg}</span>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            <form onSubmit={handleSubmit} className="mt-8 space-y-5" noValidate>
+              <motion.div variants={rise}>
+                <label htmlFor="username" className="mb-2 block text-[13.5px] font-semibold">
+                  Tài khoản
+                </label>
+                <div className="relative">
+                  <User size={18} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-faint" />
+                  <input
+                    id="username"
+                    type="text"
+                    value={username}
+                    onChange={(e) => {
+                      setUsername(e.target.value);
+                      setErrorMsg(null);
+                    }}
+                    placeholder="admin"
+                    autoComplete="username"
+                    className={`${inputCls} pr-4`}
+                  />
                 </div>
+              </motion.div>
 
-                <div className="mt-8 mb-6">
-                  <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-slate-900">
-                    Đăng nhập
-                  </h1>
-                  <p className="mt-1 text-xs sm:text-sm text-slate-500 font-normal">
-                    Truy cập cổng quản trị hệ thống LUMINA
-                  </p>
-                </div>
-
-                {/* Thông báo lỗi nếu có */}
-                <AnimatePresence>
-                  {errorMsg && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0, y: -6 }}
-                      animate={{ opacity: 1, height: "auto", y: 0 }}
-                      exit={{ opacity: 0, height: 0 }}
-                      className="mb-4 flex items-center gap-2 rounded-xl border border-rose-200 bg-rose-50 px-3.5 py-2.5 text-xs font-medium text-rose-800"
-                    >
-                      <AlertCircle size={15} className="shrink-0 text-rose-600" />
-                      <span>{errorMsg}</span>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-
-                {/* Thông báo thành công nếu có */}
-                <AnimatePresence>
-                  {isSuccess && (
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0.95 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      className="mb-4 flex items-center gap-2 rounded-xl border border-emerald-200 bg-emerald-50 px-3.5 py-2.5 text-xs font-semibold text-emerald-800"
-                    >
-                      <CheckCircle2 size={15} className="shrink-0 text-emerald-600" />
-                      <span>Xác thực thành công! Đang chuyển tiếp…</span>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-
-                {/* Form nhập tài khoản & mật khẩu tinh gọn */}
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  {/* Ô Tài Khoản */}
-                  <div>
-                    <label className="mb-1.5 block font-mono text-[11px] font-bold tracking-wider text-slate-600 uppercase">
-                      Tài khoản
-                    </label>
-                    <div className="relative">
-                      <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
-                        <User size={17} />
-                      </div>
-                      <input
-                        type="text"
-                        value={username}
-                        onChange={(e) => {
-                          setUsername(e.target.value);
-                          setErrorMsg(null);
-                        }}
-                        placeholder="admin"
-                        autoComplete="username"
-                        className="w-full rounded-xl border border-slate-200 bg-slate-50/70 py-2.5 pl-10 pr-4 text-sm font-medium text-slate-900 placeholder-slate-400 outline-none transition-all hover:bg-white focus:border-purple-600 focus:bg-white focus:ring-4 focus:ring-purple-600/10"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Ô Mật Khẩu */}
-                  <div>
-                    <label className="mb-1.5 block font-mono text-[11px] font-bold tracking-wider text-slate-600 uppercase">
-                      Mật khẩu
-                    </label>
-                    <div className="relative">
-                      <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
-                        <Lock size={17} />
-                      </div>
-                      <input
-                        type={showPassword ? "text" : "password"}
-                        value={password}
-                        onChange={(e) => {
-                          setPassword(e.target.value);
-                          setErrorMsg(null);
-                        }}
-                        placeholder="admin1234"
-                        autoComplete="current-password"
-                        className="w-full rounded-xl border border-slate-200 bg-slate-50/70 py-2.5 pl-10 pr-11 text-sm font-medium text-slate-900 placeholder-slate-400 outline-none transition-all hover:bg-white focus:border-purple-600 focus:bg-white focus:ring-4 focus:ring-purple-600/10"
-                      />
-                      <button
-                        type="button"
-                        onClick={() => setShowPassword(!showPassword)}
-                        className="absolute inset-y-0 right-0 flex items-center pr-3.5 text-slate-400 transition-colors hover:text-slate-700"
-                        tabIndex={-1}
-                        aria-label={showPassword ? "Ẩn mật khẩu" : "Hiện mật khẩu"}
-                      >
-                        {showPassword ? <EyeOff size={17} /> : <Eye size={17} />}
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Nút tiện ích Điền nhanh Demo tinh tế */}
-                  <div className="pt-0.5">
-                    <button
-                      type="button"
-                      onClick={handleQuickFill}
-                      className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-slate-100/90 px-2.5 py-1 text-[11px] font-semibold text-slate-700 transition-all hover:border-purple-300 hover:bg-purple-50 hover:text-purple-900"
-                    >
-                      <Sparkles size={12} className="text-purple-600" />
-                      <span>Điền nhanh: admin / admin1234</span>
-                    </button>
-                  </div>
-
-                  {/* Nút Đăng Nhập Màu Tím Hoàng Gia Sang Trọng */}
+              <motion.div variants={rise}>
+                <label htmlFor="password" className="mb-2 block text-[13.5px] font-semibold">
+                  Mật khẩu
+                </label>
+                <div className="relative">
+                  <Lock size={18} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-faint" />
+                  <input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    value={password}
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                      setErrorMsg(null);
+                    }}
+                    placeholder="••••••••"
+                    autoComplete="current-password"
+                    className={`${inputCls} pr-12`}
+                  />
                   <button
-                    type="submit"
-                    disabled={isSubmitting || isSuccess}
-                    className="group relative mt-3 flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl bg-gradient-to-r from-[#4C1D95] via-[#581C87] to-[#3B0764] py-3 text-sm font-bold text-white shadow-[0_10px_25px_-5px_rgba(76,29,149,0.35)] border border-white/10 transition-all hover:brightness-110 active:scale-[0.99] disabled:opacity-70"
+                    type="button"
+                    onClick={() => setShowPassword((v) => !v)}
+                    className="absolute right-1.5 top-1/2 grid size-9 -translate-y-1/2 place-items-center rounded-lg text-faint transition-colors hover:bg-paper hover:text-fg"
+                    aria-label={showPassword ? "Ẩn mật khẩu" : "Hiện mật khẩu"}
                   >
-                    <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
+                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  </button>
+                </div>
+              </motion.div>
 
-                    {isSubmitting ? (
-                      <div className="h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent" />
+              <motion.div variants={rise} className="pt-1">
+                <button
+                  ref={submitRef}
+                  type="submit"
+                  disabled={isSubmitting || isSuccess}
+                  className={`group relative flex h-12 w-full items-center justify-center gap-2 overflow-hidden rounded-xl text-[15px] font-semibold text-white shadow-[0_14px_28px_-14px_rgba(109,58,232,0.85)] transition-[background-color,transform,box-shadow] duration-300 active:scale-[0.985] ${
+                    isSuccess ? "bg-ink-700" : "bg-ink-600 hover:bg-ink-700 hover:shadow-[0_18px_32px_-14px_rgba(109,58,232,0.95)]"
+                  }`}
+                >
+                  <AnimatePresence mode="wait" initial={false}>
+                    {isSuccess ? (
+                      <motion.span key="ok" initial={{ opacity: 0, scale: 0.6 }} animate={{ opacity: 1, scale: 1 }} transition={{ type: "spring", stiffness: 500, damping: 22 }} className="flex items-center gap-2">
+                        <Check size={19} strokeWidth={2.75} /> Đã xác thực
+                      </motion.span>
+                    ) : isSubmitting ? (
+                      <motion.span key="load" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="size-5 animate-spin rounded-full border-2 border-white/40 border-t-white" />
                     ) : (
-                      <>
-                        <span>Đăng nhập hệ thống</span>
-                        <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
-                      </>
+                      <motion.span key="idle" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="flex items-center gap-2">
+                        Đăng nhập
+                        <ArrowRight size={17} className="transition-transform duration-200 group-hover:translate-x-1" />
+                      </motion.span>
                     )}
-                  </button>
-                </form>
-              </div>
+                  </AnimatePresence>
+                </button>
+              </motion.div>
+            </form>
 
-              {/* Phần chân form: Chú thích tài khoản gọn gàng và nút xem lại intro */}
-              <div className="mt-8 border-t border-slate-100 pt-4 flex items-center justify-between text-xs text-slate-500">
-                <p>
-                  Tài khoản:{" "}
-                  <code className="font-mono font-semibold text-purple-900 bg-purple-50 border border-purple-200/60 px-1.5 py-0.5 rounded text-[11px]">
-                    admin
-                  </code>
-                  {" "}mk:{" "}
-                  <code className="font-mono font-semibold text-purple-900 bg-purple-50 border border-purple-200/60 px-1.5 py-0.5 rounded text-[11px]">
-                    admin1234
-                  </code>
-                </p>
-
-                <div className="flex items-center gap-3">
-                  <button
-                    type="button"
-                    onClick={() => setIsTransitioningKeynote(true)}
-                    className="text-[11px] font-semibold text-purple-700 hover:text-purple-900 transition-colors inline-flex items-center gap-1"
-                    title="Xem thử hiệu ứng chuyển cảnh một cú máy Apple-Keynote vào trang chủ"
-                  >
-                    <Sparkles size={11} className="text-purple-600" />
-                    <span>Xem thử Keynote</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => setShowIntro(true)}
-                    className="text-[11px] font-medium text-slate-400 hover:text-purple-700 transition-colors inline-flex items-center gap-1"
-                    title="Chạy lại video launch SaaS 15s cho dub.co"
-                  >
-                    <span>Xem lại Showreel</span>
-                  </button>
-                </div>
-              </div>
+            <motion.div variants={rise} className="mt-7 flex items-center justify-between gap-3 border-t border-line pt-5 text-[13.5px]">
+              <p className="text-muted">
+                Tài khoản demo: <span className="font-semibold text-fg">admin</span> / <span className="font-semibold text-fg">admin1234</span>
+              </p>
+              <button type="button" onClick={fillDemo} className="shrink-0 font-semibold text-ink-600 transition-colors hover:text-ink-700">
+                Điền nhanh
+              </button>
             </motion.div>
+          </div>
+        </div>
 
-            {/* 2. NỬA BÊN PHẢI: HỘP CÔNG NGHỆ CHUYỂN ĐỘNG SẮC NÉT (Chiếm ~58% chiều rộng) */}
-            <div className="w-full lg:w-[58%] flex-1">
-              <TechVisualBox />
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+        <motion.div variants={rise} className="flex items-center justify-between text-[12.5px] text-faint">
+          <span>© Lumina</span>
+          <button type="button" onClick={replayIntro} className="transition-colors hover:text-ink-600">
+            Xem lại giới thiệu
+          </button>
+        </motion.div>
+      </motion.div>
+
+      {/* Showcase side */}
+      <motion.div
+        initial={{ opacity: 0, x: 36, scale: 0.985 }}
+        animate={entered ? { opacity: 1, x: 0, scale: 1 } : { opacity: 0, x: 36, scale: 0.985 }}
+        transition={{ duration: 0.9, ease: EXPO, delay: 0.1 }}
+        className="max-lg:hidden"
+      >
+        <LoginShowcase />
+      </motion.div>
+
+      {phase === "pending" && <div className="fixed inset-0 z-50 bg-white" />}
+      {phase === "intro" && <Intro onLeaving={onIntroLeaving} onDone={onIntroDone} />}
     </div>
   );
 }

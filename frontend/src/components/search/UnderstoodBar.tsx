@@ -25,10 +25,10 @@ export function UnderstoodBar({
   const isRelaxed = (c: Chip) => relaxed.some((r) => r === c.id || (c.id === "price" && r.startsWith("price")));
   return (
     <div className="space-y-2.5">
-      <div className="flex flex-wrap items-center gap-2" aria-label="Sắm hiểu truy vấn như sau">
+      <div className="flex flex-wrap items-center gap-2" aria-label="Lumina hiểu truy vấn như sau">
         <span className="inline-flex h-8 items-center gap-1.5 text-[13px] font-semibold text-ink-800">
           <Sparkles size={15} className="text-ink-500" />
-          Sắm hiểu
+          Lumina hiểu
         </span>
         <span className="inline-flex h-8 items-center gap-1.5 rounded-full bg-ink-100 px-3 text-[13px] font-medium text-ink-800">
           <M.icon size={14} />
@@ -81,7 +81,7 @@ export function UnderstoodBar({
         <div role="status" className="flex items-start gap-2.5 rounded-lg bg-hl-soft px-3.5 py-2.5 text-[14px] text-hl-ink ring-1 ring-hl">
           <Info size={18} className="mt-0.5 shrink-0" />
           <p className="pretty">
-            Có quá ít sản phẩm khớp tất cả điều kiện, nên Sắm đã bỏ lọc <b>{relaxed.map((r) => FILTER_LABEL[r] ?? r).join(", ")}</b> để vẫn có kết quả. Các sản phẩm bên dưới có thể không đúng hoàn toàn điều kiện này.
+            Có quá ít sản phẩm khớp tất cả điều kiện, nên Lumina đã bỏ lọc <b>{relaxed.map((r) => FILTER_LABEL[r] ?? r).join(", ")}</b> để vẫn có kết quả. Các sản phẩm bên dưới có thể không đúng hoàn toàn điều kiện này.
           </p>
         </div>
       )}

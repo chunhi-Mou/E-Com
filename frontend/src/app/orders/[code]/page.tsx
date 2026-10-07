@@ -9,7 +9,7 @@ import type { PlacedOrder } from "@/lib/types";
 import { useOrders } from "@/store/orders";
 import { EmptyState } from "@/components/EmptyState";
 import { OrderItems, OrderTimeline, StatusBadge } from "@/components/OrderParts";
-import { Stamp } from "@/components/Stamp";
+import { ConfirmMark } from "@/components/ConfirmMark";
 
 export default function OrderPage() {
   return (
@@ -60,8 +60,8 @@ function OrderInner() {
     <div className="shell pb-10 pt-5">
       <div className="mx-auto max-w-4xl">
         {placed && (
-          <div className="relative mb-5 flex flex-col items-center gap-4 overflow-hidden rounded-lg border border-line bg-sheet px-5 py-7 text-center sm:flex-row sm:text-left">
-            <Stamp lines={["ĐÃ ĐẶT", "HÀNG"]} arc="SẮM · ĐƠN HÀNG" foot={formatDate(order.created_at)} size={150} />
+          <div className="relative mb-5 flex flex-col items-center gap-5 overflow-hidden rounded-2xl border border-line bg-sheet px-6 py-8 text-center sm:flex-row sm:text-left">
+            <ConfirmMark size={76} />
             <div>
               <h1 className="text-[22px] font-bold leading-snug">Cảm ơn bạn, đơn hàng đã được ghi nhận</h1>
               <p className="pretty mt-1 text-[14.5px] text-muted">

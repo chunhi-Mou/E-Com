@@ -1,62 +1,65 @@
 @import "tailwindcss";
 
 /*
- * Sắm design tokens. World: the Vietnamese receipt pad and school ink (mực tím),
- * stamped with a red company seal (con dấu). See /DESIGN.md.
+ * Lumina design tokens. White and grey surfaces, one violet accent used sparingly:
+ * primary actions, focus, the active state and a single bold moment per screen.
+ * See /DESIGN.md.
  */
 @theme {
   --font-sans: var(--font-be-vietnam), ui-sans-serif, system-ui, sans-serif;
-  --font-label: var(--font-barlow), "Arial Narrow", ui-sans-serif, sans-serif;
+  --font-label: var(--font-be-vietnam), ui-sans-serif, system-ui, sans-serif;
 
-  /* Sắc tím công nghệ LUMINA: đồng bộ hoàn hảo với introduction và login */
-  --color-ink-50: #FAF5FF;
-  --color-ink-100: #F3E8FF;
-  --color-ink-200: #E9D5FF;
-  --color-ink-300: #D8B4FE;
-  --color-ink-400: #C084FC;
-  --color-ink-500: #A855F7;
-  --color-ink-600: #7C3AED;
-  --color-ink-700: #6D28D9;
-  --color-ink-800: #1E1B4B;
-  --color-ink-900: #0F172A;
-  --color-ink-950: #020617;
+  /* Violet accent. 600 is the action color; 800 and up are the rare dark surfaces. */
+  --color-ink-50: #F8F5FF;
+  --color-ink-100: #EFE9FF;
+  --color-ink-200: #DDD2FE;
+  --color-ink-300: #C4B2FC;
+  --color-ink-400: #A78BFA;
+  --color-ink-500: #8B5CF6;
+  --color-ink-600: #6D3AE8;
+  --color-ink-700: #5B2BD0;
+  --color-ink-800: #2E1B6B;
+  --color-ink-900: #1B1040;
+  --color-ink-950: #0E0826;
 
-  /* Điểm nhấn tím hoàng gia (thay cho con dấu đỏ cũ): nút CTA mua hàng, tìm kiếm, giá và badge sale */
-  --color-seal-50: #FAF5FF;
-  --color-seal-100: #F3E8FF;
-  --color-seal-200: #E9D5FF;
-  --color-seal-400: #C084FC;
-  --color-seal-500: #9333EA;
-  --color-seal-600: #7C3AED;
-  --color-seal-700: #581C87;
+  /* Same hue, kept as a second name so action and price classes keep working */
+  --color-seal-50: #F8F5FF;
+  --color-seal-100: #EFE9FF;
+  --color-seal-200: #DDD2FE;
+  --color-seal-400: #A78BFA;
+  --color-seal-500: #8B5CF6;
+  --color-seal-600: #6D3AE8;
+  --color-seal-700: #5B2BD0;
 
-  /* Điểm sáng công nghệ */
-  --color-hl: #F3E8FF;
-  --color-hl-soft: #FAF5FF;
-  --color-hl-ink: #4C1D95;
+  /* Soft notice surface (relaxed filters, pending states) */
+  --color-hl: #E6DCFF;
+  --color-hl-soft: #F8F5FF;
+  --color-hl-ink: #4A2AA8;
 
   --color-ok: #10B981;
   --color-ok-soft: #ECFDF5;
   --color-star: #F59E0B;
 
-  /* Nền trắng (hơi xám) công nghệ (#F8FAFC) và thẻ trắng tinh khôi chuẩn Studio như Login & Intro */
-  --color-paper: #F8FAFC;
+  /* Neutrals: cool grey with a trace of violet */
+  --color-paper: #F6F6F9;
   --color-sheet: #FFFFFF;
-  --color-line: #E2E8F0;
-  --color-line-strong: #CBD5E1;
-  --color-fg: #0F172A;
-  --color-muted: #64748B;
-  --color-faint: #94A3B8;
+  --color-line: #E8E8EF;
+  --color-line-strong: #D3D3DF;
+  --color-fg: #14131A;
+  --color-muted: #666574;
+  --color-faint: #9A99A9;
 
   --radius-sm: 6px;
   --radius-md: 8px;
   --radius-lg: 12px;
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
   --ease-in-quick: cubic-bezier(0.4, 0, 1, 1);
 
-  --shadow-lift: 0 10px 25px -14px rgba(76, 29, 149, 0.18), 0 2px 6px -2px rgba(15, 23, 42, 0.06);
-  --shadow-pop: 0 24px 48px -20px rgba(76, 29, 149, 0.28), 0 4px 12px -4px rgba(15, 23, 42, 0.08);
+  --shadow-soft: 0 1px 2px rgba(20, 19, 26, 0.04), 0 10px 28px -14px rgba(20, 19, 26, 0.1);
+  --shadow-lift: 0 16px 32px -18px rgba(46, 27, 107, 0.34), 0 2px 6px -2px rgba(20, 19, 26, 0.06);
+  --shadow-pop: 0 30px 60px -26px rgba(46, 27, 107, 0.36), 0 6px 16px -6px rgba(20, 19, 26, 0.08);
 }
 
 :root {
@@ -65,7 +68,7 @@
 }
 @media (min-width: 1024px) {
   :root {
-    --header-h: 104px;
+    --header-h: 109px;
   }
 }
 
@@ -119,20 +122,20 @@ a {
 }
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--color-ink-200) transparent;
+  scrollbar-color: var(--color-line-strong) transparent;
 }
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--color-ink-200);
+  background: var(--color-line-strong);
   border-radius: 8px;
   border: 2px solid transparent;
   background-clip: content-box;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-ink-300);
+  background: var(--color-faint);
   background-clip: content-box;
   border: 2px solid transparent;
 }
@@ -164,10 +167,9 @@ input[type="search"]::-webkit-search-cancel-button {
   font-variant-numeric: tabular-nums;
 }
 .label-cond {
-  font-family: var(--font-label);
   font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  font-variant-numeric: tabular-nums;
 }
 .clamp-2 {
   display: -webkit-box;
@@ -216,11 +218,21 @@ input[type="search"]::-webkit-search-cancel-button {
   }
 }
 
+/* Blinking text caret for typed demos */
+.caret {
+  animation: caret 1s steps(1) infinite;
+}
+@keyframes caret {
+  50% {
+    opacity: 0;
+  }
+}
+
 /* Skeleton */
 .skeleton {
   position: relative;
   overflow: hidden;
-  background: var(--color-ink-100);
+  background: var(--color-paper);
   border-radius: var(--radius-sm);
 }
 .skeleton::after {
@@ -279,6 +291,37 @@ input[type="search"]::-webkit-search-cancel-button {
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation-duration: 160ms;
+}
+
+/* Slow ambient drift for hero tiles and floating cards */
+@keyframes drift {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+.drift {
+  animation: drift 7s ease-in-out infinite;
+}
+.drift-slow {
+  animation: drift 9s ease-in-out infinite reverse;
+}
+
+/* Expanding ring behind the mic in promo areas */
+@keyframes ring-out {
+  from {
+    transform: scale(0.6);
+    opacity: 0.5;
+  }
+  to {
+    transform: scale(1.7);
+    opacity: 0;
+  }
+}
+.ring-out {
+  animation: ring-out 3.2s var(--ease-out-expo) infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -12,7 +12,7 @@ npm run build && npm start
 npm run lint
 ```
 
-`next/font/google` downloads Be Vietnam Pro and Barlow Condensed at build time and self-hosts them, so the first build needs internet access. Nothing is requested from Google at runtime.
+`next/font/google` downloads Be Vietnam Pro at build time and self-hosts it, so the first build needs internet access. Nothing is requested from Google at runtime.
 
 ## Mock mode vs. backend
 

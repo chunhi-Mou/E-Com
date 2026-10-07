@@ -84,7 +84,7 @@ export function VoiceAssistant() {
                   {v.reply && (
                     <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} className="overflow-hidden">
                       <div className="rounded-lg bg-ink-50 p-3">
-                        <p className="text-[12px] font-medium text-muted">Sắm trả lời</p>
+                        <p className="text-[12px] font-medium text-muted">Lumina trả lời</p>
                         <p className="pretty mt-0.5 text-[15px] leading-snug">{v.reply}</p>
                         <div className="mt-2.5 flex items-center gap-2">
                           <button

@@ -3,7 +3,7 @@ import { useRef, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { AnimatePresence, motion } from "motion/react";
 import { Expand, X } from "lucide-react";
-import { Stamp } from "./Stamp";
+import { ConfirmMark } from "./ConfirmMark";
 
 /** Product gallery: hover zoom on pointer devices, click for a large view. The main image is the shared element from the card. */
 export function Gallery({ images, name, stampKey, mainRef }: { images: string[]; name: string; stampKey: number; mainRef: React.RefObject<HTMLDivElement | null> }) {
@@ -54,7 +54,10 @@ export function Gallery({ images, name, stampKey, mainRef }: { images: string[];
                   exit={{ opacity: 0, transition: { duration: 0.25 } }}
                   className="pointer-events-none absolute inset-0 grid place-items-center"
                 >
-                  <Stamp lines={["ĐÃ THÊM", "VÀO GIỎ"]} arc="SẮM · GIỎ HÀNG" size={156} tilt={-9} />
+                  <div className="flex flex-col items-center gap-3 rounded-3xl bg-white/90 px-8 py-6 shadow-pop backdrop-blur-md">
+                    <ConfirmMark size={60} />
+                    <span className="text-[15px] font-semibold">Đã thêm vào giỏ</span>
+                  </div>
                 </motion.div>
               )}
             </AnimatePresence>

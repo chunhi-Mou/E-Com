@@ -183,6 +183,21 @@ export function SearchBar() {
     return () => window.removeEventListener("keydown", on);
   }, [listening, cancelVoice]);
 
+  // Hero buttons ask the field to focus, listen or pick an image
+  useEffect(() => {
+    const on = (e: Event) => {
+      const mode = (e as CustomEvent<"focus" | "voice" | "image">).detail;
+      if (mode === "voice") void startVoice();
+      else if (mode === "image") fileRef.current?.click();
+      else {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        inputRef.current?.focus({ preventScroll: true });
+      }
+    };
+    window.addEventListener("lumina:search", on);
+    return () => window.removeEventListener("lumina:search", on);
+  }, [startVoice]);
+
   // "/" focuses the search field
   useEffect(() => {
     const on = (e: KeyboardEvent) => {
@@ -252,10 +267,10 @@ export function SearchBar() {
   };
 
   const fieldRing = listening
-    ? "ring-[3px] ring-seal-400"
+    ? "bg-white ring-2 ring-ink-500 shadow-[0_12px_32px_-14px_rgba(109,58,232,0.5)]"
     : focused
-      ? "ring-[3px] ring-hl"
-      : "ring-1 ring-white/25";
+      ? "bg-white ring-2 ring-ink-500/80 shadow-[0_12px_32px_-14px_rgba(109,58,232,0.4)]"
+      : "bg-paper ring-1 ring-line hover:ring-line-strong";
 
   return (
     <motion.div
@@ -273,7 +288,7 @@ export function SearchBar() {
           e.preventDefault();
           submit(text);
         }}
-        className={`flex h-11 items-center rounded-xl bg-white pl-3 pr-1.5 text-fg shadow-[0_1px_0_rgb(0_0_0/0.06)] transition-shadow duration-150 md:h-12 ${fieldRing}`}
+        className={`flex h-11 items-center rounded-2xl pl-3.5 pr-1.5 text-fg transition-[box-shadow,background-color] duration-200 md:h-12 ${fieldRing}`}
       >
         {listening ? (
           <ListeningView
@@ -302,7 +317,7 @@ export function SearchBar() {
                 </button>
               </motion.span>
             ) : (
-              <Search size={19} className="mr-2 shrink-0 text-ink-500" aria-hidden />
+              <Search size={19} className={`mr-2.5 shrink-0 transition-colors duration-200 ${focused ? "text-ink-600" : "text-faint"}`} aria-hidden />
             )}
             <input
               ref={inputRef}
@@ -342,7 +357,7 @@ export function SearchBar() {
               onClick={() => fileRef.current?.click()}
               aria-label="Tìm bằng ảnh"
               title="Tìm bằng ảnh (kéo thả hoặc dán ảnh cũng được)"
-              className="grid size-9 shrink-0 place-items-center rounded-lg text-ink-600 transition-[background-color,transform] hover:bg-ink-50 active:scale-90"
+              className="grid size-9 shrink-0 place-items-center rounded-xl text-muted transition-[background-color,color,transform] hover:bg-ink-50 hover:text-ink-600 active:scale-90"
             >
               <Camera size={20} />
             </button>
@@ -351,14 +366,14 @@ export function SearchBar() {
               onClick={() => void startVoice()}
               aria-label="Tìm bằng giọng nói"
               title="Tìm bằng giọng nói"
-              className="grid size-9 shrink-0 place-items-center rounded-lg text-ink-600 transition-[background-color,transform] hover:bg-ink-50 active:scale-90"
+              className="grid size-9 shrink-0 place-items-center rounded-xl text-muted transition-[background-color,color,transform] hover:bg-ink-50 hover:text-ink-600 active:scale-90"
             >
               <Mic size={20} />
             </button>
             <button
               type="submit"
               aria-label="Tìm"
-              className="ml-1 grid h-8 shrink-0 place-items-center rounded-lg bg-seal-600 px-3 text-[14px] font-semibold text-white transition-[background-color,transform] hover:bg-seal-700 active:scale-95 md:h-9 md:px-4"
+              className="ml-1 grid h-8 shrink-0 place-items-center rounded-xl bg-ink-600 px-3 text-[14px] font-semibold text-white transition-[background-color,transform] hover:bg-ink-700 active:scale-95 md:h-9 md:px-5"
             >
               <Search size={18} className="md:hidden" />
               <span className="hidden md:inline">Tìm</span>
@@ -378,7 +393,7 @@ export function SearchBar() {
             exit={{ opacity: 0, y: -4, transition: { duration: 0.1 } }}
             transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
             style={{ transformOrigin: "top" }}
-            className="absolute left-0 right-0 top-full z-50 mt-2 overflow-hidden rounded-xl border border-line bg-sheet text-fg shadow-pop"
+            className="absolute left-0 right-0 top-full z-50 mt-2 overflow-hidden rounded-2xl border border-line bg-sheet text-fg shadow-pop"
           >
             {!trimmed && recent.length > 0 && hydrated && (
               <div className="flex items-center justify-between px-4 pb-1 pt-3 text-[12px] font-semibold text-muted">

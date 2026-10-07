@@ -18,13 +18,13 @@ export function Countdown() {
   const p = (n: number) => String(n).padStart(2, "0");
   const parts = left === null ? ["--", "--", "--"] : [p(Math.floor(left / 3600)), p(Math.floor((left % 3600) / 60)), p(left % 60)];
   return (
-    <span className="inline-flex items-center gap-1 text-[13px] text-muted" aria-label="Thời gian còn lại trong ngày">
+    <span className="inline-flex items-center gap-2 text-[13px] text-muted" aria-label="Thời gian còn lại trong ngày">
       Kết thúc sau
-      <span className="inline-flex items-center gap-0.5">
+      <span className="inline-flex items-center gap-1">
         {parts.map((x, i) => (
-          <span key={i} className="inline-flex items-center gap-0.5">
-            <span className="num label-cond min-w-[26px] rounded-[4px] bg-ink-800 px-1 py-0.5 text-center text-[14px] leading-none text-white">{x}</span>
-            {i < 2 && <span className="font-bold text-ink-800">:</span>}
+          <span key={i} className="inline-flex items-center gap-1">
+            <span className="num min-w-[30px] rounded-lg bg-fg px-1.5 py-1 text-center text-[13px] font-semibold leading-none text-white">{x}</span>
+            {i < 2 && <span className="font-semibold text-faint">:</span>}
           </span>
         ))}
       </span>

@@ -28,7 +28,7 @@ export default function ProductPage() {
 
   useEffect(() => {
     if (p) {
-      document.title = `${p.name} | Sắm`;
+      document.title = `${p.name} | Lumina`;
       signalViewReady();
     }
   }, [p]);
