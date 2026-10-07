@@ -22,8 +22,8 @@ export function AmbientBackground() {
     };
     window.addEventListener("resize", onResize);
 
-    // Tạo các hạt công nghệ màu xám chuyển động (Tech Nodes)
-    const nodeCount = Math.floor(Math.min(width, 1400) / 22);
+    // Tạo các hạt công nghệ màu xám đậm nét (High-Contrast Tech Nodes)
+    const nodeCount = Math.floor(Math.min(width, 1400) / 20);
     const nodes: Array<{
       x: number;
       y: number;
@@ -37,20 +37,19 @@ export function AmbientBackground() {
       nodes.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.45,
-        vy: (Math.random() - 0.5) * 0.45,
-        radius: Math.random() * 2 + 1.2,
-        alpha: Math.random() * 0.5 + 0.25,
+        vx: (Math.random() - 0.5) * 0.6,
+        vy: (Math.random() - 0.5) * 0.6,
+        radius: Math.random() * 2.5 + 1.5,
+        alpha: Math.random() * 0.4 + 0.5, // Độ đậm rõ nét: 0.5 - 0.9
       });
     }
 
-    // Vòng quét radar công nghệ
     let radarAngle = 0;
 
     const render = () => {
       ctx.clearRect(0, 0, width, height);
 
-      // Cập nhật và vẽ các hạt và đường nối mạng công nghệ màu xám
+      // Cập nhật và vẽ các hạt và đường nối mạng công nghệ màu xám rõ nét
       for (let i = 0; i < nodes.length; i++) {
         const n = nodes[i];
         n.x += n.vx;
@@ -61,33 +60,33 @@ export function AmbientBackground() {
         if (n.y < 0) n.y = height;
         if (n.y > height) n.y = 0;
 
-        // Vẽ hạt màu xám titan
+        // Vẽ hạt xám titan đậm
         ctx.beginPath();
         ctx.arc(n.x, n.y, n.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(100, 116, 139, ${n.alpha})`;
+        ctx.fillStyle = `rgba(71, 85, 105, ${n.alpha})`;
         ctx.fill();
 
-        // Nối với các hạt lân cận bằng đường kẻ xám mảnh
+        // Nối với các hạt lân cận bằng đường kẻ xám rõ ràng
         for (let j = i + 1; j < nodes.length; j++) {
           const n2 = nodes[j];
           const dx = n.x - n2.x;
           const dy = n.y - n2.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
 
-          if (dist < 125) {
-            const lineAlpha = (1 - dist / 125) * 0.22;
+          if (dist < 135) {
+            const lineAlpha = (1 - dist / 135) * 0.45; // Độ đậm đường kẻ rõ ràng
             ctx.beginPath();
             ctx.moveTo(n.x, n.y);
             ctx.lineTo(n2.x, n2.y);
-            ctx.strokeStyle = `rgba(148, 163, 184, ${lineAlpha})`;
-            ctx.lineWidth = 0.8;
+            ctx.strokeStyle = `rgba(100, 116, 139, ${lineAlpha})`;
+            ctx.lineWidth = 1.1;
             ctx.stroke();
           }
         }
       }
 
-      // Vẽ vòng tròn tâm kỹ thuật công nghệ ở nền (Tech Reticle / Sonar)
-      radarAngle += 0.008;
+      // Vòng tròn radar kỹ thuật ở nền
+      radarAngle += 0.009;
       const cx = width * 0.5;
       const cy = height * 0.5;
       const radarR = Math.min(width, height) * 0.38;
@@ -95,26 +94,26 @@ export function AmbientBackground() {
       ctx.save();
       ctx.beginPath();
       ctx.arc(cx, cy, radarR, 0, Math.PI * 2);
-      ctx.strokeStyle = "rgba(148, 163, 184, 0.18)";
-      ctx.lineWidth = 1;
-      ctx.setLineDash([4, 6]);
+      ctx.strokeStyle = "rgba(100, 116, 139, 0.35)";
+      ctx.lineWidth = 1.2;
+      ctx.setLineDash([6, 6]);
       ctx.stroke();
 
-      // Vòng tròn nhỏ bên trong
+      // Vòng trong
       ctx.beginPath();
       ctx.arc(cx, cy, radarR * 0.6, 0, Math.PI * 2);
-      ctx.strokeStyle = "rgba(148, 163, 184, 0.12)";
+      ctx.strokeStyle = "rgba(100, 116, 139, 0.25)";
       ctx.lineWidth = 1;
       ctx.stroke();
 
-      // Tia quét radar mờ
+      // Tia quét radar
       const rx = cx + Math.cos(radarAngle) * radarR;
       const ry = cy + Math.sin(radarAngle) * radarR;
       ctx.beginPath();
       ctx.moveTo(cx, cy);
       ctx.lineTo(rx, ry);
-      ctx.strokeStyle = "rgba(168, 85, 247, 0.18)";
-      ctx.lineWidth = 1.2;
+      ctx.strokeStyle = "rgba(147, 51, 234, 0.45)";
+      ctx.lineWidth = 1.8;
       ctx.setLineDash([]);
       ctx.stroke();
       ctx.restore();
@@ -131,65 +130,62 @@ export function AmbientBackground() {
   }, []);
 
   return (
-    <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-[#F8FAFC]">
-      {/* 1. Lớp gradient nền trắng bạc công nghệ pha ánh tím khói rất nhẹ */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_100%_100%_at_50%_0%,rgba(241,245,249,0.9),rgba(248,250,252,1))]" />
+    <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-[#F1F5F9]">
+      {/* 1. Lớp nền sáng xám bạc công nghệ */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_100%_100%_at_50%_0%,rgba(248,250,252,0.8),rgba(226,232,240,0.95))]" />
 
-      {/* Ánh tím khói mờ cực kỳ tinh tế ở góc xa, không bị lấn át */}
-      <div className="absolute -top-32 -left-32 h-[500px] w-[500px] rounded-full bg-purple-200/20 blur-[130px]" />
-      <div className="absolute -bottom-32 -right-32 h-[550px] w-[550px] rounded-full bg-violet-200/25 blur-[140px]" />
+      {/* Ánh tím khói mờ tinh tế ở các góc */}
+      <div className="absolute -top-32 -left-32 h-[550px] w-[550px] rounded-full bg-purple-300/25 blur-[120px]" />
+      <div className="absolute -bottom-32 -right-32 h-[600px] w-[600px] rounded-full bg-violet-300/25 blur-[130px]" />
 
-      {/* 2. Lưới kỹ thuật số CAD / Blueprint kẻ caro màu xám nhạt */}
+      {/* 2. Lưới kỹ thuật số Blueprint / CAD Grid màu xám đậm nét, nhìn thấy rõ ràng */}
       <div
-        className="absolute inset-0 opacity-[0.35]"
+        className="absolute inset-0"
         style={{
           backgroundImage: `
-            linear-gradient(to right, rgba(148, 163, 184, 0.12) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(148, 163, 184, 0.12) 1px, transparent 1px)
+            linear-gradient(to right, rgba(100, 116, 139, 0.16) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(100, 116, 139, 0.16) 1px, transparent 1px)
           `,
-          backgroundSize: "36px 36px",
+          backgroundSize: "40px 40px",
         }}
       />
 
       {/* 3. HTML5 Canvas: Mạng lưới hạt công nghệ màu xám chạy liên tục 60fps */}
-      <canvas ref={canvasRef} className="absolute inset-0 h-full w-full opacity-80" />
+      <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
 
-      {/* 4. Các chi tiết đồ họa công nghệ xám (HUD Telemetry Markers) xung quanh */}
-      <div className="absolute top-8 left-8 hidden sm:flex items-center gap-2 font-mono text-[11px] text-slate-400 select-none">
-        <span className="inline-block h-1.5 w-1.5 bg-slate-400 rounded-full" />
+      {/* 4. HUD Telemetry Markers ở 4 góc hiển thị rõ ràng */}
+      <div className="absolute top-6 left-8 hidden sm:flex items-center gap-2.5 font-mono text-xs font-semibold text-slate-600 select-none bg-white/70 px-3 py-1.5 rounded-lg border border-slate-300/70 shadow-2xs backdrop-blur-md">
+        <span className="inline-block h-2 w-2 bg-emerald-500 rounded-full animate-pulse" />
         <span>SYS.GRID // 0x48A</span>
-        <span className="text-slate-300">|</span>
+        <span className="text-slate-400">|</span>
         <span>LATENCY: 1.2MS</span>
       </div>
 
-      <div className="absolute top-8 right-8 hidden sm:flex items-center gap-2 font-mono text-[11px] text-slate-400 select-none">
+      <div className="absolute top-6 right-8 hidden sm:flex items-center gap-2 font-mono text-xs font-semibold text-slate-600 select-none bg-white/70 px-3 py-1.5 rounded-lg border border-slate-300/70 shadow-2xs backdrop-blur-md">
         <span>SECURITY PROTOCOL // ENCRYPTED</span>
-        <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
       </div>
 
-      <div className="absolute bottom-8 left-8 hidden sm:flex items-center gap-3 font-mono text-[11px] text-slate-400 select-none">
-        <span>[001] MULTIMODAL PERCEPTION</span>
-        <span className="text-slate-300">/</span>
-        <span>SYS.CORE READY</span>
+      <div className="absolute bottom-6 left-8 hidden sm:flex items-center gap-2.5 font-mono text-xs font-semibold text-slate-600 select-none bg-white/70 px-3 py-1.5 rounded-lg border border-slate-300/70 shadow-2xs backdrop-blur-md">
+        <span>MULTIMODAL PERCEPTION // ONLINE</span>
       </div>
 
-      <div className="absolute bottom-8 right-8 hidden sm:flex items-center gap-2 font-mono text-[11px] text-slate-400 select-none">
+      <div className="absolute bottom-6 right-8 hidden sm:flex items-center gap-2 font-mono text-xs font-semibold text-slate-600 select-none bg-white/70 px-3 py-1.5 rounded-lg border border-slate-300/70 shadow-2xs backdrop-blur-md">
         <span>FPS: 60</span>
-        <span className="text-slate-300">|</span>
-        <span>STATUS: ACTIVE</span>
+        <span className="text-slate-400">|</span>
+        <span className="text-purple-700 font-bold">LUMINA ENGINE</span>
       </div>
 
       {/* Dấu chữ thập công nghệ căn lề ở 4 góc */}
-      <div className="absolute top-6 left-6 text-slate-300 font-mono text-xs">+</div>
-      <div className="absolute top-6 right-6 text-slate-300 font-mono text-xs">+</div>
-      <div className="absolute bottom-6 left-6 text-slate-300 font-mono text-xs">+</div>
-      <div className="absolute bottom-6 right-6 text-slate-300 font-mono text-xs">+</div>
+      <div className="absolute top-5 left-5 text-slate-500 font-mono text-sm font-bold">+</div>
+      <div className="absolute top-5 right-5 text-slate-500 font-mono text-sm font-bold">+</div>
+      <div className="absolute bottom-5 left-5 text-slate-500 font-mono text-sm font-bold">+</div>
+      <div className="absolute bottom-5 right-5 text-slate-500 font-mono text-sm font-bold">+</div>
 
-      {/* Vạch quét sáng laser xám mảnh di chuyển ngang nhẹ nhàng */}
+      {/* Vạch quét laser xám mảnh di chuyển ngang nhẹ nhàng */}
       <motion.div
         animate={{ y: ["-20%", "120%"] }}
-        transition={{ duration: 7, repeat: Infinity, ease: "linear" }}
-        className="absolute inset-x-0 h-[1.5px] bg-gradient-to-r from-transparent via-slate-400/25 to-transparent"
+        transition={{ duration: 6.5, repeat: Infinity, ease: "linear" }}
+        className="absolute inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-purple-500/35 to-transparent"
       />
     </div>
   );
