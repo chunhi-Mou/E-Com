@@ -299,10 +299,14 @@ def main() -> int:
             img_sources[pid] = urls[:n_img]
 
     products.sort(key=lambda p: p["id"])
-    used = {p["category"] for p in products}
-    cats = [{k: c[k] for k in ("slug", "parent", "name_vi", "name_en")} for c in cfg["categories"]]
-    parents_used = {c["parent"] for c in cats if c["slug"] in used}
-    cats = [c for c in cats if c["slug"] in used or c["slug"] in parents_used]
+    by_slug = {c["slug"]: c for c in cfg["categories"]}
+    keep: set[str] = set()
+    for slug in {p["category"] for p in products}:
+        while slug and slug not in keep:  # leaf plus all its ancestors
+            keep.add(slug)
+            slug = by_slug[slug]["parent"]
+    cats = [{**{k: c[k] for k in ("slug", "parent", "name_vi", "name_en")}, "synonyms": c.get("synonyms", [])}
+            for c in cfg["categories"] if c["slug"] in keep]
 
     save_json(paths.out / "id_map.json", id_map)
     save_json(paths.out / "products.json", products)

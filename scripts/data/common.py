@@ -1,7 +1,7 @@
 """Tiện ích dùng chung: đường dẫn, rate limit, HTTP fetcher có cache/retry, log request.
 
 Quy tắc lịch sự:
-- tối đa 2 request/giây (tính chung cho cả API lẫn ảnh);
+- tối đa 1 request mỗi 2 giây cho API, 2 request/giây cho ảnh (CDN);
 - retry + backoff chỉ cho lỗi tạm thời (5xx, timeout, lỗi mạng);
 - gặp 403/429/captcha hoặc proxy từ chối => dừng hẳn (Blocked), KHÔNG lách.
 """
@@ -19,7 +19,8 @@ import httpx
 
 DATA_DIR = Path(__file__).resolve().parent
 USER_AGENT = "ecom-multimodal-search-student-project/0.1 (educational, low-rate)"
-MIN_INTERVAL = 0.5  # giây giữa 2 request => <= 2 req/s
+MIN_INTERVAL = 0.5  # giây giữa 2 request ảnh => <= 2 req/s
+MIN_INTERVAL_API = 2.0  # giây giữa 2 request API => <= 0.5 req/s
 
 
 class Blocked(RuntimeError):
@@ -83,10 +84,10 @@ class Fetcher:
     def close(self) -> None:
         self.client.close()
 
-    def _wait(self) -> None:
+    def _wait(self, interval: float) -> None:
         dt = time.monotonic() - self._last
-        if dt < MIN_INTERVAL:
-            time.sleep(MIN_INTERVAL - dt)
+        if dt < interval:
+            time.sleep(interval - dt)
         self._last = time.monotonic()
 
     def _log(self, url: str, status: int | str, note: str = "") -> None:
@@ -96,8 +97,9 @@ class Fetcher:
 
     def get(self, url: str, params: dict | None = None, expect: str = "json") -> httpx.Response | None:
         """Trả Response (2xx) hoặc None nếu 404/410. Ném Blocked nếu bị chặn."""
+        interval = MIN_INTERVAL_API if expect == "json" else MIN_INTERVAL
         for attempt in range(self.max_retries + 1):
-            self._wait()
+            self._wait(interval)
             try:
                 r = self.client.get(url, params=params)
             except httpx.ProxyError as e:

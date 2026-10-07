@@ -12,6 +12,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import sys
+import time
 
 from tqdm import tqdm
 
@@ -22,6 +23,25 @@ def qhash(q: str) -> str:
     return hashlib.sha1(q.encode("utf-8")).hexdigest()[:10]
 
 
+COOLDOWNS = (120, 300, 600)  # seconds to wait after an empty 200 body (throttling) before each retry
+
+
+def get_json(f: Fetcher, url: str, params: dict) -> dict | None:
+    """GET a JSON body, None on 404. An empty body means throttling: wait, retry, then stop for good."""
+    for wait in (*COOLDOWNS, None):
+        r = f.get(url, params=params)
+        if r is None:
+            return None
+        try:
+            return r.json()
+        except ValueError:
+            if wait is None:
+                raise Blocked(f"phản hồi rỗng liên tiếp tại {r.url} - nghi bị giới hạn tốc độ, dừng")
+            print(f"  phản hồi rỗng, nghỉ {wait}s rồi thử lại", flush=True)
+            time.sleep(wait)
+    return None
+
+
 def list_page(f: Fetcher, cfg: dict, base: str, cat: dict, query: str, page: int) -> dict | None:
     cache = f.paths.raw / "list" / cat["slug"] / f"{qhash(query)}_p{page}.json"
     cached = load_json(cache)
@@ -30,10 +50,9 @@ def list_page(f: Fetcher, cfg: dict, base: str, cat: dict, query: str, page: int
     params = {"limit": cfg["page_size"], "q": query, "page": page, "aggregations": 2}
     if cat.get("tiki_category_id"):
         params["category"] = cat["tiki_category_id"]
-    r = f.get(base + cfg["list_endpoint"], params=params)
-    if r is None:
+    data = get_json(f, base + cfg["list_endpoint"], params)
+    if data is None:
         return None
-    data = r.json()
     data["_query"] = query
     save_json(cache, data)
     return data
@@ -47,13 +66,11 @@ def fetch_detail(f: Fetcher, cfg: dict, base: str, pid: str, spid: str | None) -
     params = {"platform": "web"}
     if spid:
         params["spid"] = spid
-    r = f.get(base + cfg["detail_endpoint"].format(id=pid), params=params)
-    if r is None:
+    data = get_json(f, base + cfg["detail_endpoint"].format(id=pid), params)
+    if data is None:
         data = {"_missing": True, "id": pid}
-    else:
-        data = r.json()
-        if not isinstance(data, dict) or "id" not in data:
-            data = {"_missing": True, "id": pid, "_note": "response không có id"}
+    elif not isinstance(data, dict) or "id" not in data:
+        data = {"_missing": True, "id": pid, "_note": "response không có id"}
     save_json(cache, data)
     return data
 
@@ -95,7 +112,11 @@ def probe(f: Fetcher, cfg: dict, base: str) -> int:
     if r is None:
         print("404 không có dữ liệu")
         return 1
-    j = r.json()
+    try:
+        j = r.json()
+    except ValueError:
+        print("HTTP 200 nhưng body rỗng: có thể đang bị giới hạn tốc độ, thử lại sau")
+        return 2
     items = j.get("data") or []
     print(f"status={r.status_code} items={len(items)} paging={j.get('paging')}")
     if items:
