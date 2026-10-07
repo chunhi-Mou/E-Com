@@ -263,6 +263,7 @@ export function SearchBar() {
       onFocus={() => setFocused(true)}
       onBlur={onBlurWrap}
       className="relative mx-auto w-full"
+      style={{ maxWidth: 640 }}
       animate={{ maxWidth: focused || listening ? 780 : 640 }}
       transition={{ type: "spring", stiffness: 380, damping: 36 }}
     >

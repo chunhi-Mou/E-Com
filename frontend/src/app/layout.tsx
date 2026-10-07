@@ -23,16 +23,16 @@ const barlow = Barlow_Condensed({
 });
 
 export const metadata: Metadata = {
-  title: { default: "Sắm: tìm bằng chữ, giọng nói hoặc ảnh", template: "%s | Sắm" },
-  description: "Chợ trực tuyến cho phép tìm sản phẩm bằng văn bản, giọng nói và hình ảnh, tiếng Việt và tiếng Anh.",
+  title: { default: "LUMINA: Multimodal Intelligent E-Commerce", template: "%s | LUMINA" },
+  description: "Trải nghiệm mua sắm thông minh thế hệ mới với công nghệ tìm kiếm bằng văn bản, giọng nói và hình ảnh.",
 };
 
 export const viewport: Viewport = { themeColor: "#2b2380", width: "device-width", initialScale: 1 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="vi" className={`${beVietnam.variable} ${barlow.variable}`}>
-      <body className="flex min-h-dvh flex-col">
+    <html lang="vi" className={`${beVietnam.variable} ${barlow.variable}`} suppressHydrationWarning>
+      <body className="flex min-h-dvh flex-col" suppressHydrationWarning>
         <Providers>
           <Header />
           <SearchScrim />
