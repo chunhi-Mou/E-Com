@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useMemo } from "react";
+import { motion } from "motion/react";
 import { ChevronRight, Mic, ImagePlus } from "lucide-react";
 import { getCategories, listProducts } from "@/lib/api";
 import { discountPct } from "@/lib/format";
@@ -41,7 +42,12 @@ export default function HomePage() {
   );
 
   return (
-    <div className="shell pb-4 pt-4 md:pt-5">
+    <motion.div
+      initial={{ opacity: 0, y: 14 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      className="shell pb-4 pt-4 md:pt-5"
+    >
       {/* Ways to search: the product's signature, shown as plain, tappable examples */}
       <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1 text-[13.5px]">
         <span className="shrink-0 font-semibold text-muted">Thử tìm</span>
@@ -159,6 +165,6 @@ export default function HomePage() {
           </button>
         </div>
       )}
-    </div>
+    </motion.div>
   );
 }

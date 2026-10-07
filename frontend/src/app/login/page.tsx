@@ -9,6 +9,7 @@ import { Logo } from "@/components/Logo";
 import { AmbientBackground } from "@/components/auth/AmbientBackground";
 import { MotionShowreel } from "@/components/auth/MotionShowreel";
 import { TechVisualBox } from "@/components/auth/TechVisualBox";
+import { AppleKeynoteTransition } from "@/components/auth/AppleKeynoteTransition";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -16,6 +17,9 @@ export default function LoginPage() {
 
   // Màn hình showreel mở đầu 15s (có nút bỏ qua)
   const [showIntro, setShowIntro] = useState(true);
+
+  // Hiệu ứng chuyển cảnh một cú máy liên tục Apple-Keynote vào trang chủ
+  const [isTransitioningKeynote, setIsTransitioningKeynote] = useState(false);
 
   // Form states
   const [username, setUsername] = useState("");
@@ -52,10 +56,10 @@ export default function LoginPage() {
 
       if (res.success) {
         setIsSuccess(true);
-        useToasts.getState().push({ text: "Đăng nhập thành công! Chào mừng Quản trị viên.", tone: "ok" });
+        useToasts.getState().push({ text: "Đăng nhập thành công! Khởi động chuyển cảnh...", tone: "ok" });
         setTimeout(() => {
-          router.push("/");
-        }, 800);
+          setIsTransitioningKeynote(true);
+        }, 350);
       } else {
         setErrorMsg(res.message || "Tài khoản hoặc mật khẩu không chính xác");
         setShakeKey((k) => k + 1);
@@ -69,7 +73,22 @@ export default function LoginPage() {
       <AmbientBackground />
 
       <AnimatePresence mode="wait">
-        {showIntro ? (
+        {isTransitioningKeynote ? (
+          /* MÀN HÌNH CHUYỂN CẢNH MỘT CÚ MÁY LIÊN TỤC APPLE-KEYNOTE VÀO TRANG CHỦ */
+          <motion.div
+            key="keynote-container"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50"
+          >
+            <AppleKeynoteTransition
+              onComplete={() => {
+                router.push("/");
+              }}
+            />
+          </motion.div>
+        ) : showIntro ? (
           /* MÀN HÌNH SHOWREEL 15 GIÂY (Mở đầu đẳng cấp) */
           <motion.div
             key="showreel-container"
@@ -250,15 +269,26 @@ export default function LoginPage() {
                   </code>
                 </p>
 
-                <button
-                  type="button"
-                  onClick={() => setShowIntro(true)}
-                  className="text-[11px] font-medium text-slate-400 hover:text-purple-700 transition-colors inline-flex items-center gap-1"
-                  title="Chạy lại video launch SaaS 15s cho dub.co"
-                >
-                  <Sparkles size={11} className="text-purple-600" />
-                  <span>Xem lại Showreel 15s</span>
-                </button>
+                <div className="flex items-center gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setIsTransitioningKeynote(true)}
+                    className="text-[11px] font-semibold text-purple-700 hover:text-purple-900 transition-colors inline-flex items-center gap-1"
+                    title="Xem thử hiệu ứng chuyển cảnh một cú máy Apple-Keynote vào trang chủ"
+                  >
+                    <Sparkles size={11} className="text-purple-600" />
+                    <span>Xem thử Keynote</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setShowIntro(true)}
+                    className="text-[11px] font-medium text-slate-400 hover:text-purple-700 transition-colors inline-flex items-center gap-1"
+                    title="Chạy lại video launch SaaS 15s cho dub.co"
+                  >
+                    <span>Xem lại Showreel</span>
+                  </button>
+                </div>
               </div>
             </motion.div>
 
