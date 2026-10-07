@@ -73,6 +73,7 @@ export default function LoginPage() {
           /* MÀN HÌNH SHOWREEL 15 GIÂY (Mở đầu đẳng cấp) */
           <motion.div
             key="showreel-container"
+            suppressHydrationWarning
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0, scale: 1.04, filter: "blur(10px)" }}
@@ -253,10 +254,10 @@ export default function LoginPage() {
                   type="button"
                   onClick={() => setShowIntro(true)}
                   className="text-[11px] font-medium text-slate-400 hover:text-purple-700 transition-colors inline-flex items-center gap-1"
-                  title="Chạy lại màn mở đầu 5s"
+                  title="Chạy lại video launch SaaS 15s cho dub.co"
                 >
                   <Sparkles size={11} className="text-purple-600" />
-                  <span>Xem lại Intro</span>
+                  <span>Xem lại Showreel 15s</span>
                 </button>
               </div>
             </motion.div>
