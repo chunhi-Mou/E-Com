@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Barlow_Condensed, Be_Vietnam_Pro } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/Providers";
+import { AuthGuard } from "@/components/AuthGuard";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { SearchScrim } from "@/components/SearchScrim";
@@ -34,13 +35,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="vi" className={`${beVietnam.variable} ${barlow.variable}`} suppressHydrationWarning>
       <body className="flex min-h-dvh flex-col" suppressHydrationWarning>
         <Providers>
-          <Header />
-          <SearchScrim />
-          <main id="main" className="flex-1">{children}</main>
-          <Footer />
-          <ImageDropzone />
-          <VoiceAssistant />
-          <Toaster />
+          <AuthGuard>
+            <Header />
+            <SearchScrim />
+            <main id="main" className="flex-1">{children}</main>
+            <Footer />
+            <ImageDropzone />
+            <VoiceAssistant />
+            <Toaster />
+          </AuthGuard>
         </Providers>
       </body>
     </html>

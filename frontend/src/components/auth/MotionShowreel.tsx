@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { FastForward, Sparkles, Shield, Cpu, Waves, Scan } from "lucide-react";
+import { FastForward, Compass, Layers, Sparkles, ArrowRight, Eye, ShieldCheck } from "lucide-react";
 import { LuminaEmblem } from "@/components/Logo";
 
 interface MotionShowreelProps {
@@ -29,11 +29,11 @@ export function MotionShowreel({ onComplete }: MotionShowreelProps) {
     return () => clearInterval(timer);
   }, [onComplete]);
 
-  // Xác định scene hiện tại dựa trên giây
-  // 0 - 3.8s: Scene 1 (AI Data Network & Telemetry)
-  // 3.8 - 7.8s: Scene 2 (Multimodal Waves: Text / Voice / Vision)
-  // 7.8 - 12.0s: Scene 3 (Lumina Core Holographic Reveal)
-  // 12.0 - 15.0s: Scene 4 (Convergence & Portal Unlock)
+  // Phân chia 4 phân cảnh Motion Design hiện đại:
+  // 0 - 3.8s: Scene 1 (Design System & Geometric Precision)
+  // 3.8 - 7.8s: Scene 2 (Fluid Kinetic Typography: Text · Voice · Visual)
+  // 7.8 - 12.0s: Scene 3 (Lumina Brand Convergence & Prism Elegance)
+  // 12.0 - 15.0s: Scene 4 (Gateway Open & Smooth Dissolve)
   const scene =
     elapsed < 3.8 ? 1 : elapsed < 7.8 ? 2 : elapsed < 12 ? 3 : 4;
 
@@ -41,268 +41,279 @@ export function MotionShowreel({ onComplete }: MotionShowreelProps) {
   const remainingSeconds = Math.max(0, Math.ceil(totalSeconds - elapsed));
 
   return (
-    <div className="relative flex h-full min-h-screen w-full flex-col items-center justify-center overflow-hidden bg-[#0a0518] px-4 text-white select-none">
-      {/* Nút Skip & Thanh đếm ngược tiến trình ở góc trên */}
+    <div className="relative flex h-full min-h-screen w-full flex-col items-center justify-center overflow-hidden bg-[#FCFBFE] px-4 text-purple-950 select-none">
+      {/* 1. Nền Trắng sứ với quầng sáng tím pastel mềm mại */}
+      <div className="pointer-events-none absolute inset-0 -z-10">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgba(243,232,255,0.7),rgba(252,251,254,0.95))]" />
+        
+        {/* Vòng tròn quỹ đạo công nghệ mờ */}
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[680px] w-[680px] rounded-full border border-purple-200/50"
+        >
+          <div className="absolute inset-16 rounded-full border border-dashed border-purple-300/40" />
+          <div className="absolute inset-36 rounded-full border border-purple-200/30" />
+        </motion.div>
+
+        {/* Lưới tọa độ siêu mỏng */}
+        <div
+          className="absolute inset-0 opacity-[0.2]"
+          style={{
+            backgroundImage: `
+              linear-gradient(to right, rgba(147, 51, 234, 0.06) 1px, transparent 1px),
+              linear-gradient(to bottom, rgba(147, 51, 234, 0.06) 1px, transparent 1px)
+            `,
+            backgroundSize: "40px 40px",
+          }}
+        />
+      </div>
+
+      {/* 2. Thanh Progress chạy mượt trên cùng màn hình */}
+      <div className="absolute top-0 left-0 right-0 h-1.5 bg-purple-100 z-50">
+        <motion.div
+          className="h-full bg-gradient-to-r from-purple-500 via-violet-500 to-indigo-500 shadow-[0_0_10px_rgba(168,85,247,0.4)]"
+          style={{ width: `${progress}%` }}
+        />
+      </div>
+
+      {/* 3. Header điều khiển: Bộ đếm thời gian & Nút Skip */}
       <div className="absolute top-6 left-6 right-6 z-50 flex items-center justify-between">
-        <div className="flex items-center gap-3 rounded-full border border-purple-500/30 bg-purple-950/40 px-4 py-1.5 backdrop-blur-md">
-          <div className="h-2 w-2 rounded-full bg-violet-400 animate-pulse" />
-          <span className="font-mono text-xs font-semibold tracking-wider text-purple-200">
-            SHOWREEL DEMO · 00:{remainingSeconds < 10 ? `0${remainingSeconds}` : remainingSeconds}
+        <div className="flex items-center gap-2.5 rounded-full border border-purple-200 bg-white/80 px-4 py-1.5 shadow-sm backdrop-blur-md">
+          <div className="h-2 w-2 rounded-full bg-purple-600 animate-pulse" />
+          <span className="font-mono text-xs font-bold tracking-wider text-purple-900">
+            SHOWREEL · 00:{remainingSeconds < 10 ? `0${remainingSeconds}` : remainingSeconds}
           </span>
         </div>
 
         <button
           onClick={onComplete}
-          className="group flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-semibold text-white/90 backdrop-blur-md transition-all hover:border-purple-400 hover:bg-white/20 hover:text-white"
+          className="group flex items-center gap-2 rounded-full border border-purple-200 bg-white/90 px-4 py-1.5 text-xs font-bold text-purple-900 shadow-sm backdrop-blur-md transition-all hover:border-purple-400 hover:bg-purple-50 hover:text-purple-950 active:scale-95"
         >
           <span>Bỏ qua Intro</span>
-          <FastForward size={14} className="transition-transform group-hover:translate-x-0.5" />
+          <FastForward size={14} className="transition-transform group-hover:translate-x-0.5 text-purple-600" />
         </button>
       </div>
 
-      {/* Thanh Progress chạy mượt trên cùng màn hình */}
-      <div className="absolute top-0 left-0 right-0 h-1 bg-white/10 z-50">
-        <motion.div
-          className="h-full bg-gradient-to-r from-purple-500 via-fuchsia-400 to-white shadow-[0_0_12px_rgba(216,180,254,0.8)]"
-          style={{ width: `${progress}%` }}
-        />
-      </div>
-
-      {/* Background Motion Graphics Canvas: Lưới tọa độ và hạt lượng tử */}
-      <div className="pointer-events-none absolute inset-0">
-        {/* Vòng tròn sóng radar đồng tâm xoay nhẹ */}
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[700px] w-[700px] rounded-full border border-purple-500/15"
-        >
-          <div className="absolute inset-8 rounded-full border border-dashed border-purple-400/20" />
-          <div className="absolute inset-24 rounded-full border border-purple-300/10" />
-          <div className="absolute inset-40 rounded-full border border-dashed border-violet-500/20" />
-        </motion.div>
-
-        {/* Tia laser quét ngang */}
-        <motion.div
-          animate={{ y: ["-100%", "200%"] }}
-          transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute inset-x-0 h-32 bg-gradient-to-b from-transparent via-purple-500/[0.08] to-transparent"
-        />
-      </div>
-
-      {/* SCENE CONTENT */}
+      {/* 4. NỘI DUNG 4 PHÂN CẢNH SHOWREEL */}
       <div className="relative z-10 flex w-full max-w-4xl flex-col items-center justify-center text-center">
         <AnimatePresence mode="wait">
-          {/* SCENE 1: SYSTEM INITIALIZATION & DATA INTELLIGENCE */}
+          {/* SCENE 1: DESIGN PRECISION & GEOMETRIC HARMONY */}
           {scene === 1 && (
             <motion.div
               key="scene-1"
-              initial={{ opacity: 0, scale: 0.88, filter: "blur(10px)" }}
-              animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-              exit={{ opacity: 0, scale: 1.1, filter: "blur(8px)" }}
-              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="flex flex-col items-center gap-6"
+              initial={{ opacity: 0, scale: 0.9, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 1.08, filter: "blur(6px)" }}
+              transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+              className="flex flex-col items-center gap-5"
             >
-              {/* Icon chip xoay với các đường tia */}
+              {/* Vật thể công nghệ hình học xoay tròn */}
               <div className="relative flex items-center justify-center">
                 <motion.div
-                  animate={{ scale: [1, 1.2, 1], rotate: [0, 90, 180] }}
-                  transition={{ duration: 3.5, repeat: Infinity }}
-                  className="absolute h-28 w-28 rounded-full border-2 border-dashed border-purple-400/40"
-                />
-                <div className="grid h-20 w-20 place-items-center rounded-2xl bg-gradient-to-tr from-purple-800 to-violet-500 shadow-[0_0_35px_rgba(168,85,247,0.5)]">
-                  <Cpu size={36} className="text-white" />
-                </div>
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+                  className="h-24 w-24 rounded-2xl border-2 border-purple-400/40 p-2 shadow-lg bg-white/60 backdrop-blur-sm"
+                >
+                  <motion.div
+                    animate={{ rotate: -360 }}
+                    transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                    className="h-full w-full rounded-xl border border-dashed border-indigo-400/50 flex items-center justify-center bg-gradient-to-tr from-purple-100 to-white"
+                  >
+                    <Compass size={28} className="text-purple-600" />
+                  </motion.div>
+                </motion.div>
               </div>
 
               <div>
                 <motion.div
-                  initial={{ y: 15, opacity: 0 }}
+                  initial={{ y: 10, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.15 }}
-                  className="inline-flex items-center gap-2 rounded-full border border-purple-400/30 bg-purple-900/30 px-3.5 py-1 text-xs font-semibold text-purple-300"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-purple-200 bg-purple-100/70 px-3.5 py-1 text-xs font-semibold text-purple-800"
                 >
-                  <Sparkles size={13} className="text-violet-300" />
-                  <span>NEURAL INTELLIGENCE SHOWREEL</span>
+                  <Sparkles size={13} className="text-purple-600" />
+                  <span>MOTION GRAPHICS SHOWREEL</span>
                 </motion.div>
 
                 <motion.h1
-                  initial={{ y: 20, opacity: 0 }}
+                  initial={{ y: 15, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.25 }}
-                  className="mt-3 font-label text-4xl sm:text-6xl font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-white via-purple-100 to-purple-300"
+                  className="mt-3 font-label text-4xl sm:text-6xl font-black tracking-tight text-purple-950"
                 >
-                  MEDIA INTELLIGENCE
+                  DIGITAL CRAFTSMANSHIP
                 </motion.h1>
 
                 <motion.p
-                  initial={{ y: 20, opacity: 0 }}
+                  initial={{ y: 15, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ delay: 0.35 }}
-                  className="mx-auto mt-2 max-w-md text-sm sm:text-base font-medium text-purple-200/80"
+                  className="mx-auto mt-2 max-w-md text-sm sm:text-base font-medium text-purple-700/80"
                 >
-                  Động cơ phân tích & tìm kiếm đa phương thức thời gian thực
+                  Sự kết hợp hoàn hảo giữa chuyển động hình học và công nghệ hiện đại
                 </motion.p>
               </div>
 
-              {/* Data Telemetry Tags */}
+              {/* Huy hiệu tối giản */}
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.45 }}
-                className="flex flex-wrap justify-center gap-2 pt-2 text-[11px] font-mono text-purple-300/70"
+                className="flex items-center gap-2 font-mono text-xs text-purple-700/70"
               >
-                <span className="rounded bg-purple-950/60 px-2.5 py-1 border border-purple-800/40">LATENCY: 12ms</span>
-                <span className="rounded bg-purple-950/60 px-2.5 py-1 border border-purple-800/40">EMBEDDINGS: 512-DIM</span>
-                <span className="rounded bg-purple-950/60 px-2.5 py-1 border border-purple-800/40">ENGINE: MULTIMODAL</span>
+                <span className="rounded-lg bg-white border border-purple-200 px-3 py-1 shadow-xs">DYNAMIC SPRING PHYSICS</span>
+                <span className="rounded-lg bg-white border border-purple-200 px-3 py-1 shadow-xs">VECTOR PRECISION</span>
               </motion.div>
             </motion.div>
           )}
 
-          {/* SCENE 2: KINETIC MULTIMODAL (TEXT · VOICE · IMAGE) */}
+          {/* SCENE 2: KINETIC TYPOGRAPHY (TEXT · VOICE · IMAGE) */}
           {scene === 2 && (
             <motion.div
               key="scene-2"
-              initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
-              animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-              exit={{ opacity: 0, scale: 1.15, filter: "blur(8px)" }}
-              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              initial={{ opacity: 0, scale: 0.92, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 1.1, filter: "blur(6px)" }}
+              transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
               className="flex flex-col items-center gap-6"
             >
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-3">
                 <motion.div
-                  animate={{ y: [0, -6, 0] }}
+                  animate={{ y: [0, -5, 0] }}
                   transition={{ duration: 2, repeat: Infinity }}
-                  className="flex h-14 w-14 items-center justify-center rounded-xl border border-purple-400/40 bg-purple-900/40 backdrop-blur-md shadow-[0_0_20px_rgba(168,85,247,0.3)]"
+                  className="flex h-12 w-12 items-center justify-center rounded-xl border border-purple-200 bg-white shadow-md text-purple-600"
                 >
-                  <Waves size={26} className="text-purple-300" />
+                  <Eye size={22} />
                 </motion.div>
                 <motion.div
                   animate={{ scale: [1, 1.1, 1] }}
                   transition={{ duration: 2, repeat: Infinity, delay: 0.2 }}
-                  className="flex h-16 w-16 items-center justify-center rounded-2xl border-2 border-white/60 bg-gradient-to-tr from-violet-600 to-purple-400 shadow-[0_0_30px_rgba(216,180,254,0.6)]"
+                  className="flex h-14 w-14 items-center justify-center rounded-2xl border border-purple-300 bg-gradient-to-tr from-purple-600 to-indigo-600 shadow-md text-white"
                 >
-                  <Scan size={32} className="text-white" />
+                  <Layers size={26} />
                 </motion.div>
                 <motion.div
-                  animate={{ y: [0, 6, 0] }}
+                  animate={{ y: [0, 5, 0] }}
                   transition={{ duration: 2, repeat: Infinity, delay: 0.4 }}
-                  className="flex h-14 w-14 items-center justify-center rounded-xl border border-purple-400/40 bg-purple-900/40 backdrop-blur-md shadow-[0_0_20px_rgba(168,85,247,0.3)]"
+                  className="flex h-12 w-12 items-center justify-center rounded-xl border border-purple-200 bg-white shadow-md text-purple-600"
                 >
-                  <Shield size={26} className="text-purple-300" />
+                  <Sparkles size={22} />
                 </motion.div>
               </div>
 
               <div>
-                <span className="font-mono text-xs font-semibold tracking-widest text-violet-300 uppercase">
-                  TRI-MODAL PERCEPTION ARCHITECTURE
+                <span className="font-mono text-xs font-bold tracking-widest text-purple-600 uppercase">
+                  TRI-MODAL INTERACTION
                 </span>
-                <h2 className="mt-2 text-4xl sm:text-6xl font-black tracking-tight text-white">
-                  VOICE <span className="text-violet-400">·</span> IMAGE <span className="text-fuchsia-400">·</span> TEXT
+                <h2 className="mt-2 text-4xl sm:text-6xl font-black tracking-tight text-purple-950">
+                  TEXT <span className="text-purple-400">·</span> VOICE <span className="text-indigo-400">·</span> IMAGE
                 </h2>
-                <p className="mt-3 text-sm sm:text-base text-purple-200/80 max-w-lg">
-                  Kết hợp thị giác máy tính, nhận diện giọng nói và ngữ nghĩa tiếng Việt
+                <p className="mt-2.5 text-sm sm:text-base text-purple-700/80 max-w-md mx-auto">
+                  Tương tác đa giác quan: gõ từ khóa, nói bằng giọng nói hoặc tìm bằng ảnh
                 </p>
               </div>
 
-              {/* 3 Pillars Animation */}
-              <div className="grid grid-cols-3 gap-3 w-full max-w-md pt-2">
-                <div className="rounded-xl border border-purple-500/30 bg-purple-950/50 p-3 text-center">
-                  <div className="text-xs font-bold text-white">Giọng nói</div>
-                  <div className="text-[10px] text-purple-300 font-mono">Whisper AI</div>
+              {/* 3 Khối thiết kế thanh lịch */}
+              <div className="grid grid-cols-3 gap-3 w-full max-w-md pt-1">
+                <div className="rounded-xl border border-purple-200 bg-white/80 p-3 shadow-xs">
+                  <div className="text-xs font-bold text-purple-950">Văn bản</div>
+                  <div className="text-[10px] text-purple-600 font-semibold">Semantic Match</div>
                 </div>
-                <div className="rounded-xl border border-purple-400/40 bg-purple-900/50 p-3 text-center shadow-[0_0_15px_rgba(168,85,247,0.25)]">
-                  <div className="text-xs font-bold text-white">Hình ảnh</div>
-                  <div className="text-[10px] text-fuchsia-300 font-mono">Vision CLIP</div>
+                <div className="rounded-xl border border-purple-300 bg-gradient-to-b from-purple-50 to-white p-3 shadow-sm ring-2 ring-purple-400/20">
+                  <div className="text-xs font-bold text-purple-900">Giọng nói</div>
+                  <div className="text-[10px] text-purple-600 font-semibold">Voice Recognition</div>
                 </div>
-                <div className="rounded-xl border border-purple-500/30 bg-purple-950/50 p-3 text-center">
-                  <div className="text-xs font-bold text-white">Văn bản</div>
-                  <div className="text-[10px] text-purple-300 font-mono">BM25 + Semantic</div>
+                <div className="rounded-xl border border-purple-200 bg-white/80 p-3 shadow-xs">
+                  <div className="text-xs font-bold text-purple-950">Hình ảnh</div>
+                  <div className="text-[10px] text-purple-600 font-semibold">Visual Search</div>
                 </div>
               </div>
             </motion.div>
           )}
 
-          {/* SCENE 3: LUMINA CORE HOLOGRAPHIC REVELATION */}
+          {/* SCENE 3: LUMINA CORE PRISM REVELATION */}
           {scene === 3 && (
             <motion.div
               key="scene-3"
-              initial={{ opacity: 0, scale: 0.85, filter: "blur(12px)" }}
-              animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-              exit={{ opacity: 0, scale: 1.15, filter: "blur(8px)" }}
-              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="flex flex-col items-center gap-6"
+              initial={{ opacity: 0, scale: 0.88 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 1.12, filter: "blur(6px)" }}
+              transition={{ duration: 0.55 }}
+              className="flex flex-col items-center gap-5"
             >
-              {/* Logo Emblem khổng lồ với hiệu ứng phát quang lăng kính */}
+              {/* Logo Emblem với vầng hào quang tím trắng tinh tế */}
               <motion.div
                 animate={{
-                  rotate: [0, 5, -5, 0],
-                  scale: [1, 1.06, 1],
+                  y: [0, -8, 0],
+                  scale: [1, 1.05, 1],
                 }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
                 className="relative"
               >
-                <div className="absolute -inset-6 rounded-3xl bg-gradient-to-r from-violet-600/50 via-fuchsia-500/40 to-white/40 blur-2xl" />
-                <div className="relative transform scale-150">
+                <div className="absolute -inset-4 rounded-3xl bg-purple-300/40 blur-xl" />
+                <div className="relative transform scale-150 p-2">
                   <LuminaEmblem size={64} />
                 </div>
               </motion.div>
 
-              <div className="mt-6">
+              <div className="mt-4">
                 <motion.h1
                   initial={{ letterSpacing: "0.2em", opacity: 0 }}
-                  animate={{ letterSpacing: "0.15em", opacity: 1 }}
+                  animate={{ letterSpacing: "0.14em", opacity: 1 }}
                   transition={{ duration: 0.8 }}
-                  className="font-label text-5xl sm:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white via-purple-100 to-purple-400"
+                  className="font-label text-5xl sm:text-7xl font-extrabold text-purple-950"
                 >
                   LUMINA
                 </motion.h1>
-                <p className="mt-2 text-xs sm:text-sm font-semibold tracking-[0.3em] uppercase text-purple-200">
-                  INTELLIGENT MULTIMODAL COMMERCE
+                <p className="mt-1.5 text-xs sm:text-sm font-bold tracking-[0.26em] uppercase text-purple-600">
+                  INTELLIGENT COMMERCE PLATFORM
                 </p>
               </div>
 
-              <div className="flex items-center gap-2 rounded-full border border-purple-400/40 bg-purple-900/40 px-4 py-1.5 text-xs text-purple-200 backdrop-blur-md">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-ping" />
-                <span>Kiến trúc hệ thống sẵn sàng hoạt động</span>
+              <div className="flex items-center gap-2 rounded-full border border-purple-200 bg-white/90 px-4 py-1.5 text-xs font-semibold text-purple-800 shadow-xs">
+                <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                <span>Hệ thống sẵn sàng vận hành</span>
               </div>
             </motion.div>
           )}
 
-          {/* SCENE 4: PORTAL UNLOCK & CONVERGENCE TO LOGIN */}
+          {/* SCENE 4: GATEWAY READY & PROCEED */}
           {scene === 4 && (
             <motion.div
               key="scene-4"
-              initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
-              animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-              exit={{ opacity: 0, scale: 1.3, filter: "blur(15px)" }}
-              transition={{ duration: 0.6 }}
-              className="flex flex-col items-center gap-6"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 1.25, filter: "blur(10px)" }}
+              transition={{ duration: 0.55 }}
+              className="flex flex-col items-center gap-5"
             >
               <motion.div
-                animate={{ scale: [1, 1.25, 1], opacity: [0.8, 1, 0.8] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
-                className="grid h-24 w-24 place-items-center rounded-full border-2 border-white/80 bg-gradient-to-tr from-violet-600 to-purple-400 shadow-[0_0_50px_rgba(255,255,255,0.7)]"
+                animate={{ scale: [1, 1.15, 1] }}
+                transition={{ duration: 1.6, repeat: Infinity }}
+                className="grid h-20 w-20 place-items-center rounded-2xl border border-purple-300 bg-gradient-to-tr from-purple-600 to-indigo-600 shadow-[0_10px_25px_-5px_rgba(147,51,234,0.4)] text-white"
               >
-                <Shield size={44} className="text-white" />
+                <ShieldCheck size={40} />
               </motion.div>
 
               <div>
-                <span className="font-mono text-xs font-semibold tracking-widest text-violet-300 uppercase">
-                  ACCESS CONTROL GATEWAY
+                <span className="font-mono text-xs font-bold tracking-widest text-purple-600 uppercase">
+                  SECURITY GATEWAY
                 </span>
-                <h2 className="mt-2 text-3xl sm:text-5xl font-black text-white">
-                  ĐANG MỞ CỔNG XÁC THỰC...
+                <h2 className="mt-1.5 text-3xl sm:text-5xl font-black text-purple-950">
+                  SẴN SÀNG ĐĂNG NHẬP
                 </h2>
-                <p className="mt-2 text-sm text-purple-200/80">
-                  Chuyển hướng vào không gian đăng nhập quản trị
+                <p className="mt-2 text-sm text-purple-700/80">
+                  Nhập thông tin quản trị để truy cập toàn bộ hệ thống
                 </p>
               </div>
 
               <button
                 onClick={onComplete}
-                className="mt-2 rounded-xl border border-purple-400/50 bg-gradient-to-r from-violet-600 to-purple-600 px-6 py-2.5 text-sm font-bold text-white shadow-[0_0_25px_rgba(168,85,247,0.6)] hover:brightness-110 active:scale-95 transition-all"
+                className="mt-2 flex items-center gap-2 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 px-7 py-3 text-sm font-bold text-white shadow-[0_8px_20px_rgba(147,51,234,0.35)] hover:brightness-105 active:scale-95 transition-all"
               >
-                Vào trang đăng nhập ngay
+                <span>Vào trang đăng nhập</span>
+                <ArrowRight size={16} />
               </button>
             </motion.div>
           )}
@@ -310,10 +321,10 @@ export function MotionShowreel({ onComplete }: MotionShowreelProps) {
       </div>
 
       {/* Footer watermark branding */}
-      <div className="absolute bottom-6 z-20 flex items-center gap-2 text-[11px] font-mono text-purple-400/60">
-        <span>LUMINA CORE v1.0</span>
+      <div className="absolute bottom-6 z-20 flex items-center gap-2 text-[11px] font-mono font-medium text-purple-400">
+        <span>LUMINA SYSTEM</span>
         <span>·</span>
-        <span>ADVANCED MOTION SYSTEM</span>
+        <span>CLEAN MOTION SHOWREEL</span>
       </div>
     </div>
   );

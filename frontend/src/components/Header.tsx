@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Suspense } from "react";
 import { motion } from "motion/react";
 import { Braces, LogIn, LogOut, ReceiptText, Search, ShoppingBag } from "lucide-react";
@@ -23,6 +23,7 @@ function SearchFallback() {
 
 export function Header() {
   const pathname = usePathname();
+  const router = useRouter();
   const lines = useCart((s) => s.lines);
   const hydrated = useHydrated();
   const count = hydrated ? cartCount(lines) : 0;
@@ -77,7 +78,10 @@ export function Header() {
           </span>
           <button
             type="button"
-            onClick={logout}
+            onClick={() => {
+              logout();
+              router.replace("/login");
+            }}
             title="Đăng xuất khỏi hệ thống"
             className="flex h-9 items-center gap-1 rounded-lg px-2 text-[13px] font-semibold text-white/80 transition-colors hover:bg-white/10 hover:text-white"
             aria-label="Đăng xuất"
