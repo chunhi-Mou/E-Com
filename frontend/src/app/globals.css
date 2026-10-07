@@ -8,45 +8,45 @@
   --font-sans: var(--font-be-vietnam), ui-sans-serif, system-ui, sans-serif;
   --font-label: var(--font-barlow), "Arial Narrow", ui-sans-serif, sans-serif;
 
-  /* mực tím: the shell and every interactive affordance */
-  --color-ink-50: oklch(0.972 0.012 278);
-  --color-ink-100: oklch(0.945 0.024 278);
-  --color-ink-200: oklch(0.89 0.05 278);
-  --color-ink-300: oklch(0.79 0.09 277);
-  --color-ink-400: oklch(0.67 0.14 276);
-  --color-ink-500: oklch(0.55 0.19 275);
-  --color-ink-600: oklch(0.46 0.2 275);
-  --color-ink-700: oklch(0.39 0.18 275);
-  --color-ink-800: oklch(0.31 0.14 276);
-  --color-ink-900: oklch(0.25 0.1 277);
-  --color-ink-950: oklch(0.19 0.06 278);
+  /* Sắc tím công nghệ LUMINA: đồng bộ hoàn hảo với introduction và login */
+  --color-ink-50: #FAF5FF;
+  --color-ink-100: #F3E8FF;
+  --color-ink-200: #E9D5FF;
+  --color-ink-300: #D8B4FE;
+  --color-ink-400: #C084FC;
+  --color-ink-500: #A855F7;
+  --color-ink-600: #7C3AED;
+  --color-ink-700: #6D28D9;
+  --color-ink-800: #1E1B4B;
+  --color-ink-900: #0F172A;
+  --color-ink-950: #020617;
 
-  /* con dấu đỏ: price, sale, the stamp, the primary buy action */
-  --color-seal-50: oklch(0.972 0.016 27);
-  --color-seal-100: oklch(0.94 0.04 27);
-  --color-seal-200: oklch(0.88 0.085 27);
-  --color-seal-400: oklch(0.7 0.19 27);
-  --color-seal-500: oklch(0.6 0.215 27);
-  --color-seal-600: oklch(0.53 0.215 27);
-  --color-seal-700: oklch(0.45 0.185 27);
+  /* Điểm nhấn tím hoàng gia (thay cho con dấu đỏ cũ): nút CTA mua hàng, tìm kiếm, giá và badge sale */
+  --color-seal-50: #FAF5FF;
+  --color-seal-100: #F3E8FF;
+  --color-seal-200: #E9D5FF;
+  --color-seal-400: #C084FC;
+  --color-seal-500: #9333EA;
+  --color-seal-600: #7C3AED;
+  --color-seal-700: #581C87;
 
-  /* bút dạ quang: notices and the "understood" highlight */
-  --color-hl: oklch(0.92 0.15 100);
-  --color-hl-soft: oklch(0.965 0.07 100);
-  --color-hl-ink: oklch(0.38 0.07 85);
+  /* Điểm sáng công nghệ */
+  --color-hl: #F3E8FF;
+  --color-hl-soft: #FAF5FF;
+  --color-hl-ink: #4C1D95;
 
-  --color-ok: oklch(0.5 0.13 155);
-  --color-ok-soft: oklch(0.955 0.04 155);
-  --color-star: oklch(0.76 0.16 78);
+  --color-ok: #10B981;
+  --color-ok-soft: #ECFDF5;
+  --color-star: #F59E0B;
 
-  /* paper and rules, tinted toward the ink hue */
-  --color-paper: oklch(0.975 0.006 278);
-  --color-sheet: oklch(1 0 0);
-  --color-line: oklch(0.91 0.012 278);
-  --color-line-strong: oklch(0.83 0.02 278);
-  --color-fg: oklch(0.22 0.03 278);
-  --color-muted: oklch(0.46 0.03 278);
-  --color-faint: oklch(0.62 0.02 278);
+  /* Nền trắng (hơi xám) công nghệ (#F8FAFC) và thẻ trắng tinh khôi chuẩn Studio như Login & Intro */
+  --color-paper: #F8FAFC;
+  --color-sheet: #FFFFFF;
+  --color-line: #E2E8F0;
+  --color-line-strong: #CBD5E1;
+  --color-fg: #0F172A;
+  --color-muted: #64748B;
+  --color-faint: #94A3B8;
 
   --radius-sm: 6px;
   --radius-md: 8px;
@@ -55,8 +55,8 @@
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-quick: cubic-bezier(0.4, 0, 1, 1);
 
-  --shadow-lift: 0 10px 24px -14px oklch(0.25 0.1 277 / 0.35), 0 2px 4px -2px oklch(0.25 0.1 277 / 0.12);
-  --shadow-pop: 0 24px 48px -20px oklch(0.2 0.08 277 / 0.45), 0 4px 10px -4px oklch(0.2 0.08 277 / 0.2);
+  --shadow-lift: 0 10px 25px -14px rgba(76, 29, 149, 0.18), 0 2px 6px -2px rgba(15, 23, 42, 0.06);
+  --shadow-pop: 0 24px 48px -20px rgba(76, 29, 149, 0.28), 0 4px 12px -4px rgba(15, 23, 42, 0.08);
 }
 
 :root {

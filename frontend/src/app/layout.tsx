@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   description: "Trải nghiệm mua sắm thông minh thế hệ mới với công nghệ tìm kiếm bằng văn bản, giọng nói và hình ảnh.",
 };
 
-export const viewport: Viewport = { themeColor: "#2b2380", width: "device-width", initialScale: 1 };
+export const viewport: Viewport = { themeColor: "#1E1B4B", width: "device-width", initialScale: 1 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

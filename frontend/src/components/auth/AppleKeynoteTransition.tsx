@@ -315,6 +315,7 @@ export function AppleKeynoteTransition({ onComplete }: AppleKeynoteTransitionPro
                 alt="Product Iris Reveal"
                 fill
                 priority
+                sizes="(max-width: 1024px) 100vw, 1020px"
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-slate-950/20" />
@@ -387,6 +388,7 @@ export function AppleKeynoteTransition({ onComplete }: AppleKeynoteTransitionPro
                 alt="Studio Relight"
                 fill
                 priority
+                sizes="(max-width: 1024px) 100vw, 1080px"
                 className="object-cover"
               />
 
@@ -477,6 +479,7 @@ export function AppleKeynoteTransition({ onComplete }: AppleKeynoteTransitionPro
                     src={item.src}
                     alt={item.title}
                     fill
+                    sizes="(max-width: 1024px) 50vw, 25vw"
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-black/20" />
