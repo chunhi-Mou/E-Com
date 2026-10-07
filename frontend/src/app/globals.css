@@ -1,0 +1,325 @@
+@import "tailwindcss";
+
+/*
+ * Sắm design tokens. World: the Vietnamese receipt pad and school ink (mực tím),
+ * stamped with a red company seal (con dấu). See /DESIGN.md.
+ */
+@theme {
+  --font-sans: var(--font-be-vietnam), ui-sans-serif, system-ui, sans-serif;
+  --font-label: var(--font-barlow), "Arial Narrow", ui-sans-serif, sans-serif;
+
+  /* mực tím: the shell and every interactive affordance */
+  --color-ink-50: oklch(0.972 0.012 278);
+  --color-ink-100: oklch(0.945 0.024 278);
+  --color-ink-200: oklch(0.89 0.05 278);
+  --color-ink-300: oklch(0.79 0.09 277);
+  --color-ink-400: oklch(0.67 0.14 276);
+  --color-ink-500: oklch(0.55 0.19 275);
+  --color-ink-600: oklch(0.46 0.2 275);
+  --color-ink-700: oklch(0.39 0.18 275);
+  --color-ink-800: oklch(0.31 0.14 276);
+  --color-ink-900: oklch(0.25 0.1 277);
+  --color-ink-950: oklch(0.19 0.06 278);
+
+  /* con dấu đỏ: price, sale, the stamp, the primary buy action */
+  --color-seal-50: oklch(0.972 0.016 27);
+  --color-seal-100: oklch(0.94 0.04 27);
+  --color-seal-200: oklch(0.88 0.085 27);
+  --color-seal-400: oklch(0.7 0.19 27);
+  --color-seal-500: oklch(0.6 0.215 27);
+  --color-seal-600: oklch(0.53 0.215 27);
+  --color-seal-700: oklch(0.45 0.185 27);
+
+  /* bút dạ quang: notices and the "understood" highlight */
+  --color-hl: oklch(0.92 0.15 100);
+  --color-hl-soft: oklch(0.965 0.07 100);
+  --color-hl-ink: oklch(0.38 0.07 85);
+
+  --color-ok: oklch(0.5 0.13 155);
+  --color-ok-soft: oklch(0.955 0.04 155);
+  --color-star: oklch(0.76 0.16 78);
+
+  /* paper and rules, tinted toward the ink hue */
+  --color-paper: oklch(0.975 0.006 278);
+  --color-sheet: oklch(1 0 0);
+  --color-line: oklch(0.91 0.012 278);
+  --color-line-strong: oklch(0.83 0.02 278);
+  --color-fg: oklch(0.22 0.03 278);
+  --color-muted: oklch(0.46 0.03 278);
+  --color-faint: oklch(0.62 0.02 278);
+
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-quick: cubic-bezier(0.4, 0, 1, 1);
+
+  --shadow-lift: 0 10px 24px -14px oklch(0.25 0.1 277 / 0.35), 0 2px 4px -2px oklch(0.25 0.1 277 / 0.12);
+  --shadow-pop: 0 24px 48px -20px oklch(0.2 0.08 277 / 0.45), 0 4px 10px -4px oklch(0.2 0.08 277 / 0.2);
+}
+
+:root {
+  color-scheme: light;
+  --header-h: 68px;
+}
+@media (min-width: 1024px) {
+  :root {
+    --header-h: 104px;
+  }
+}
+
+html {
+  scroll-padding-top: calc(var(--header-h) + 16px);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-fg);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.5;
+  font-feature-settings: "tnum" 0;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  min-height: 100dvh;
+}
+
+/* Browser surfaces themed from the palette */
+::selection {
+  background: var(--color-ink-200);
+  color: var(--color-ink-950);
+}
+input,
+textarea {
+  caret-color: var(--color-seal-600);
+}
+input[type="radio"],
+input[type="checkbox"],
+input[type="range"] {
+  accent-color: var(--color-ink-600);
+}
+:focus-visible {
+  outline: 2px solid var(--color-ink-500);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+.on-ink :focus-visible {
+  outline-color: var(--color-hl);
+}
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline-offset: 0;
+}
+a {
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-ink-200) transparent;
+}
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-ink-200);
+  border-radius: 8px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-ink-300);
+  background-clip: content-box;
+  border: 2px solid transparent;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+input[type="search"]::-webkit-search-cancel-button {
+  display: none;
+}
+
+/* Layout shell */
+.shell {
+  width: 100%;
+  max-width: 1360px;
+  margin-inline: auto;
+  padding-inline: 16px;
+}
+@media (min-width: 768px) {
+  .shell {
+    padding-inline: 24px;
+  }
+}
+
+/* Type helpers */
+.num {
+  font-variant-numeric: tabular-nums;
+}
+.label-cond {
+  font-family: var(--font-label);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.balance {
+  text-wrap: balance;
+}
+.pretty {
+  text-wrap: pretty;
+}
+
+/* Receipt rhythm: label ......... value */
+.leader {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.leader::after {
+  content: "";
+  order: 1;
+  flex: 1;
+  border-bottom: 1.5px dotted var(--color-line-strong);
+  transform: translateY(-3px);
+}
+.leader > :first-child {
+  order: 0;
+}
+.leader > :last-child {
+  order: 2;
+}
+
+/* Spoken-reply indicator */
+.voice-bar {
+  transform-origin: center;
+  animation: voice-bar 0.9s ease-in-out infinite;
+}
+@keyframes voice-bar {
+  0%, 100% {
+    transform: scaleY(0.3);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+/* Skeleton */
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-ink-100);
+  border-radius: var(--radius-sm);
+}
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, oklch(1 0 0 / 0.65), transparent);
+  animation: shimmer 1.3s var(--ease-out-expo) infinite;
+}
+@keyframes shimmer {
+  to {
+    transform: translateX(100%);
+  }
+}
+
+/* Results enter once per new query (class is only applied on a fresh query) */
+.rise-in {
+  animation: rise 0.42s var(--ease-out-expo) both;
+  animation-delay: calc(min(var(--i, 0), 12) * 28ms);
+}
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.fade-in {
+  animation: fade 0.2s ease-out both;
+}
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
+
+/* Price-tag hover underline for links */
+.link-ink {
+  color: var(--color-ink-600);
+  text-decoration: underline;
+  text-decoration-color: var(--color-ink-200);
+}
+.link-ink:hover {
+  text-decoration-color: currentColor;
+}
+
+/* View transition between a card image and the product gallery */
+::view-transition-group(product-image) {
+  animation-duration: 380ms;
+  animation-timing-function: var(--ease-out-expo);
+}
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 160ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .skeleton::after {
+    display: none;
+  }
+}
+
+/* Radix bottom sheet */
+.sheet-overlay[data-state="open"] {
+  animation: fade 0.2s ease-out both;
+}
+.sheet-overlay[data-state="closed"] {
+  animation: fade-out 0.15s ease-in both;
+}
+.sheet-content[data-state="open"] {
+  animation: sheet-up 0.32s var(--ease-out-expo) both;
+}
+.sheet-content[data-state="closed"] {
+  animation: sheet-down 0.18s var(--ease-in-quick) both;
+}
+@keyframes sheet-up {
+  from {
+    transform: translateY(100%);
+  }
+}
+@keyframes sheet-down {
+  to {
+    transform: translateY(100%);
+  }
+}
+@keyframes fade-out {
+  to {
+    opacity: 0;
+  }
+}
