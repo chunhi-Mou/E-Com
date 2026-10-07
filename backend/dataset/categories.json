@@ -1,0 +1,505 @@
+[
+  {
+    "slug": "thoi-trang-nam",
+    "parent": null,
+    "name": "Thời trang nam",
+    "synonyms": [
+      "Men's fashion"
+    ]
+  },
+  {
+    "slug": "ao-nam",
+    "parent": "thoi-trang-nam",
+    "name": "Áo nam",
+    "synonyms": [
+      "Men's tops"
+    ]
+  },
+  {
+    "slug": "ao-len-nam",
+    "parent": "ao-nam",
+    "name": "Áo len nam",
+    "synonyms": [
+      "Men's sweaters",
+      "sweater",
+      "pullover",
+      "jumper"
+    ]
+  },
+  {
+    "slug": "ao-co-lo-nam",
+    "parent": "ao-nam",
+    "name": "Áo cổ lọ nam",
+    "synonyms": [
+      "Men's turtlenecks",
+      "áo len cổ lọ",
+      "cổ lọ",
+      "turtleneck",
+      "polo neck"
+    ]
+  },
+  {
+    "slug": "ao-khoac-phao-nam",
+    "parent": "ao-nam",
+    "name": "Áo khoác phao nam",
+    "synonyms": [
+      "Men's puffer jackets",
+      "áo phao",
+      "áo khoác",
+      "jacket",
+      "coat",
+      "áo lông vũ"
+    ]
+  },
+  {
+    "slug": "ao-thun-nam",
+    "parent": "ao-nam",
+    "name": "Áo thun nam",
+    "synonyms": [
+      "Men's t-shirts",
+      "áo phông",
+      "t-shirt",
+      "tee",
+      "polo"
+    ]
+  },
+  {
+    "slug": "ao-so-mi-nam",
+    "parent": "ao-nam",
+    "name": "Áo sơ mi nam",
+    "synonyms": [
+      "Men's shirts",
+      "sơ mi",
+      "shirt"
+    ]
+  },
+  {
+    "slug": "ao-hoodie-nam",
+    "parent": "ao-nam",
+    "name": "Áo hoodie nam",
+    "synonyms": [
+      "Men's hoodies",
+      "áo nỉ",
+      "hoodie",
+      "sweatshirt"
+    ]
+  },
+  {
+    "slug": "quan-nam",
+    "parent": "thoi-trang-nam",
+    "name": "Quần nam",
+    "synonyms": [
+      "Men's bottoms",
+      "pants"
+    ]
+  },
+  {
+    "slug": "quan-jeans-nam",
+    "parent": "quan-nam",
+    "name": "Quần jeans nam",
+    "synonyms": [
+      "Men's jeans",
+      "quần jean",
+      "quần bò",
+      "jeans"
+    ]
+  },
+  {
+    "slug": "quan-short-nam",
+    "parent": "quan-nam",
+    "name": "Quần short nam",
+    "synonyms": [
+      "Men's shorts",
+      "quần đùi",
+      "shorts"
+    ]
+  },
+  {
+    "slug": "quan-tay-nam",
+    "parent": "quan-nam",
+    "name": "Quần tây nam",
+    "synonyms": [
+      "Men's trousers",
+      "quần âu",
+      "quần công sở",
+      "dress pants"
+    ]
+  },
+  {
+    "slug": "giay-nam",
+    "parent": "thoi-trang-nam",
+    "name": "Giày dép nam",
+    "synonyms": [
+      "Men's shoes",
+      "giày"
+    ]
+  },
+  {
+    "slug": "giay-chay-bo-nam",
+    "parent": "giay-nam",
+    "name": "Giày chạy bộ nam",
+    "synonyms": [
+      "Men's running shoes",
+      "giày chạy",
+      "giày thể thao",
+      "running shoes"
+    ]
+  },
+  {
+    "slug": "giay-sneaker-nam",
+    "parent": "giay-nam",
+    "name": "Giày sneaker nam",
+    "synonyms": [
+      "Men's sneakers",
+      "giày thể thao",
+      "sneaker",
+      "trainers"
+    ]
+  },
+  {
+    "slug": "giay-da-nam",
+    "parent": "giay-nam",
+    "name": "Giày da nam",
+    "synonyms": [
+      "Men's leather shoes",
+      "giày tây",
+      "oxford",
+      "dress shoes"
+    ]
+  },
+  {
+    "slug": "dep-sandal-nam",
+    "parent": "giay-nam",
+    "name": "Dép sandal nam",
+    "synonyms": [
+      "Men's sandals",
+      "dép",
+      "sandal",
+      "dép xỏ ngón",
+      "flip flops"
+    ]
+  },
+  {
+    "slug": "thoi-trang-nu",
+    "parent": null,
+    "name": "Thời trang nữ",
+    "synonyms": [
+      "Women's fashion"
+    ]
+  },
+  {
+    "slug": "ao-nu",
+    "parent": "thoi-trang-nu",
+    "name": "Áo nữ",
+    "synonyms": [
+      "Women's tops"
+    ]
+  },
+  {
+    "slug": "ao-len-nu",
+    "parent": "ao-nu",
+    "name": "Áo len nữ",
+    "synonyms": [
+      "Women's sweaters",
+      "sweater",
+      "pullover",
+      "jumper",
+      "cardigan"
+    ]
+  },
+  {
+    "slug": "ao-co-lo-nu",
+    "parent": "ao-nu",
+    "name": "Áo cổ lọ nữ",
+    "synonyms": [
+      "Women's turtlenecks",
+      "áo len cổ lọ",
+      "cổ lọ",
+      "turtleneck",
+      "polo neck"
+    ]
+  },
+  {
+    "slug": "ao-khoac-phao-nu",
+    "parent": "ao-nu",
+    "name": "Áo khoác phao nữ",
+    "synonyms": [
+      "Women's puffer jackets",
+      "áo phao",
+      "áo khoác",
+      "jacket",
+      "coat",
+      "áo lông vũ"
+    ]
+  },
+  {
+    "slug": "ao-thun-nu",
+    "parent": "ao-nu",
+    "name": "Áo thun nữ",
+    "synonyms": [
+      "Women's t-shirts",
+      "áo phông",
+      "t-shirt",
+      "tee",
+      "croptop"
+    ]
+  },
+  {
+    "slug": "ao-so-mi-nu",
+    "parent": "ao-nu",
+    "name": "Áo sơ mi nữ",
+    "synonyms": [
+      "Women's shirts",
+      "sơ mi",
+      "shirt",
+      "blouse"
+    ]
+  },
+  {
+    "slug": "vay-dam-nu",
+    "parent": "thoi-trang-nu",
+    "name": "Váy đầm nữ",
+    "synonyms": [
+      "Women's dresses and skirts",
+      "váy"
+    ]
+  },
+  {
+    "slug": "dam-nu",
+    "parent": "vay-dam-nu",
+    "name": "Đầm nữ",
+    "synonyms": [
+      "Women's dresses",
+      "đầm",
+      "váy liền",
+      "dress"
+    ]
+  },
+  {
+    "slug": "chan-vay-nu",
+    "parent": "vay-dam-nu",
+    "name": "Chân váy nữ",
+    "synonyms": [
+      "Women's skirts",
+      "chân váy",
+      "skirt"
+    ]
+  },
+  {
+    "slug": "giay-nu",
+    "parent": "thoi-trang-nu",
+    "name": "Giày dép nữ",
+    "synonyms": [
+      "Women's shoes",
+      "giày"
+    ]
+  },
+  {
+    "slug": "giay-chay-bo-nu",
+    "parent": "giay-nu",
+    "name": "Giày chạy bộ nữ",
+    "synonyms": [
+      "Women's running shoes",
+      "giày chạy",
+      "giày thể thao",
+      "running shoes"
+    ]
+  },
+  {
+    "slug": "giay-sneaker-nu",
+    "parent": "giay-nu",
+    "name": "Giày sneaker nữ",
+    "synonyms": [
+      "Women's sneakers",
+      "giày thể thao",
+      "sneaker",
+      "trainers"
+    ]
+  },
+  {
+    "slug": "dep-sandal-nu",
+    "parent": "giay-nu",
+    "name": "Dép sandal nữ",
+    "synonyms": [
+      "Women's sandals",
+      "dép",
+      "sandal",
+      "flip flops"
+    ]
+  },
+  {
+    "slug": "tui-xach-nu",
+    "parent": "thoi-trang-nu",
+    "name": "Túi xách nữ",
+    "synonyms": [
+      "Women's bags",
+      "túi",
+      "bag",
+      "handbag"
+    ]
+  },
+  {
+    "slug": "tui-tote-nu",
+    "parent": "tui-xach-nu",
+    "name": "Túi tote nữ",
+    "synonyms": [
+      "Women's tote bags",
+      "túi tote",
+      "túi vải",
+      "tote bag"
+    ]
+  },
+  {
+    "slug": "tui-deo-cheo-nu",
+    "parent": "tui-xach-nu",
+    "name": "Túi đeo chéo nữ",
+    "synonyms": [
+      "Women's crossbody bags",
+      "túi đeo chéo",
+      "túi đeo vai",
+      "crossbody"
+    ]
+  },
+  {
+    "slug": "balo-nu",
+    "parent": "tui-xach-nu",
+    "name": "Balo nữ",
+    "synonyms": [
+      "Women's backpacks",
+      "balo",
+      "ba lô",
+      "backpack"
+    ]
+  },
+  {
+    "slug": "dien-tu",
+    "parent": null,
+    "name": "Điện tử",
+    "synonyms": [
+      "Electronics"
+    ]
+  },
+  {
+    "slug": "dien-thoai-may-tinh",
+    "parent": "dien-tu",
+    "name": "Điện thoại và máy tính",
+    "synonyms": [
+      "Phones and computers"
+    ]
+  },
+  {
+    "slug": "dien-thoai",
+    "parent": "dien-thoai-may-tinh",
+    "name": "Điện thoại",
+    "synonyms": [
+      "Smartphones",
+      "smartphone",
+      "phone",
+      "điện thoại di động"
+    ]
+  },
+  {
+    "slug": "laptop",
+    "parent": "dien-thoai-may-tinh",
+    "name": "Laptop",
+    "synonyms": [
+      "Laptops",
+      "máy tính xách tay",
+      "notebook"
+    ]
+  },
+  {
+    "slug": "am-thanh",
+    "parent": "dien-tu",
+    "name": "Âm thanh",
+    "synonyms": [
+      "Audio"
+    ]
+  },
+  {
+    "slug": "tai-nghe",
+    "parent": "am-thanh",
+    "name": "Tai nghe",
+    "synonyms": [
+      "Headphones",
+      "headphone",
+      "earphone",
+      "earbuds"
+    ]
+  },
+  {
+    "slug": "loa-bluetooth",
+    "parent": "am-thanh",
+    "name": "Loa bluetooth",
+    "synonyms": [
+      "Bluetooth speakers",
+      "loa",
+      "speaker"
+    ]
+  },
+  {
+    "slug": "gia-dung",
+    "parent": null,
+    "name": "Gia dụng",
+    "synonyms": [
+      "Home appliances"
+    ]
+  },
+  {
+    "slug": "do-dung-nha-bep",
+    "parent": "gia-dung",
+    "name": "Đồ dùng nhà bếp",
+    "synonyms": [
+      "Kitchenware"
+    ]
+  },
+  {
+    "slug": "noi-chien-khong-dau",
+    "parent": "do-dung-nha-bep",
+    "name": "Nồi chiên không dầu",
+    "synonyms": [
+      "Air fryers",
+      "nồi chiên",
+      "air fryer"
+    ]
+  },
+  {
+    "slug": "may-xay-sinh-to",
+    "parent": "do-dung-nha-bep",
+    "name": "Máy xay sinh tố",
+    "synonyms": [
+      "Blenders",
+      "máy xay",
+      "blender"
+    ]
+  },
+  {
+    "slug": "binh-giu-nhiet",
+    "parent": "do-dung-nha-bep",
+    "name": "Bình giữ nhiệt",
+    "synonyms": [
+      "Thermos flasks",
+      "bình nước",
+      "thermos",
+      "flask"
+    ]
+  },
+  {
+    "slug": "thiet-bi-ve-sinh",
+    "parent": "gia-dung",
+    "name": "Thiết bị vệ sinh",
+    "synonyms": [
+      "Cleaning devices"
+    ]
+  },
+  {
+    "slug": "may-hut-bui",
+    "parent": "thiet-bi-ve-sinh",
+    "name": "Máy hút bụi",
+    "synonyms": [
+      "Vacuum cleaners",
+      "robot hút bụi",
+      "vacuum"
+    ]
+  }
+]

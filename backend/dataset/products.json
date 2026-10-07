@@ -1,0 +1,2545 @@
+[
+  {
+    "id": "P000001",
+    "source": "seed",
+    "source_id": "1",
+    "source_url": null,
+    "name": "Áo len cổ tròn nam dệt kim",
+    "description": "Áo len dệt kim cổ tròn, bề mặt mềm, form vừa vặn.",
+    "brand": "Uniqlo",
+    "category": "ao-len-nam",
+    "price": 399000,
+    "original_price": 399000,
+    "stock": 45,
+    "rating": 4.5,
+    "rating_count": 544,
+    "sold_count": 2680,
+    "attributes": {
+      "color": [
+        "navy"
+      ],
+      "material": [
+        "wool",
+        "knit"
+      ],
+      "gender": [
+        "male"
+      ]
+    },
+    "tags": {
+      "season": [
+        "autumn",
+        "winter"
+      ],
+      "occasion": [
+        "casual",
+        "office"
+      ],
+      "style": [
+        "basic"
+      ],
+      "warmth": [
+        "high"
+      ]
+    },
+    "images": [
+      "images/P000001_0.jpg"
+    ]
+  },
+  {
+    "id": "P000002",
+    "source": "seed",
+    "source_id": "2",
+    "source_url": null,
+    "name": "Áo len nam họa tiết vintage",
+    "description": "Áo len họa tiết kẻ ngang phong cách retro.",
+    "brand": "Routine",
+    "category": "ao-len-nam",
+    "price": 459000,
+    "original_price": 459000,
+    "stock": 118,
+    "rating": 4.2,
+    "rating_count": 635,
+    "sold_count": 2575,
+    "attributes": {
+      "color": [
+        "brown"
+      ],
+      "material": [
+        "wool"
+      ],
+      "gender": [
+        "male"
+      ]
+    },
+    "tags": {
+      "season": [
+        "autumn",
+        "winter"
+      ],
+      "occasion": [
+        "casual"
+      ],
+      "style": [
+        "vintage"
+      ],
+      "warmth": [
+        "high"
+      ]
+    },
+    "images": [
+      "images/P000002_0.jpg"
+    ]
+  },
+  {
+    "id": "P000003",
+    "source": "seed",
+    "source_id": "3",
+    "source_url": null,
+    "name": "Men's Merino Wool Crewneck Sweater",
+    "description": "Lightweight merino sweater with a clean crew neck.",
+    "brand": "Uniqlo",
+    "category": "ao-len-nam",
+    "price": 599000,
+    "original_price": 749000,
+    "stock": 58,
+    "rating": 4.7,
+    "rating_count": 580,
+    "sold_count": 3480,
+    "attributes": {
+      "color": [
+        "gray"
+      ],
+      "material": [
+        "wool"
+      ],
+      "gender": [
+        "male"
+      ]
+    },
+    "tags": {
+      "season": [
+        "autumn",
+        "winter"
+      ],
+      "occasion": [
+        "office",
+        "casual"
+      ],
+      "style": [
+        "minimal"
+      ],
+      "warmth": [
+        "high"
+      ]
+    },
+    "images": [
+      "images/P000003_0.jpg"
+    ]
+  },
+  {
+    "id": "P000004",
+    "source": "seed",
+    "source_id": "4",
+    "source_url": null,
+    "name": "Áo len cổ lọ nam giữ nhiệt",
+    "description": "Áo cổ lọ ôm nhẹ, mặc lót hoặc mặc ngoài đều đẹp.",
+    "brand": "Uniqlo",
+    "category": "ao-co-lo-nam",
+    "price": 349000,
+    "original_price": 436000,
+    "stock": 104,
+    "rating": 4.7,
+    "rating_count": 789,
+    "sold_count": 3196,
+    "attributes": {
+      "color": [
+        "black"
+      ],
+      "material": [
+        "knit",
+        "wool"
+      ],
+      "gender": [
+        "male"
+      ]
+    },
+    "tags": {
+      "season": [
+        "winter"
+      ],
+      "occasion": [
+        "casual",
+        "office"
+      ],
+      "style": [
+        "minimal"
+      ],
+      "warmth": [
+        "high"
+      ]
+    },
+    "images": [
+      "images/P000004_0.jpg"
+    ]
+  },
+  {
+    "id": "P000005",
+    "source": "seed",
+    "source_id": "5",
+    "source_url": null,
+    "name": "Áo cổ lọ nam basic",
+    "description": "Áo cổ lọ cotton co giãn, màu be dễ phối đồ.",
+    "brand": "Coolmate",
+    "category": "ao-co-lo-nam",
+    "price": 249000,
+    "original_price": 311000,
+    "stock": 61,
+    "rating": 4.2,
+    "rating_count": 648,
+    "sold_count": 360,
+    "attributes": {
+      "color": [
+        "beige"
+      ],
+      "material": [
+        "cotton",
+        "knit"
+      ],
+      "gender": [
+        "male"
+      ]
+    },
+    "tags": {
+      "season": [
+        "autumn",
+        "winter"
+      ],
+      "occasion": [
+        "casual"
+      ],
+      "style": [
+        "basic"
+      ],
+      "warmth": [
+        "medium"
+      ]
+    },
+    "images": [
+      "images/P000005_0.jpg"
+    ]
+  },
+  {
+    "id": "P000006",
+    "source": "seed",
+    "source_id": "6",
+    "source_url": null,
+    "name": "Áo khoác phao nam siêu nhẹ",
+    "description": "Áo phao lông vũ siêu nhẹ, gấp gọn bỏ túi.",
+    "brand": "Uniqlo",
+    "category": "ao-khoac-phao-nam",
+    "price": 899000,
+    "original_price": 899000,
+    "stock": 41,
+    "rating": 4.7,
+    "rating_count": 480,
+    "sold_count": 77,
+    "attributes": {
+      "color": [
+        "black"
+      ],
+      "material": [
+        "down",
+        "nylon"
+      ],
+      "gender": [
+        "male"
+      ]
+    },
+    "tags": {
+      "season": [
+        "winter"
+      ],
+      "occasion": [
+        "casual",
+        "travel"
+      ],
+      "style": [
+        "basic"
+      ],
+      "warmth": [
+        "high"
+      ]
+    },
+    "images": [
+      "images/P000006_0.jpg"
+    ]
+  },
+  {
+    "id": "P000007",
+    "source": "seed",
+    "source_id": "7",
+    "source_url": null,
+    "name": "Áo phao nam trần bông dáng ngắn",
+    "description": "Áo phao chống nước nhẹ, mũ liền, dùng cho thời tiết rất lạnh.",
+    "brand": "The North Face",
+    "category": "ao-khoac-phao-nam",
+    "price": 2890000,
+    "original_price": 3612000,
+    "stock": 67,
+    "rating": 4.6,
+    "rating_count": 235,
+    "sold_count": 1657,
+    "attributes": {
+      "color": [
+        "navy"
+      ],
+      "material": [
+        "polyester",
+        "down"
+      ],
+      "gender": [
+        "male"
+      ]
+    },
+    "tags": {
+      "season": [
+        "winter"
+      ],
+      "occasion": [
+        "travel",
+        "casual"
+      ],
+      "style": [
+        "streetwear"
+      ],
+      "warmth": [
+        "high"
+      ]
+    },
+    "images": [
+      "images/P000007_0.jpg"
+    ]
+  },
+  {
+    "id": "P000008",
+    "source": "seed",
+    "source_id": "8",
+    "source_url": null,
+    "name": "Áo thun cotton nam basic cổ tròn",
+    "description": "Áo thun cotton 100% thấm hút mồ hôi.",
+    "brand": "Coolmate",
+    "category": "ao-thun-nam",
+    "price": 149000,
+    "original_price": 171000,
+    "stock": 49,
+    "rating": 4.9,
+    "rating_count": 385,
+    "sold_count": 3327,
+    "attributes": {
+      "color": [
+        "white"
+      ],
+      "material": [
+        "cotton"
+      ],
+      "gender": [
+        "male"
+      ]
+    },
+    "tags": {
+      "season": [
+        "summer",
+        "all_season"
+      ],
+      "occasion": [
+        "casual"
+      ],
+      "style": [
+        "basic"
+      ],
+      "warmth": [
+        "low"
+      ]
+    },
+    "images": [
+      "images/P000008_0.jpg"
+    ]
+  },
+  {
+    "id": "P000009",
+    "source": "seed",
+    "source_id": "9",
+    "source_url": null,
+    "name": "Áo thun nam oversize in chữ",
+    "description": "Áo thun form rộng in chữ ngực.",
+    "brand": "Routine",
+    "category": "ao-thun-nam",
+    "price": 199000,
+    "original_price": 229000,
+    "stock": 100,
+    "rating": 4.5,
+    "rating_count": 98,
+    "sold_count": 2991,
+    "attributes": {
+      "color": [
+        "black"
+      ],
+      "material": [
+        "cotton"
+      ],
+      "gender": [
+        "male"
+      ]
+    },
+    "tags": {
+      "season": [
+        "summer"
+      ],
+      "occasion": [
+        "casual"
+      ],
+      "style": [
+        "streetwear"
+      ],
+      "warmth": [
+        "low"
+      ]
+    },
+    "images": [
+      "images/P000009_0.jpg"
+    ]
+  },
+  {
+    "id": "P000010",
+    "source": "seed",
+    "source_id": "10",
+    "source_url": null,
+    "name": "Áo polo nam cá sấu",
+    "description": "Áo polo vải cá sấu thoáng khí.",
+    "brand": "Polo Club",
+    "category": "ao-thun-nam",
+    "price": 329000,
+    "original_price": 378000,
+    "stock": 16,
+    "rating": 4.5,
+    "rating_count": 319,
+    "sold_count": 1208,
+    "attributes": {
+      "color": [
+        "blue"
+      ],
+      "material": [
+        "cotton"
+      ],
+      "gender": [
+        "male"
+      ]
+    },
+    "tags": {
+      "season": [
+        "summer"
+      ],
+      "occasion": [
+        "office",
+        "casual"
+      ],
+      "style": [
+        "elegant"
+      ],
+      "warmth": [
+        "low"
+      ]
+    },
+    "images": [
+      "images/P000010_0.jpg"
+    ]
+  },
+  {
+    "id": "P000011",
+    "source": "seed",
+    "source_id": "11",
+    "source_url": null,
+    "name": "Áo sơ mi nam trắng dài tay công sở",
+    "description": "Sơ mi trắng dài tay, cổ đứng, ít nhăn.",
+    "brand": "Việt Tiến",
+    "category": "ao-so-mi-nam",
+    "price": 420000,
+    "original_price": 483000,
+    "stock": 23,
+    "rating": 4.8,
+    "rating_count": 740,
+    "sold_count": 2964,
+    "attributes": {
+      "color": [
+        "white"
+      ],
+      "material": [
+        "cotton"
+      ],
+      "gender": [
+        "male"
+      ]
+    },
+    "tags": {
+      "season": [
+        "all_season"
+      ],
+      "occasion": [
+        "office",
+        "formal"
+      ],
+      "style": [
+        "elegant"
+      ],
+      "warmth": [
+        "low"
+      ]
+    },
+    "images": [
+      "images/P000011_0.jpg"
+    ]
+  },
+  {
+    "id": "P000012",
+    "source": "seed",
+    "source_id": "12",
+    "source_url": null,
+    "name": "Áo sơ mi linen nam",
+    "description": "Sơ mi vải đũi mỏng nhẹ, mặc mát.",
+    "brand": "Coolmate",
+    "category": "ao-so-mi-nam",
+    "price": 299000,
+    "original_price": 374000,
+    "stock": 44,
+    "rating": 4.0,
+    "rating_count": 747,
+    "sold_count": 1540,
+    "attributes": {
+      "color": [
+        "beige"
+      ],
+      "material": [
+        "linen"
+      ],
+      "gender": [
+        "male"
+      ]
+    },
+    "tags": {
+      "season": [
+        "summer"
+      ],
+      "occasion": [
+        "beach",
+        "travel",
+        "casual"
+      ],
+      "style": [
+        "minimal"
+      ],
+      "warmth": [
+        "low"
+      ]
+    },
+    "images": [
+      "images/P000012_0.jpg"
+    ]
+  },
+  {
+    "id": "P000013",
+    "source": "seed",
+    "source_id": "13",
+    "source_url": null,
+    "name": "Áo hoodie nỉ nam màu be",
+    "description": "Hoodie nỉ bông có mũ, túi kangaroo.",
+    "brand": "Routine",
+    "category": "ao-hoodie-nam",
+    "price": 399000,
+    "original_price": 459000,
+    "stock": 64,
+    "rating": 4.4,
+    "rating_count": 428,
+    "sold_count": 3679,
+    "attributes": {
+      "color": [
+        "beige"
+      ],
+      "material": [
+        "fleece",
+        "cotton"
+      ],
+      "gender": [
+        "male"
+      ]
+    },
+    "tags": {
+      "season": [
+        "autumn",
+        "winter"
+      ],
+      "occasion": [
+        "casual"
+      ],
+      "style": [
+        "streetwear"
+      ],
+      "warmth": [
+        "medium"
+      ]
+    },
+    "images": [
+      "images/P000013_0.jpg"
+    ]
+  },
+  {
+    "id": "P000014",
+    "source": "seed",
+    "source_id": "14",
+    "source_url": null,
+    "name": "Hoodie nỉ bông unisex",
+    "description": "Hoodie nỉ dày dặn, lót bông mềm.",
+    "brand": "Routine",
+    "category": "ao-hoodie-nam",
+    "price": 429000,
+    "original_price": 536000,
+    "stock": 75,
+    "rating": 4.4,
+    "rating_count": 139,
+    "sold_count": 1772,
+    "attributes": {
+      "color": [
+        "gray"
+      ],
+      "material": [
+        "fleece"
+      ],
+      "gender": [
+        "unisex"
+      ]
+    },
+    "tags": {
+      "season": [
+        "winter"
+      ],
+      "occasion": [
+        "casual"
+      ],
+      "style": [
+        "streetwear"
+      ],
+      "warmth": [
+        "high"
+      ]
+    },
+    "images": [
+      "images/P000014_0.jpg"
+    ]
+  },
+  {
+    "id": "P000015",
+    "source": "seed",
+    "source_id": "15",
+    "source_url": null,
+    "name": "Quần jeans nam slim fit xanh",
+    "description": "Quần jeans ống côn, co giãn nhẹ.",
+    "brand": "Levi's",
+    "category": "quan-jeans-nam",
+    "price": 790000,
+    "original_price": 988000,
+    "stock": 107,
+    "rating": 4.7,
+    "rating_count": 634,
+    "sold_count": 3615,
+    "attributes": {
+      "color": [
+        "blue"
+      ],
+      "material": [
+        "denim"
+      ],
+      "gender": [
+        "male"
+      ]
+    },
+    "tags": {
+      "season": [
+        "all_season"
+      ],
+      "occasion": [
+        "casual"
+      ],
+      "style": [
+        "basic"
+      ],
+      "warmth": [
+        "medium"
+      ]
+    },
+    "images": [
+      "images/P000015_0.jpg"
+    ]
+  },
+  {
+    "id": "P000016",
+    "source": "seed",
+    "source_id": "16",
+    "source_url": null,
+    "name": "Quần jean nam đen rách gối",
+    "description": "Quần jean đen wash, rách gối.",
+    "brand": "Routine",
+    "category": "quan-jeans-nam",
+    "price": 520000,
+    "original_price": 598000,
+    "stock": 55,
+    "rating": 4.8,
+    "rating_count": 284,
+    "sold_count": 3488,
+    "attributes": {
+      "color": [
+        "black"
+      ],
+      "material": [
+        "denim"
+      ],
+      "gender": [
+        "male"
+      ]
+    },
+    "tags": {
+      "season": [
+        "all_season"
+      ],
+      "occasion": [
+        "casual"
+      ],
+      "style": [
+        "streetwear"
+      ],
+      "warmth": [
+        "medium"
+      ]
+    },
+    "images": [
+      "images/P000016_0.jpg"
+    ]
+  },
+  {
+    "id": "P000017",
+    "source": "seed",
+    "source_id": "17",
+    "source_url": null,
+    "name": "Quần short kaki nam",
+    "description": "Quần short kaki ngang gối.",
+    "brand": "Coolmate",
+    "category": "quan-short-nam",
+    "price": 249000,
+    "original_price": 286000,
+    "stock": 77,
+    "rating": 4.8,
+    "rating_count": 510,
+    "sold_count": 2131,
+    "attributes": {
+      "color": [
+        "beige"
+      ],
+      "material": [
+        "cotton"
+      ],
+      "gender": [
+        "male"
+      ]
+    },
+    "tags": {
+      "season": [
+        "summer"
+      ],
+      "occasion": [
+        "beach",
+        "casual",
+        "travel"
+      ],
+      "style": [
+        "basic"
+      ],
+      "warmth": [
+        "low"
+      ]
+    },
+    "images": [
+      "images/P000017_0.jpg"
+    ]
+  },
+  {
+    "id": "P000018",
+    "source": "seed",
+    "source_id": "18",
+    "source_url": null,
+    "name": "Quần short thể thao nam",
+    "description": "Quần short dệt thoáng khí, có túi khóa kéo.",
+    "brand": "Nike",
+    "category": "quan-short-nam",
+    "price": 390000,
+    "original_price": 488000,
+    "stock": 108,
+    "rating": 4.0,
+    "rating_count": 249,
+    "sold_count": 3166,
+    "attributes": {
+      "color": [
+        "black"
+      ],
+      "material": [
+        "polyester"
+      ],
+      "gender": [
+        "male"
+      ]
+    },
+    "tags": {
+      "season": [
+        "summer"
+      ],
+      "occasion": [
+        "sport"
+      ],
+      "style": [
+        "sporty"
+      ],
+      "warmth": [
+        "low"
+      ]
+    },
+    "images": [
+      "images/P000018_0.jpg"
+    ]
+  },
+  {
+    "id": "P000019",
+    "source": "seed",
+    "source_id": "19",
+    "source_url": null,
+    "name": "Quần tây nam công sở",
+    "description": "Quần tây ống đứng, ít nhăn.",
+    "brand": "Việt Tiến",
+    "category": "quan-tay-nam",
+    "price": 450000,
+    "original_price": 450000,
+    "stock": 109,
+    "rating": 4.0,
+    "rating_count": 741,
+    "sold_count": 2173,
+    "attributes": {
+      "color": [
+        "gray"
+      ],
+      "material": [
+        "polyester"
+      ],
+      "gender": [
+        "male"
+      ]
+    },
+    "tags": {
+      "season": [
+        "all_season"
+      ],
+      "occasion": [
+        "office",
+        "formal"
+      ],
+      "style": [
+        "elegant"
+      ],
+      "warmth": [
+        "medium"
+      ]
+    },
+    "images": [
+      "images/P000019_0.jpg"
+    ]
+  },
+  {
+    "id": "P000020",
+    "source": "seed",
+    "source_id": "20",
+    "source_url": null,
+    "name": "Giày chạy bộ Nike Air Zoom Pegasus 40",
+    "description": "Giày chạy bộ êm, đế Air Zoom phản hồi nhanh.",
+    "brand": "Nike",
+    "category": "giay-chay-bo-nam",
+    "price": 3200000,
+    "original_price": 4000000,
+    "stock": 18,
+    "rating": 4.6,
+    "rating_count": 459,
+    "sold_count": 1955,
+    "attributes": {
+      "color": [
+        "black",
+        "white"
+      ],
+      "material": [
+        "nylon",
+        "rubber"
+      ],
+      "gender": [
+        "male"
+      ]
+    },
+    "tags": {
+      "season": [
+        "all_season"
+      ],
+      "occasion": [
+        "sport"
+      ],
+      "style": [
+        "sporty"
+      ],
+      "warmth": [
+        "low"
+      ]
+    },
+    "images": [
+      "images/P000020_0.jpg"
+    ]
+  },
+  {
+    "id": "P000021",
+    "source": "seed",
+    "source_id": "21",
+    "source_url": null,
+    "name": "Nike Revolution 6 Running Shoes",
+    "description": "Entry-level running shoes with a soft foam midsole.",
+    "brand": "Nike",
+    "category": "giay-chay-bo-nam",
+    "price": 1590000,
+    "original_price": 1590000,
+    "stock": 66,
+    "rating": 4.8,
+    "rating_count": 890,
+    "sold_count": 3658,
+    "attributes": {
+      "color": [
+        "black"
+      ],
+      "material": [
+        "nylon",
+        "rubber"
+      ],
+      "gender": [
+        "male"
+      ]
+    },
+    "tags": {
+      "season": [
+        "all_season"
+      ],
+      "occasion": [
+        "sport"
+      ],
+      "style": [
+        "sporty"
+      ],
+      "warmth": [
+        "low"
+      ]
+    },
+    "images": [
+      "images/P000021_0.jpg"
+    ]
+  },
+  {
+    "id": "P000022",
+    "source": "seed",
+    "source_id": "22",
+    "source_url": null,
+    "name": "Giày chạy bộ Asics Gel-Contend",
+    "description": "Giày chạy bộ đệm gel giảm chấn.",
+    "brand": "Asics",
+    "category": "giay-chay-bo-nam",
+    "price": 1890000,
+    "original_price": 1890000,
+    "stock": 85,
+    "rating": 4.6,
+    "rating_count": 710,
+    "sold_count": 1952,
+    "attributes": {
+      "color": [
+        "blue"
+      ],
+      "material": [
+        "nylon",
+        "rubber"
+      ],
+      "gender": [
+        "male"
+      ]
+    },
+    "tags": {
+      "season": [
+        "all_season"
+      ],
+      "occasion": [
+        "sport"
+      ],
+      "style": [
+        "sporty"
+      ],
+      "warmth": [
+        "low"
+      ]
+    },
+    "images": [
+      "images/P000022_0.jpg"
+    ]
+  },
+  {
+    "id": "P000023",
+    "source": "seed",
+    "source_id": "23",
+    "source_url": null,
+    "name": "Giày sneaker trắng Converse Chuck 70",
+    "description": "Sneaker cổ thấp vải canvas, phong cách cổ điển.",
+    "brand": "Converse",
+    "category": "giay-sneaker-nam",
+    "price": 1700000,
+    "original_price": 2125000,
+    "stock": 74,
+    "rating": 4.2,
+    "rating_count": 431,
+    "sold_count": 2773,
+    "attributes": {
+      "color": [
+        "white"
+      ],
+      "material": [
+        "canvas",
+        "rubber"
+      ],
+      "gender": [
+        "male"
+      ]
+    },
+    "tags": {
+      "season": [
+        "all_season"
+      ],
+      "occasion": [
+        "casual"
+      ],
+      "style": [
+        "vintage"
+      ],
+      "warmth": [
+        "low"
+      ]
+    },
+    "images": [
+      "images/P000023_0.jpg"
+    ]
+  },
+  {
+    "id": "P000024",
+    "source": "seed",
+    "source_id": "24",
+    "source_url": null,
+    "name": "Sneaker da nam Adidas Stan Smith",
+    "description": "Sneaker da trắng tối giản.",
+    "brand": "Adidas",
+    "category": "giay-sneaker-nam",
+    "price": 2300000,
+    "original_price": 2645000,
+    "stock": 0,
+    "rating": 4.5,
+    "rating_count": 682,
+    "sold_count": 2085,
+    "attributes": {
+      "color": [
+        "white"
+      ],
+      "material": [
+        "leather",
+        "rubber"
+      ],
+      "gender": [
+        "male"
+      ]
+    },
+    "tags": {
+      "season": [
+        "all_season"
+      ],
+      "occasion": [
+        "casual"
+      ],
+      "style": [
+        "minimal"
+      ],
+      "warmth": [
+        "low"
+      ]
+    },
+    "images": [
+      "images/P000024_0.jpg"
+    ]
+  },
+  {
+    "id": "P000025",
+    "source": "seed",
+    "source_id": "25",
+    "source_url": null,
+    "name": "Giày da nam công sở Oxford",
+    "description": "Giày Oxford da bò thật, đế khâu.",
+    "brand": "Vento",
+    "category": "giay-da-nam",
+    "price": 1200000,
+    "original_price": 1500000,
+    "stock": 66,
+    "rating": 4.7,
+    "rating_count": 431,
+    "sold_count": 1803,
+    "attributes": {
+      "color": [
+        "brown"
+      ],
+      "material": [
+        "leather"
+      ],
+      "gender": [
+        "male"
+      ]
+    },
+    "tags": {
+      "season": [
+        "all_season"
+      ],
+      "occasion": [
+        "office",
+        "formal"
+      ],
+      "style": [
+        "elegant"
+      ],
+      "warmth": [
+        "low"
+      ]
+    },
+    "images": [
+      "images/P000025_0.jpg"
+    ]
+  },
+  {
+    "id": "P000026",
+    "source": "seed",
+    "source_id": "26",
+    "source_url": null,
+    "name": "Dép xỏ ngón nam đi biển",
+    "description": "Dép cao su nhẹ, chống trượt, đi biển hoặc đi trong nhà.",
+    "brand": "Biti's",
+    "category": "dep-sandal-nam",
+    "price": 190000,
+    "original_price": 190000,
+    "stock": 42,
+    "rating": 4.7,
+    "rating_count": 29,
+    "sold_count": 165,
+    "attributes": {
+      "color": [
+        "blue"
+      ],
+      "material": [
+        "rubber"
+      ],
+      "gender": [
+        "male"
+      ]
+    },
+    "tags": {
+      "season": [
+        "summer"
+      ],
+      "occasion": [
+        "beach",
+        "home"
+      ],
+      "style": [
+        "basic"
+      ],
+      "warmth": [
+        "low"
+      ]
+    },
+    "images": [
+      "images/P000026_0.jpg"
+    ]
+  },
+  {
+    "id": "P000027",
+    "source": "seed",
+    "source_id": "27",
+    "source_url": null,
+    "name": "Áo len nữ cổ tròn màu hồng",
+    "description": "Áo len mềm màu hồng pastel.",
+    "brand": "Routine",
+    "category": "ao-len-nu",
+    "price": 359000,
+    "original_price": 359000,
+    "stock": 88,
+    "rating": 4.8,
+    "rating_count": 489,
+    "sold_count": 3321,
+    "attributes": {
+      "color": [
+        "pink"
+      ],
+      "material": [
+        "wool",
+        "knit"
+      ],
+      "gender": [
+        "female"
+      ]
+    },
+    "tags": {
+      "season": [
+        "autumn",
+        "winter"
+      ],
+      "occasion": [
+        "casual"
+      ],
+      "style": [
+        "elegant"
+      ],
+      "warmth": [
+        "high"
+      ]
+    },
+    "images": [
+      "images/P000027_0.jpg"
+    ]
+  },
+  {
+    "id": "P000028",
+    "source": "seed",
+    "source_id": "28",
+    "source_url": null,
+    "name": "Cardigan len nữ dáng rộng",
+    "description": "Cardigan khoác ngoài cài cúc.",
+    "brand": "Mango",
+    "category": "ao-len-nu",
+    "price": 429000,
+    "original_price": 536000,
+    "stock": 67,
+    "rating": 4.3,
+    "rating_count": 224,
+    "sold_count": 1095,
+    "attributes": {
+      "color": [
+        "beige"
+      ],
+      "material": [
+        "wool"
+      ],
+      "gender": [
+        "female"
+      ]
+    },
+    "tags": {
+      "season": [
+        "autumn",
+        "winter"
+      ],
+      "occasion": [
+        "casual",
+        "office"
+      ],
+      "style": [
+        "minimal"
+      ],
+      "warmth": [
+        "high"
+      ]
+    },
+    "images": [
+      "images/P000028_0.jpg"
+    ]
+  },
+  {
+    "id": "P000029",
+    "source": "seed",
+    "source_id": "29",
+    "source_url": null,
+    "name": "Áo cổ lọ nữ dệt kim",
+    "description": "Áo cổ lọ ôm dáng, co giãn tốt.",
+    "brand": "Uniqlo",
+    "category": "ao-co-lo-nu",
+    "price": 329000,
+    "original_price": 411000,
+    "stock": 67,
+    "rating": 4.4,
+    "rating_count": 805,
+    "sold_count": 3414,
+    "attributes": {
+      "color": [
+        "black"
+      ],
+      "material": [
+        "knit"
+      ],
+      "gender": [
+        "female"
+      ]
+    },
+    "tags": {
+      "season": [
+        "winter"
+      ],
+      "occasion": [
+        "casual",
+        "office"
+      ],
+      "style": [
+        "minimal"
+      ],
+      "warmth": [
+        "high"
+      ]
+    },
+    "images": [
+      "images/P000029_0.jpg"
+    ]
+  },
+  {
+    "id": "P000030",
+    "source": "seed",
+    "source_id": "30",
+    "source_url": null,
+    "name": "Áo len cổ lọ nữ màu đỏ",
+    "description": "Áo len cổ lọ đỏ, hợp dịp lễ.",
+    "brand": "Mango",
+    "category": "ao-co-lo-nu",
+    "price": 379000,
+    "original_price": 436000,
+    "stock": 108,
+    "rating": 4.4,
+    "rating_count": 699,
+    "sold_count": 3746,
+    "attributes": {
+      "color": [
+        "red"
+      ],
+      "material": [
+        "wool"
+      ],
+      "gender": [
+        "female"
+      ]
+    },
+    "tags": {
+      "season": [
+        "winter"
+      ],
+      "occasion": [
+        "party",
+        "casual"
+      ],
+      "style": [
+        "elegant"
+      ],
+      "warmth": [
+        "high"
+      ]
+    },
+    "images": [
+      "images/P000030_0.jpg"
+    ]
+  },
+  {
+    "id": "P000031",
+    "source": "seed",
+    "source_id": "31",
+    "source_url": null,
+    "name": "Áo phao nữ dáng ngắn",
+    "description": "Áo phao ngắn trần bông nhẹ.",
+    "brand": "Uniqlo",
+    "category": "ao-khoac-phao-nu",
+    "price": 1100000,
+    "original_price": 1100000,
+    "stock": 111,
+    "rating": 4.3,
+    "rating_count": 488,
+    "sold_count": 3785,
+    "attributes": {
+      "color": [
+        "white"
+      ],
+      "material": [
+        "down",
+        "nylon"
+      ],
+      "gender": [
+        "female"
+      ]
+    },
+    "tags": {
+      "season": [
+        "winter"
+      ],
+      "occasion": [
+        "casual",
+        "travel"
+      ],
+      "style": [
+        "basic"
+      ],
+      "warmth": [
+        "high"
+      ]
+    },
+    "images": [
+      "images/P000031_0.jpg"
+    ]
+  },
+  {
+    "id": "P000032",
+    "source": "seed",
+    "source_id": "32",
+    "source_url": null,
+    "name": "Áo khoác phao nữ dáng dài",
+    "description": "Áo phao dáng dài có mũ lông.",
+    "brand": "Zara",
+    "category": "ao-khoac-phao-nu",
+    "price": 1400000,
+    "original_price": 1400000,
+    "stock": 61,
+    "rating": 4.6,
+    "rating_count": 823,
+    "sold_count": 3971,
+    "attributes": {
+      "color": [
+        "black"
+      ],
+      "material": [
+        "polyester",
+        "down"
+      ],
+      "gender": [
+        "female"
+      ]
+    },
+    "tags": {
+      "season": [
+        "winter"
+      ],
+      "occasion": [
+        "casual",
+        "travel"
+      ],
+      "style": [
+        "elegant"
+      ],
+      "warmth": [
+        "high"
+      ]
+    },
+    "images": [
+      "images/P000032_0.jpg"
+    ]
+  },
+  {
+    "id": "P000033",
+    "source": "seed",
+    "source_id": "33",
+    "source_url": null,
+    "name": "Áo thun nữ croptop",
+    "description": "Áo croptop cotton co giãn.",
+    "brand": "Zara",
+    "category": "ao-thun-nu",
+    "price": 179000,
+    "original_price": 224000,
+    "stock": 38,
+    "rating": 4.4,
+    "rating_count": 207,
+    "sold_count": 3991,
+    "attributes": {
+      "color": [
+        "white"
+      ],
+      "material": [
+        "cotton"
+      ],
+      "gender": [
+        "female"
+      ]
+    },
+    "tags": {
+      "season": [
+        "summer"
+      ],
+      "occasion": [
+        "casual"
+      ],
+      "style": [
+        "streetwear"
+      ],
+      "warmth": [
+        "low"
+      ]
+    },
+    "images": [
+      "images/P000033_0.jpg"
+    ]
+  },
+  {
+    "id": "P000034",
+    "source": "seed",
+    "source_id": "34",
+    "source_url": null,
+    "name": "Áo thun nữ babytee hồng",
+    "description": "Áo babytee ôm nhẹ.",
+    "brand": "Coolmate",
+    "category": "ao-thun-nu",
+    "price": 159000,
+    "original_price": 183000,
+    "stock": 112,
+    "rating": 4.7,
+    "rating_count": 85,
+    "sold_count": 2686,
+    "attributes": {
+      "color": [
+        "pink"
+      ],
+      "material": [
+        "cotton"
+      ],
+      "gender": [
+        "female"
+      ]
+    },
+    "tags": {
+      "season": [
+        "summer"
+      ],
+      "occasion": [
+        "casual"
+      ],
+      "style": [
+        "basic"
+      ],
+      "warmth": [
+        "low"
+      ]
+    },
+    "images": [
+      "images/P000034_0.jpg"
+    ]
+  },
+  {
+    "id": "P000035",
+    "source": "seed",
+    "source_id": "35",
+    "source_url": null,
+    "name": "Áo sơ mi nữ lụa",
+    "description": "Sơ mi lụa mềm rủ, tay dài.",
+    "brand": "Mango",
+    "category": "ao-so-mi-nu",
+    "price": 520000,
+    "original_price": 598000,
+    "stock": 120,
+    "rating": 4.4,
+    "rating_count": 118,
+    "sold_count": 827,
+    "attributes": {
+      "color": [
+        "beige"
+      ],
+      "material": [
+        "silk"
+      ],
+      "gender": [
+        "female"
+      ]
+    },
+    "tags": {
+      "season": [
+        "spring",
+        "autumn"
+      ],
+      "occasion": [
+        "office",
+        "formal"
+      ],
+      "style": [
+        "elegant"
+      ],
+      "warmth": [
+        "low"
+      ]
+    },
+    "images": [
+      "images/P000035_0.jpg"
+    ]
+  },
+  {
+    "id": "P000036",
+    "source": "seed",
+    "source_id": "36",
+    "source_url": null,
+    "name": "Đầm maxi hoa đi biển",
+    "description": "Đầm maxi họa tiết hoa nhiều màu, chất voan nhẹ.",
+    "brand": "Zara",
+    "category": "dam-nu",
+    "price": 590000,
+    "original_price": 738000,
+    "stock": 114,
+    "rating": 4.4,
+    "rating_count": 480,
+    "sold_count": 3783,
+    "attributes": {
+      "color": [
+        "multicolor"
+      ],
+      "material": [
+        "polyester"
+      ],
+      "gender": [
+        "female"
+      ]
+    },
+    "tags": {
+      "season": [
+        "summer"
+      ],
+      "occasion": [
+        "beach",
+        "travel"
+      ],
+      "style": [
+        "elegant"
+      ],
+      "warmth": [
+        "low"
+      ]
+    },
+    "images": [
+      "images/P000036_0.jpg"
+    ]
+  },
+  {
+    "id": "P000037",
+    "source": "seed",
+    "source_id": "37",
+    "source_url": null,
+    "name": "Đầm công sở nữ dáng chữ A",
+    "description": "Đầm đen tay lỡ dáng chữ A.",
+    "brand": "Mango",
+    "category": "dam-nu",
+    "price": 650000,
+    "original_price": 650000,
+    "stock": 16,
+    "rating": 4.0,
+    "rating_count": 614,
+    "sold_count": 2268,
+    "attributes": {
+      "color": [
+        "black"
+      ],
+      "material": [
+        "polyester"
+      ],
+      "gender": [
+        "female"
+      ]
+    },
+    "tags": {
+      "season": [
+        "all_season"
+      ],
+      "occasion": [
+        "office",
+        "formal",
+        "party"
+      ],
+      "style": [
+        "elegant"
+      ],
+      "warmth": [
+        "medium"
+      ]
+    },
+    "images": [
+      "images/P000037_0.jpg"
+    ]
+  },
+  {
+    "id": "P000038",
+    "source": "seed",
+    "source_id": "38",
+    "source_url": null,
+    "name": "Chân váy chữ A nữ",
+    "description": "Chân váy xếp ly dài qua gối.",
+    "brand": "Zara",
+    "category": "chan-vay-nu",
+    "price": 329000,
+    "original_price": 329000,
+    "stock": 83,
+    "rating": 4.7,
+    "rating_count": 273,
+    "sold_count": 524,
+    "attributes": {
+      "color": [
+        "gray"
+      ],
+      "material": [
+        "wool"
+      ],
+      "gender": [
+        "female"
+      ]
+    },
+    "tags": {
+      "season": [
+        "autumn",
+        "winter"
+      ],
+      "occasion": [
+        "office",
+        "casual"
+      ],
+      "style": [
+        "minimal"
+      ],
+      "warmth": [
+        "medium"
+      ]
+    },
+    "images": [
+      "images/P000038_0.jpg"
+    ]
+  },
+  {
+    "id": "P000039",
+    "source": "seed",
+    "source_id": "39",
+    "source_url": null,
+    "name": "Giày chạy bộ nữ Asics Gel-Excite",
+    "description": "Giày chạy bộ nhẹ cho nữ.",
+    "brand": "Asics",
+    "category": "giay-chay-bo-nu",
+    "price": 1790000,
+    "original_price": 2238000,
+    "stock": 10,
+    "rating": 4.7,
+    "rating_count": 294,
+    "sold_count": 2768,
+    "attributes": {
+      "color": [
+        "pink"
+      ],
+      "material": [
+        "nylon",
+        "rubber"
+      ],
+      "gender": [
+        "female"
+      ]
+    },
+    "tags": {
+      "season": [
+        "all_season"
+      ],
+      "occasion": [
+        "sport"
+      ],
+      "style": [
+        "sporty"
+      ],
+      "warmth": [
+        "low"
+      ]
+    },
+    "images": [
+      "images/P000039_0.jpg"
+    ]
+  },
+  {
+    "id": "P000040",
+    "source": "seed",
+    "source_id": "40",
+    "source_url": null,
+    "name": "Sneaker nữ trắng đế platform",
+    "description": "Sneaker đế dày tăng chiều cao.",
+    "brand": "Vans",
+    "category": "giay-sneaker-nu",
+    "price": 890000,
+    "original_price": 1112000,
+    "stock": 50,
+    "rating": 4.1,
+    "rating_count": 340,
+    "sold_count": 2752,
+    "attributes": {
+      "color": [
+        "white"
+      ],
+      "material": [
+        "canvas",
+        "rubber"
+      ],
+      "gender": [
+        "female"
+      ]
+    },
+    "tags": {
+      "season": [
+        "all_season"
+      ],
+      "occasion": [
+        "casual"
+      ],
+      "style": [
+        "streetwear"
+      ],
+      "warmth": [
+        "low"
+      ]
+    },
+    "images": [
+      "images/P000040_0.jpg"
+    ]
+  },
+  {
+    "id": "P000041",
+    "source": "seed",
+    "source_id": "41",
+    "source_url": null,
+    "name": "Sandal nữ quai ngang đi biển",
+    "description": "Sandal quai ngang đế êm.",
+    "brand": "Biti's",
+    "category": "dep-sandal-nu",
+    "price": 250000,
+    "original_price": 312000,
+    "stock": 78,
+    "rating": 4.7,
+    "rating_count": 523,
+    "sold_count": 2855,
+    "attributes": {
+      "color": [
+        "beige"
+      ],
+      "material": [
+        "synthetic_leather",
+        "rubber"
+      ],
+      "gender": [
+        "female"
+      ]
+    },
+    "tags": {
+      "season": [
+        "summer"
+      ],
+      "occasion": [
+        "beach",
+        "casual"
+      ],
+      "style": [
+        "basic"
+      ],
+      "warmth": [
+        "low"
+      ]
+    },
+    "images": [
+      "images/P000041_0.jpg"
+    ]
+  },
+  {
+    "id": "P000042",
+    "source": "seed",
+    "source_id": "42",
+    "source_url": null,
+    "name": "Túi tote vải canvas",
+    "description": "Túi tote vải bạt dày, đựng vừa laptop mỏng.",
+    "brand": "Routine",
+    "category": "tui-tote-nu",
+    "price": 220000,
+    "original_price": 275000,
+    "stock": 22,
+    "rating": 4.5,
+    "rating_count": 504,
+    "sold_count": 2438,
+    "attributes": {
+      "color": [
+        "beige"
+      ],
+      "material": [
+        "canvas"
+      ],
+      "gender": [
+        "female"
+      ]
+    },
+    "tags": {
+      "season": [
+        "summer"
+      ],
+      "occasion": [
+        "casual",
+        "beach"
+      ],
+      "style": [
+        "minimal"
+      ],
+      "warmth": [
+        "low"
+      ]
+    },
+    "images": [
+      "images/P000042_0.jpg"
+    ]
+  },
+  {
+    "id": "P000043",
+    "source": "seed",
+    "source_id": "43",
+    "source_url": null,
+    "name": "Túi tote da nữ",
+    "description": "Túi tote da PU form đứng.",
+    "brand": "Charles & Keith",
+    "category": "tui-tote-nu",
+    "price": 1250000,
+    "original_price": 1250000,
+    "stock": 81,
+    "rating": 4.8,
+    "rating_count": 536,
+    "sold_count": 1220,
+    "attributes": {
+      "color": [
+        "black"
+      ],
+      "material": [
+        "synthetic_leather"
+      ],
+      "gender": [
+        "female"
+      ]
+    },
+    "tags": {
+      "season": [
+        "all_season"
+      ],
+      "occasion": [
+        "office"
+      ],
+      "style": [
+        "elegant"
+      ],
+      "warmth": [
+        "low"
+      ]
+    },
+    "images": [
+      "images/P000043_0.jpg"
+    ]
+  },
+  {
+    "id": "P000044",
+    "source": "seed",
+    "source_id": "44",
+    "source_url": null,
+    "name": "Túi đeo chéo nữ mini",
+    "description": "Túi mini đeo chéo nắp gập.",
+    "brand": "Charles & Keith",
+    "category": "tui-deo-cheo-nu",
+    "price": 890000,
+    "original_price": 890000,
+    "stock": 58,
+    "rating": 4.6,
+    "rating_count": 158,
+    "sold_count": 3238,
+    "attributes": {
+      "color": [
+        "red"
+      ],
+      "material": [
+        "synthetic_leather"
+      ],
+      "gender": [
+        "female"
+      ]
+    },
+    "tags": {
+      "season": [
+        "all_season"
+      ],
+      "occasion": [
+        "party",
+        "casual"
+      ],
+      "style": [
+        "elegant"
+      ],
+      "warmth": [
+        "low"
+      ]
+    },
+    "images": [
+      "images/P000044_0.jpg"
+    ]
+  },
+  {
+    "id": "P000045",
+    "source": "seed",
+    "source_id": "45",
+    "source_url": null,
+    "name": "Túi đeo chéo da nữ",
+    "description": "Túi da bò thật, dây đeo điều chỉnh.",
+    "brand": "Pedro",
+    "category": "tui-deo-cheo-nu",
+    "price": 1490000,
+    "original_price": 1862000,
+    "stock": 44,
+    "rating": 4.5,
+    "rating_count": 419,
+    "sold_count": 3339,
+    "attributes": {
+      "color": [
+        "brown"
+      ],
+      "material": [
+        "leather"
+      ],
+      "gender": [
+        "female"
+      ]
+    },
+    "tags": {
+      "season": [
+        "all_season"
+      ],
+      "occasion": [
+        "casual",
+        "office"
+      ],
+      "style": [
+        "vintage"
+      ],
+      "warmth": [
+        "low"
+      ]
+    },
+    "images": [
+      "images/P000045_0.jpg"
+    ]
+  },
+  {
+    "id": "P000046",
+    "source": "seed",
+    "source_id": "46",
+    "source_url": null,
+    "name": "Balo laptop nữ chống nước",
+    "description": "Balo ngăn laptop 15 inch, vải chống nước.",
+    "brand": "Samsonite",
+    "category": "balo-nu",
+    "price": 780000,
+    "original_price": 780000,
+    "stock": 71,
+    "rating": 4.7,
+    "rating_count": 405,
+    "sold_count": 87,
+    "attributes": {
+      "color": [
+        "gray"
+      ],
+      "material": [
+        "polyester"
+      ],
+      "gender": [
+        "female"
+      ]
+    },
+    "tags": {
+      "season": [
+        "all_season"
+      ],
+      "occasion": [
+        "office",
+        "travel"
+      ],
+      "style": [
+        "minimal"
+      ],
+      "warmth": [
+        "low"
+      ]
+    },
+    "images": [
+      "images/P000046_0.jpg"
+    ]
+  },
+  {
+    "id": "P000047",
+    "source": "seed",
+    "source_id": "47",
+    "source_url": null,
+    "name": "Điện thoại Samsung Galaxy S24",
+    "description": "Smartphone màn hình AMOLED 6.2 inch.",
+    "brand": "Samsung",
+    "category": "dien-thoai",
+    "price": 18900000,
+    "original_price": 18900000,
+    "stock": 54,
+    "rating": 4.8,
+    "rating_count": 72,
+    "sold_count": 3445,
+    "attributes": {
+      "color": [
+        "black"
+      ],
+      "material": [
+        "metal"
+      ],
+      "gender": [
+        "unisex"
+      ]
+    },
+    "tags": {
+      "occasion": [
+        "casual"
+      ]
+    },
+    "images": [
+      "images/P000047_0.jpg"
+    ]
+  },
+  {
+    "id": "P000048",
+    "source": "seed",
+    "source_id": "48",
+    "source_url": null,
+    "name": "iPhone 15 Pro 128GB",
+    "description": "Smartphone khung titan, chip A17 Pro.",
+    "brand": "Apple",
+    "category": "dien-thoai",
+    "price": 28900000,
+    "original_price": 33235000,
+    "stock": 87,
+    "rating": 4.3,
+    "rating_count": 808,
+    "sold_count": 3901,
+    "attributes": {
+      "color": [
+        "gray"
+      ],
+      "material": [
+        "metal"
+      ],
+      "gender": [
+        "unisex"
+      ]
+    },
+    "tags": {
+      "occasion": [
+        "casual"
+      ]
+    },
+    "images": [
+      "images/P000048_0.jpg"
+    ]
+  },
+  {
+    "id": "P000049",
+    "source": "seed",
+    "source_id": "49",
+    "source_url": null,
+    "name": "Laptop Dell Inspiron 14",
+    "description": "Laptop văn phòng 14 inch, RAM 16GB.",
+    "brand": "Dell",
+    "category": "laptop",
+    "price": 15900000,
+    "original_price": 15900000,
+    "stock": 8,
+    "rating": 4.5,
+    "rating_count": 355,
+    "sold_count": 2826,
+    "attributes": {
+      "color": [
+        "silver"
+      ],
+      "material": [
+        "metal"
+      ],
+      "gender": [
+        "unisex"
+      ]
+    },
+    "tags": {
+      "occasion": [
+        "office"
+      ]
+    },
+    "images": [
+      "images/P000049_0.jpg"
+    ]
+  },
+  {
+    "id": "P000050",
+    "source": "seed",
+    "source_id": "50",
+    "source_url": null,
+    "name": "MacBook Air M2 13 inch",
+    "description": "Ultrabook mỏng nhẹ, pin 18 giờ.",
+    "brand": "Apple",
+    "category": "laptop",
+    "price": 24900000,
+    "original_price": 28635000,
+    "stock": 62,
+    "rating": 4.3,
+    "rating_count": 144,
+    "sold_count": 2068,
+    "attributes": {
+      "color": [
+        "silver"
+      ],
+      "material": [
+        "metal"
+      ],
+      "gender": [
+        "unisex"
+      ]
+    },
+    "tags": {
+      "occasion": [
+        "office",
+        "travel"
+      ]
+    },
+    "images": [
+      "images/P000050_0.jpg"
+    ]
+  },
+  {
+    "id": "P000051",
+    "source": "seed",
+    "source_id": "51",
+    "source_url": null,
+    "name": "Tai nghe Bluetooth chống ồn Sony WH-1000XM5",
+    "description": "Noise cancelling headphones with 30 hours of battery.",
+    "brand": "Sony",
+    "category": "tai-nghe",
+    "price": 6500000,
+    "original_price": 7475000,
+    "stock": 78,
+    "rating": 4.6,
+    "rating_count": 194,
+    "sold_count": 660,
+    "attributes": {
+      "color": [
+        "black"
+      ],
+      "material": [
+        "plastic"
+      ],
+      "gender": [
+        "unisex"
+      ]
+    },
+    "tags": {
+      "occasion": [
+        "travel",
+        "office"
+      ]
+    },
+    "images": [
+      "images/P000051_0.jpg"
+    ]
+  },
+  {
+    "id": "P000052",
+    "source": "seed",
+    "source_id": "52",
+    "source_url": null,
+    "name": "Tai nghe AirPods Pro 2",
+    "description": "Tai nghe true wireless chống ồn chủ động.",
+    "brand": "Apple",
+    "category": "tai-nghe",
+    "price": 5900000,
+    "original_price": 7375000,
+    "stock": 71,
+    "rating": 4.2,
+    "rating_count": 658,
+    "sold_count": 1407,
+    "attributes": {
+      "color": [
+        "white"
+      ],
+      "material": [
+        "plastic"
+      ],
+      "gender": [
+        "unisex"
+      ]
+    },
+    "tags": {
+      "occasion": [
+        "casual",
+        "sport"
+      ]
+    },
+    "images": [
+      "images/P000052_0.jpg"
+    ]
+  },
+  {
+    "id": "P000053",
+    "source": "seed",
+    "source_id": "53",
+    "source_url": null,
+    "name": "Loa Bluetooth JBL Flip 6",
+    "description": "Loa chống nước IP67, pin 12 giờ, mang đi biển.",
+    "brand": "JBL",
+    "category": "loa-bluetooth",
+    "price": 2700000,
+    "original_price": 3105000,
+    "stock": 81,
+    "rating": 4.2,
+    "rating_count": 747,
+    "sold_count": 314,
+    "attributes": {
+      "color": [
+        "blue"
+      ],
+      "material": [
+        "nylon",
+        "rubber"
+      ],
+      "gender": [
+        "unisex"
+      ]
+    },
+    "tags": {
+      "occasion": [
+        "travel",
+        "beach"
+      ]
+    },
+    "images": [
+      "images/P000053_0.jpg"
+    ]
+  },
+  {
+    "id": "P000054",
+    "source": "seed",
+    "source_id": "54",
+    "source_url": null,
+    "name": "Nồi chiên không dầu Philips 4.1L",
+    "description": "Nồi chiên không dầu dung tích 4.1 lít.",
+    "brand": "Philips",
+    "category": "noi-chien-khong-dau",
+    "price": 2500000,
+    "original_price": 3125000,
+    "stock": 56,
+    "rating": 4.0,
+    "rating_count": 682,
+    "sold_count": 3804,
+    "attributes": {
+      "color": [
+        "black"
+      ],
+      "material": [
+        "plastic"
+      ],
+      "gender": [
+        "unisex"
+      ]
+    },
+    "tags": {
+      "occasion": [
+        "home"
+      ]
+    },
+    "images": [
+      "images/P000054_0.jpg"
+    ]
+  },
+  {
+    "id": "P000055",
+    "source": "seed",
+    "source_id": "55",
+    "source_url": null,
+    "name": "Air Fryer 6L màn hình cảm ứng",
+    "description": "Nồi chiên 6 lít, 8 chế độ nấu.",
+    "brand": "Lock&Lock",
+    "category": "noi-chien-khong-dau",
+    "price": 1900000,
+    "original_price": 1900000,
+    "stock": 10,
+    "rating": 4.6,
+    "rating_count": 879,
+    "sold_count": 227,
+    "attributes": {
+      "color": [
+        "white"
+      ],
+      "material": [
+        "plastic"
+      ],
+      "gender": [
+        "unisex"
+      ]
+    },
+    "tags": {
+      "occasion": [
+        "home"
+      ]
+    },
+    "images": [
+      "images/P000055_0.jpg"
+    ]
+  },
+  {
+    "id": "P000056",
+    "source": "seed",
+    "source_id": "56",
+    "source_url": null,
+    "name": "Máy xay sinh tố mini cầm tay",
+    "description": "Máy xay cối thủy tinh 600ml, lưỡi dao 4 cánh.",
+    "brand": "Sunhouse",
+    "category": "may-xay-sinh-to",
+    "price": 690000,
+    "original_price": 793000,
+    "stock": 116,
+    "rating": 4.7,
+    "rating_count": 213,
+    "sold_count": 2011,
+    "attributes": {
+      "color": [
+        "green"
+      ],
+      "material": [
+        "plastic"
+      ],
+      "gender": [
+        "unisex"
+      ]
+    },
+    "tags": {
+      "occasion": [
+        "home"
+      ]
+    },
+    "images": [
+      "images/P000056_0.jpg"
+    ]
+  },
+  {
+    "id": "P000057",
+    "source": "seed",
+    "source_id": "57",
+    "source_url": null,
+    "name": "Bình giữ nhiệt Lock&Lock 500ml",
+    "description": "Bình inox giữ nóng 12 giờ, giữ lạnh 24 giờ.",
+    "brand": "Lock&Lock",
+    "category": "binh-giu-nhiet",
+    "price": 350000,
+    "original_price": 438000,
+    "stock": 91,
+    "rating": 4.8,
+    "rating_count": 152,
+    "sold_count": 2674,
+    "attributes": {
+      "color": [
+        "blue"
+      ],
+      "material": [
+        "metal"
+      ],
+      "gender": [
+        "unisex"
+      ]
+    },
+    "tags": {
+      "occasion": [
+        "travel",
+        "office"
+      ]
+    },
+    "images": [
+      "images/P000057_0.jpg"
+    ]
+  },
+  {
+    "id": "P000058",
+    "source": "seed",
+    "source_id": "58",
+    "source_url": null,
+    "name": "Bình nước inox 750ml",
+    "description": "Bình inox 304 nắp vặn kín.",
+    "brand": "Elmich",
+    "category": "binh-giu-nhiet",
+    "price": 290000,
+    "original_price": 362000,
+    "stock": 32,
+    "rating": 4.7,
+    "rating_count": 549,
+    "sold_count": 3694,
+    "attributes": {
+      "color": [
+        "silver"
+      ],
+      "material": [
+        "metal"
+      ],
+      "gender": [
+        "unisex"
+      ]
+    },
+    "tags": {
+      "occasion": [
+        "travel",
+        "sport"
+      ]
+    },
+    "images": [
+      "images/P000058_0.jpg"
+    ]
+  },
+  {
+    "id": "P000059",
+    "source": "seed",
+    "source_id": "59",
+    "source_url": null,
+    "name": "Robot hút bụi lau nhà Xiaomi",
+    "description": "Robot hút bụi lau nhà, định vị laser.",
+    "brand": "Xiaomi",
+    "category": "may-hut-bui",
+    "price": 5500000,
+    "original_price": 5500000,
+    "stock": 25,
+    "rating": 4.6,
+    "rating_count": 210,
+    "sold_count": 1627,
+    "attributes": {
+      "color": [
+        "white"
+      ],
+      "material": [
+        "plastic"
+      ],
+      "gender": [
+        "unisex"
+      ]
+    },
+    "tags": {
+      "occasion": [
+        "home"
+      ]
+    },
+    "images": [
+      "images/P000059_0.jpg"
+    ]
+  }
+]

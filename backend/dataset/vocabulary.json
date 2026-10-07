@@ -1,0 +1,519 @@
+{
+  "color": {
+    "is_hard_filterable": true,
+    "values": {
+      "black": {
+        "label": "đen",
+        "synonyms": [
+          "black",
+          "den",
+          "màu đen",
+          "dark"
+        ]
+      },
+      "white": {
+        "label": "trắng",
+        "synonyms": [
+          "white",
+          "màu trắng"
+        ]
+      },
+      "gray": {
+        "label": "xám",
+        "synonyms": [
+          "gray",
+          "ghi",
+          "màu xám",
+          "grey"
+        ]
+      },
+      "beige": {
+        "label": "be",
+        "synonyms": [
+          "beige",
+          "màu be",
+          "kem",
+          "màu kem",
+          "cream"
+        ]
+      },
+      "brown": {
+        "label": "nâu",
+        "synonyms": [
+          "brown",
+          "màu nâu"
+        ]
+      },
+      "red": {
+        "label": "đỏ",
+        "synonyms": [
+          "red",
+          "màu đỏ"
+        ]
+      },
+      "pink": {
+        "label": "hồng",
+        "synonyms": [
+          "pink",
+          "màu hồng"
+        ]
+      },
+      "orange": {
+        "label": "cam",
+        "synonyms": [
+          "orange",
+          "màu cam"
+        ]
+      },
+      "yellow": {
+        "label": "vàng",
+        "synonyms": [
+          "yellow",
+          "màu vàng"
+        ]
+      },
+      "green": {
+        "label": "xanh lá",
+        "synonyms": [
+          "green",
+          "xanh lá cây",
+          "xanh"
+        ]
+      },
+      "blue": {
+        "label": "xanh dương",
+        "synonyms": [
+          "blue",
+          "xanh da trời",
+          "xanh"
+        ]
+      },
+      "navy": {
+        "label": "xanh navy",
+        "synonyms": [
+          "navy",
+          "xanh than",
+          "xanh đen"
+        ]
+      },
+      "purple": {
+        "label": "tím",
+        "synonyms": [
+          "purple",
+          "màu tím"
+        ]
+      },
+      "silver": {
+        "label": "bạc",
+        "synonyms": [
+          "silver",
+          "màu bạc"
+        ]
+      },
+      "gold": {
+        "label": "vàng kim",
+        "synonyms": [
+          "gold"
+        ]
+      },
+      "multicolor": {
+        "label": "nhiều màu",
+        "synonyms": [
+          "multicolor",
+          "đa sắc",
+          "sặc sỡ",
+          "colorful"
+        ]
+      }
+    }
+  },
+  "material": {
+    "is_hard_filterable": true,
+    "values": {
+      "cotton": {
+        "label": "cotton",
+        "synonyms": [
+          "vải cotton",
+          "coton"
+        ]
+      },
+      "wool": {
+        "label": "len",
+        "synonyms": [
+          "wool",
+          "len cừu",
+          "woolen"
+        ]
+      },
+      "polyester": {
+        "label": "polyester",
+        "synonyms": [
+          "poly"
+        ]
+      },
+      "linen": {
+        "label": "linen",
+        "synonyms": [
+          "đũi",
+          "vải đũi",
+          "vải linen"
+        ]
+      },
+      "denim": {
+        "label": "denim",
+        "synonyms": [
+          "vải jean"
+        ]
+      },
+      "leather": {
+        "label": "da thật",
+        "synonyms": [
+          "leather",
+          "da bò"
+        ]
+      },
+      "synthetic_leather": {
+        "label": "da pu",
+        "synonyms": [
+          "synthetic leather",
+          "da tổng hợp",
+          "giả da",
+          "simili",
+          "faux leather",
+          "pu leather"
+        ]
+      },
+      "silk": {
+        "label": "lụa",
+        "synonyms": [
+          "silk"
+        ]
+      },
+      "fleece": {
+        "label": "nỉ",
+        "synonyms": [
+          "fleece",
+          "nỉ bông"
+        ]
+      },
+      "down": {
+        "label": "lông vũ",
+        "synonyms": [
+          "down",
+          "lông vịt"
+        ]
+      },
+      "nylon": {
+        "label": "nylon",
+        "synonyms": [
+          "vải dù"
+        ]
+      },
+      "knit": {
+        "label": "dệt kim",
+        "synonyms": [
+          "knit",
+          "knitted"
+        ]
+      },
+      "canvas": {
+        "label": "vải bạt",
+        "synonyms": [
+          "canvas"
+        ]
+      },
+      "rubber": {
+        "label": "cao su",
+        "synonyms": [
+          "rubber"
+        ]
+      },
+      "metal": {
+        "label": "kim loại",
+        "synonyms": [
+          "metal",
+          "inox",
+          "thép không gỉ",
+          "stainless steel"
+        ]
+      },
+      "plastic": {
+        "label": "nhựa",
+        "synonyms": [
+          "plastic"
+        ]
+      }
+    }
+  },
+  "gender": {
+    "is_hard_filterable": true,
+    "values": {
+      "male": {
+        "label": "nam",
+        "synonyms": [
+          "men",
+          "cho nam",
+          "đàn ông",
+          "man",
+          "male",
+          "for men",
+          "boy"
+        ],
+        "also_match": [
+          "unisex"
+        ]
+      },
+      "female": {
+        "label": "nữ",
+        "synonyms": [
+          "women",
+          "cho nữ",
+          "phụ nữ",
+          "bạn gái",
+          "con gái",
+          "woman",
+          "female",
+          "for women",
+          "lady",
+          "girl",
+          "girlfriend"
+        ],
+        "also_match": [
+          "unisex"
+        ]
+      },
+      "unisex": {
+        "label": "unisex",
+        "synonyms": [
+          "nam nữ"
+        ]
+      },
+      "kids": {
+        "label": "trẻ em",
+        "synonyms": [
+          "kids",
+          "em bé",
+          "children"
+        ]
+      }
+    }
+  },
+  "season": {
+    "is_hard_filterable": false,
+    "values": {
+      "spring": {
+        "label": "mùa xuân",
+        "synonyms": [
+          "spring",
+          "xuân"
+        ]
+      },
+      "summer": {
+        "label": "mùa hè",
+        "synonyms": [
+          "summer",
+          "mùa hạ",
+          "hè",
+          "trời nóng",
+          "nắng nóng",
+          "hot weather"
+        ]
+      },
+      "autumn": {
+        "label": "mùa thu",
+        "synonyms": [
+          "autumn",
+          "fall"
+        ]
+      },
+      "winter": {
+        "label": "mùa đông",
+        "synonyms": [
+          "winter",
+          "đông",
+          "trời lạnh",
+          "lạnh",
+          "rét",
+          "cold weather",
+          "cold"
+        ]
+      },
+      "all_season": {
+        "label": "quanh năm",
+        "synonyms": [
+          "all season",
+          "bốn mùa"
+        ]
+      }
+    }
+  },
+  "occasion": {
+    "is_hard_filterable": false,
+    "values": {
+      "casual": {
+        "label": "thường ngày",
+        "synonyms": [
+          "casual",
+          "hàng ngày",
+          "đi chơi",
+          "dạo phố",
+          "everyday",
+          "daily"
+        ]
+      },
+      "office": {
+        "label": "công sở",
+        "synonyms": [
+          "office",
+          "đi làm",
+          "văn phòng",
+          "phỏng vấn",
+          "work",
+          "interview"
+        ]
+      },
+      "sport": {
+        "label": "thể thao",
+        "synonyms": [
+          "sport",
+          "tập gym",
+          "tập luyện",
+          "gym",
+          "chạy bộ",
+          "workout",
+          "running"
+        ]
+      },
+      "party": {
+        "label": "dự tiệc",
+        "synonyms": [
+          "party",
+          "đi tiệc",
+          "tiệc"
+        ]
+      },
+      "beach": {
+        "label": "đi biển",
+        "synonyms": [
+          "beach",
+          "bãi biển",
+          "biển",
+          "đi bơi",
+          "seaside"
+        ]
+      },
+      "travel": {
+        "label": "du lịch",
+        "synonyms": [
+          "travel",
+          "đi du lịch",
+          "đi phượt",
+          "trip"
+        ]
+      },
+      "home": {
+        "label": "ở nhà",
+        "synonyms": [
+          "home",
+          "mặc nhà",
+          "gia đình"
+        ]
+      },
+      "formal": {
+        "label": "trang trọng",
+        "synonyms": [
+          "formal",
+          "lịch sự",
+          "sự kiện",
+          "phỏng vấn"
+        ]
+      }
+    }
+  },
+  "style": {
+    "is_hard_filterable": false,
+    "values": {
+      "basic": {
+        "label": "cơ bản",
+        "synonyms": [
+          "basic",
+          "đơn giản",
+          "trơn"
+        ]
+      },
+      "streetwear": {
+        "label": "đường phố",
+        "synonyms": [
+          "streetwear",
+          "street style"
+        ]
+      },
+      "vintage": {
+        "label": "cổ điển",
+        "synonyms": [
+          "vintage",
+          "retro"
+        ]
+      },
+      "elegant": {
+        "label": "thanh lịch",
+        "synonyms": [
+          "elegant",
+          "sang trọng",
+          "lịch lãm"
+        ]
+      },
+      "sporty": {
+        "label": "năng động",
+        "synonyms": [
+          "sporty",
+          "athletic"
+        ]
+      },
+      "minimal": {
+        "label": "tối giản",
+        "synonyms": [
+          "minimal",
+          "minimalist"
+        ]
+      }
+    }
+  },
+  "warmth": {
+    "is_hard_filterable": false,
+    "values": {
+      "low": {
+        "label": "mát",
+        "synonyms": [
+          "light",
+          "thoáng mát",
+          "mát mẻ",
+          "thoáng khí",
+          "breathable",
+          "cool",
+          "lightweight"
+        ]
+      },
+      "medium": {
+        "label": "vừa phải",
+        "synonyms": [
+          "moderate",
+          "vừa ấm",
+          "ấm vừa",
+          "moderate warmth"
+        ]
+      },
+      "high": {
+        "label": "giữ ấm",
+        "synonyms": [
+          "warm",
+          "giữ nhiệt",
+          "ấm áp",
+          "ấm",
+          "thermal",
+          "keep warm"
+        ]
+      }
+    }
+  }
+}
