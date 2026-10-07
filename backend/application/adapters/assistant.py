@@ -75,7 +75,7 @@ class AssistantReplier:
                   "sentence (max 30 words), plain text, no markdown, no emojis. Use only the facts given.")
         user = f"query: {query}\nintent: {intent}\ntotal_results: {total}\ntop_products: {'; '.join(names) or 'none'}"
         try:
-            text = " ".join(self.llm.chat(system, user, max_tokens=120).split())  # type: ignore[union-attr]
+            text = " ".join(self.llm.chat(system, user, max_tokens=800).split())  # type: ignore[union-attr]
         except Exception as e:
             log.warning("LLM reply failed (%s); using template", e)
             return None

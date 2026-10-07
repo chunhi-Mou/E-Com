@@ -17,7 +17,12 @@ from application.adapters.llm import OpenAICompatibleLLM
 from application.adapters.llm_query_parser import LlmQueryParser, MergingExpander
 from application.adapters.speech_to_text import ElevenLabsSpeechToText
 from application.adapters.suggest import SuggestService
-from application.adapters.synthesizer import EdgeTtsSynthesizer, ElevenLabsSynthesizer, SpeechSynthesizer
+from application.adapters.synthesizer import (
+    EdgeTtsSynthesizer,
+    ElevenLabsSynthesizer,
+    FallbackSpeechSynthesizer,
+    SpeechSynthesizer,
+)
 from application.catalog_service import CatalogService
 from application.image_service import ColorHistogramEncoder, ImageEncoder
 from application.lexicon import Lexicon
@@ -162,11 +167,11 @@ def build_container(settings: Settings | None = None) -> Container:
                                       queries, search, ranking, orders, s.default_customer_id)
     llm = OpenAICompatibleLLM.from_env() if OpenAICompatibleLLM.configured(os.environ) else None
     tts_dir = s.dataset_dir / "cache" / "tts"
-    synth = None
+    edge = EdgeTtsSynthesizer(tts_dir)
+    synth: SpeechSynthesizer = edge
     if os.environ.get("ELEVENLABS_API_KEY") and os.environ.get("ELEVENLABS_VOICE_ID"):
-        synth = ElevenLabsSynthesizer.from_env(tts_dir)
-    else:
-        synth = EdgeTtsSynthesizer(tts_dir)
+        eleven = ElevenLabsSynthesizer.from_env(tts_dir)
+        synth = FallbackSpeechSynthesizer(primary=eleven, fallback=edge)
     suggestions = SuggestService(products.categories(), vocabulary, [p.name for p in products.all()])
     return Container(s, vocabulary, CatalogService(products), orders, orchestrator, search, ranking, queries,
                      lexicon, s.dataset_dir, AssistantReplier(llm, synth), suggestions, synth, tts_dir)

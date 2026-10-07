@@ -9,6 +9,7 @@ from __future__ import annotations
 
 from abc import ABC, abstractmethod
 from pathlib import Path
+import logging
 import os
 from typing import Mapping
 
@@ -16,6 +17,8 @@ import httpx
 
 from application.adapters.cache import atomic_write, sha256_hex
 from application.adapters.http import HttpClient, RemoteError, require
+
+log = logging.getLogger(__name__)
 
 
 class SpeechSynthesizer(ABC):
@@ -28,9 +31,15 @@ class SpeechSynthesizer(ABC):
 
 
 class ElevenLabsSynthesizer(SpeechSynthesizer):
-    def __init__(self, api_key: str, voice_id: str, cache_dir: Path, model: str = "eleven_flash_v2_5",
+    def __init__(self, api_key: str, voice_id: str, cache_dir: Path, model: str = "eleven_multilingual_v2",
                  output_format: str = "mp3_44100_128", base_url: str = "https://api.elevenlabs.io",
                  timeout: float = 30.0, transport: httpx.BaseTransport | None = None) -> None:
+        # Sanitize voice_id in case user provided a web URL
+        if "elevenlabs.io/voices/" in voice_id:
+            voice_id = voice_id.split("elevenlabs.io/voices/")[-1].split("?")[0].strip("/")
+        elif "/" in voice_id:
+            voice_id = voice_id.strip("/").split("/")[-1]
+
         self.voice_id, self.model, self.cache_dir, self.output_format = voice_id, model, Path(cache_dir), output_format
         self.http = HttpClient(base_url, {"xi-api-key": api_key}, timeout, transport=transport, name="elevenlabs-tts")
 
@@ -39,7 +48,7 @@ class ElevenLabsSynthesizer(SpeechSynthesizer):
         env = os.environ if env is None else env
         return cls(require(env, "ELEVENLABS_API_KEY", "text-to-speech"),
                    require(env, "ELEVENLABS_VOICE_ID", "text-to-speech"), cache_dir,
-                   env.get("ELEVENLABS_TTS_MODEL") or "eleven_flash_v2_5")
+                   env.get("ELEVENLABS_TTS_MODEL") or "eleven_multilingual_v2")
 
     def _name(self, text: str) -> str:
         return sha256_hex(self.model, self.voice_id, text) + ".mp3"
@@ -56,7 +65,7 @@ class ElevenLabsSynthesizer(SpeechSynthesizer):
 
     def _fetch(self, text: str, lang: str) -> bytes:
         body: dict = {"text": text, "model_id": self.model}
-        if lang in ("vi", "en"):
+        if self.model not in ("eleven_multilingual_v2",) and lang in ("vi", "en"):
             body["language_code"] = lang
         resp = self.http.request("POST", f"/v1/text-to-speech/{self.voice_id}",
                                  params={"output_format": self.output_format}, json=body)
@@ -101,4 +110,29 @@ class EdgeTtsSynthesizer(SpeechSynthesizer):
 
     def synthesize(self, text: str, lang: str) -> bytes:
         return (self.cache_dir / self.synthesize_to_file(text, lang)).read_bytes()
+
+
+class FallbackSpeechSynthesizer(SpeechSynthesizer):
+    """Tries the primary synthesizer first; if it fails (quota, 402, network, invalid voice),
+    transparently falls back to the secondary synthesizer (e.g. Edge TTS) so audio is never lost.
+    """
+
+    def __init__(self, primary: SpeechSynthesizer, fallback: SpeechSynthesizer) -> None:
+        self.primary = primary
+        self.fallback = fallback
+
+    def synthesize_to_file(self, text: str, lang: str) -> str:
+        try:
+            return self.primary.synthesize_to_file(text, lang)
+        except Exception as e:
+            log.warning("Primary synthesizer failed (%s); falling back to secondary", e)
+            return self.fallback.synthesize_to_file(text, lang)
+
+    def synthesize(self, text: str, lang: str) -> bytes:
+        try:
+            return self.primary.synthesize(text, lang)
+        except Exception as e:
+            log.warning("Primary synthesizer failed (%s); falling back to secondary", e)
+            return self.fallback.synthesize(text, lang)
+
 
