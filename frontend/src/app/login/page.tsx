@@ -236,18 +236,28 @@ export default function LoginPage() {
                 </form>
               </div>
 
-              {/* Phần chân form: Chú thích tài khoản gọn gàng */}
-              <div className="mt-8 border-t border-slate-100 pt-4 text-xs text-slate-500">
+              {/* Phần chân form: Chú thích tài khoản gọn gàng và nút xem lại intro */}
+              <div className="mt-8 border-t border-slate-100 pt-4 flex items-center justify-between text-xs text-slate-500">
                 <p>
-                  Tài khoản thử nghiệm:{" "}
+                  Tài khoản:{" "}
                   <code className="font-mono font-semibold text-purple-900 bg-purple-50 border border-purple-200/60 px-1.5 py-0.5 rounded text-[11px]">
                     admin
                   </code>
-                  {" "}mật khẩu:{" "}
+                  {" "}mk:{" "}
                   <code className="font-mono font-semibold text-purple-900 bg-purple-50 border border-purple-200/60 px-1.5 py-0.5 rounded text-[11px]">
                     admin1234
                   </code>
                 </p>
+
+                <button
+                  type="button"
+                  onClick={() => setShowIntro(true)}
+                  className="text-[11px] font-medium text-slate-400 hover:text-purple-700 transition-colors inline-flex items-center gap-1"
+                  title="Chạy lại màn mở đầu 5s"
+                >
+                  <Sparkles size={11} className="text-purple-600" />
+                  <span>Xem lại Intro</span>
+                </button>
               </div>
             </motion.div>
 
