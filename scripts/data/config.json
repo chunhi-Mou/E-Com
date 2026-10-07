@@ -1,0 +1,56 @@
+{
+  "_comment": "Cấu hình crawl. 'queries' là từ khóa tìm kiếm trên Tiki cho từng danh mục lá. 'tiki_category_id' để null (chưa xác minh được ID thật vì không truy cập được tiki.vn từ môi trường này).",
+  "base_url": "https://tiki.vn",
+  "list_endpoint": "/api/v2/products",
+  "detail_endpoint": "/api/v2/products/{id}",
+  "page_size": 40,
+  "max_pages_per_query": 8,
+  "target_per_category": 200,
+  "random_seed": 20261001,
+  "stock_range": [5, 200],
+  "description_max_chars": 2000,
+  "images_per_product": 2,
+  "image_long_side": 512,
+  "image_jpeg_quality": 85,
+  "categories": [
+    {"slug": "thoi-trang-nam", "parent": null, "name_vi": "Thời trang nam", "name_en": "Men's fashion"},
+    {"slug": "thoi-trang-nu", "parent": null, "name_vi": "Thời trang nữ", "name_en": "Women's fashion"},
+    {"slug": "giay-dep", "parent": null, "name_vi": "Giày dép", "name_en": "Footwear"},
+    {"slug": "tui-phu-kien", "parent": null, "name_vi": "Túi và phụ kiện", "name_en": "Bags and accessories"},
+    {"slug": "dien-tu", "parent": null, "name_vi": "Điện tử", "name_en": "Electronics"},
+    {"slug": "gia-dung", "parent": null, "name_vi": "Gia dụng", "name_en": "Home appliances"},
+
+    {"slug": "ao-thun-nam", "parent": "thoi-trang-nam", "name_vi": "Áo thun nam", "name_en": "Men's t-shirts",
+     "tiki_category_id": null, "queries": ["áo thun nam", "áo phông nam cổ tròn", "áo polo nam"]},
+    {"slug": "ao-khoac-nam", "parent": "thoi-trang-nam", "name_vi": "Áo khoác nam", "name_en": "Men's jackets",
+     "tiki_category_id": null, "queries": ["áo khoác nam", "áo khoác gió nam", "áo khoác dù nam", "áo len nam"]},
+    {"slug": "quan-nam", "parent": "thoi-trang-nam", "name_vi": "Quần nam", "name_en": "Men's pants",
+     "tiki_category_id": null, "queries": ["quần jean nam", "quần kaki nam", "quần short nam"]},
+
+    {"slug": "ao-len-nu", "parent": "thoi-trang-nu", "name_vi": "Áo len nữ", "name_en": "Women's sweaters",
+     "tiki_category_id": null, "queries": ["áo len nữ", "áo len cổ lọ nữ", "áo cardigan nữ"]},
+    {"slug": "vay-dam-nu", "parent": "thoi-trang-nu", "name_vi": "Váy đầm nữ", "name_en": "Women's dresses",
+     "tiki_category_id": null, "queries": ["váy đầm nữ", "đầm dự tiệc nữ", "chân váy nữ"]},
+    {"slug": "quan-jean-nu", "parent": "thoi-trang-nu", "name_vi": "Quần jean nữ", "name_en": "Women's jeans",
+     "tiki_category_id": null, "queries": ["quần jean nữ", "quần jean ống rộng nữ", "quần baggy nữ"]},
+
+    {"slug": "giay-the-thao", "parent": "giay-dep", "name_vi": "Giày thể thao", "name_en": "Sneakers",
+     "tiki_category_id": null, "queries": ["giày thể thao nam", "giày sneaker nữ", "giày chạy bộ"]},
+    {"slug": "giay-da-nam", "parent": "giay-dep", "name_vi": "Giày da nam", "name_en": "Men's leather shoes",
+     "tiki_category_id": null, "queries": ["giày da nam", "giày tây nam", "giày lười nam"]},
+    {"slug": "sandal-dep-nu", "parent": "giay-dep", "name_vi": "Sandal và dép nữ", "name_en": "Women's sandals",
+     "tiki_category_id": null, "queries": ["sandal nữ", "dép quai ngang nữ", "giày cao gót nữ"]},
+
+    {"slug": "tui-xach-nu", "parent": "tui-phu-kien", "name_vi": "Túi xách nữ", "name_en": "Women's handbags",
+     "tiki_category_id": null, "queries": ["túi xách nữ", "túi đeo chéo nữ", "túi tote nữ"]},
+    {"slug": "balo", "parent": "tui-phu-kien", "name_vi": "Balo", "name_en": "Backpacks",
+     "tiki_category_id": null, "queries": ["balo nam", "balo laptop", "balo nữ thời trang"]},
+    {"slug": "kinh-mat", "parent": "tui-phu-kien", "name_vi": "Kính mát", "name_en": "Sunglasses",
+     "tiki_category_id": null, "queries": ["kính mát nam", "kính râm nữ", "kính mát phân cực"]},
+
+    {"slug": "tai-nghe", "parent": "dien-tu", "name_vi": "Tai nghe", "name_en": "Headphones",
+     "tiki_category_id": null, "queries": ["tai nghe bluetooth", "tai nghe chụp tai", "tai nghe có dây"]},
+    {"slug": "binh-giu-nhiet", "parent": "gia-dung", "name_vi": "Bình giữ nhiệt", "name_en": "Insulated bottles",
+     "tiki_category_id": null, "queries": ["bình giữ nhiệt", "ly giữ nhiệt", "bình nước thể thao"]}
+  ]
+}

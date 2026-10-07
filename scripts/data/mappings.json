@@ -1,0 +1,57 @@
+{
+  "_comment": "Bảng ánh xạ từ khóa tiếng Việt/Anh -> code chuẩn. 'terms' dùng cho cả spec lẫn tên sản phẩm; 'spec_extra' chỉ dùng khi khớp trong giá trị spec/biến thể (từ ngắn dễ nhầm trong tên). Khớp theo ranh giới từ, chữ thường có dấu, ưu tiên cụm dài nhất. Từ mơ hồ (vd 'xanh' đứng một mình) cố ý KHÔNG được ánh xạ.",
+  "spec_keys": {
+    "color": ["màu sắc", "màu", "màu sản phẩm", "color", "colour"],
+    "material_contains": ["chất liệu", "thành phần", "material", "loại vải"],
+    "gender": ["giới tính", "đối tượng", "đối tượng sử dụng", "dành cho", "giới tính phù hợp"]
+  },
+  "color": {
+    "black": {"terms": ["đen", "màu đen", "đen tuyền"], "spec_extra": ["black"]},
+    "white": {"terms": ["trắng", "màu trắng", "trắng tinh"], "spec_extra": ["white"]},
+    "gray": {"terms": ["xám", "màu xám", "ghi", "màu ghi", "xám tro", "xám khói", "xám đậm", "xám nhạt"], "spec_extra": ["gray", "grey"]},
+    "beige": {"terms": ["màu be", "be sữa", "màu kem", "kem sữa"], "spec_extra": ["be", "kem", "nude", "beige", "cream"]},
+    "brown": {"terms": ["nâu", "màu nâu", "nâu đất", "nâu bò", "nâu cà phê"], "spec_extra": ["brown", "cà phê", "coffee"]},
+    "red": {"terms": ["đỏ", "màu đỏ", "đỏ đô", "đỏ tươi"], "spec_extra": ["red", "đô"]},
+    "pink": {"terms": ["hồng", "màu hồng", "hồng phấn", "hồng pastel", "hồng nhạt"], "spec_extra": ["pink"]},
+    "orange": {"terms": ["màu cam"], "spec_extra": ["cam", "orange"]},
+    "yellow": {"terms": ["vàng", "màu vàng", "vàng nghệ", "vàng chanh", "vàng nhạt"], "spec_extra": ["yellow"]},
+    "green": {"terms": ["xanh lá", "xanh lá cây", "xanh rêu", "xanh lục", "xanh ngọc", "xanh bơ", "xanh cốm", "xanh mint", "xanh olive", "xanh quân đội", "xanh army", "màu rêu"], "spec_extra": ["green", "rêu", "lá"]},
+    "blue": {"terms": ["xanh dương", "xanh da trời", "xanh biển", "xanh lam", "xanh coban", "xanh cobalt", "xanh bích", "xanh baby"], "spec_extra": ["blue", "dương"]},
+    "navy": {"terms": ["xanh navy", "xanh đen", "xanh than", "xanh tím than", "tím than", "navy"], "spec_extra": ["navy blue"]},
+    "purple": {"terms": ["tím", "màu tím", "tím nhạt", "tím pastel", "tím đậm"], "spec_extra": ["purple", "violet"]},
+    "silver": {"terms": ["màu bạc", "ánh bạc", "mạ bạc"], "spec_extra": ["bạc", "silver"]},
+    "gold": {"terms": ["vàng gold", "vàng đồng", "vàng kim", "mạ vàng", "dát vàng", "màu gold"], "spec_extra": ["gold"]},
+    "multicolor": {"terms": ["nhiều màu", "đa màu", "nhiều màu sắc", "phối màu", "mix màu"], "spec_extra": ["multicolor", "multi color", "multi-color"]}
+  },
+  "material_name_strip_regex": [
+    "đế\\s+\\w+(\\s+\\w+)?",
+    "lót\\s+\\w+(\\s+\\w+)?",
+    "quai\\s+\\w+",
+    "dây\\s+\\w+"
+  ],
+  "material": {
+    "cotton": {"terms": ["cotton", "coton", "vải cotton"], "spec_extra": []},
+    "wool": {"terms": ["len", "lông cừu", "len lông cừu", "wool", "cashmere", "merino"], "spec_extra": []},
+    "polyester": {"terms": ["polyester", "poly", "vải poly"], "spec_extra": []},
+    "linen": {"terms": ["linen", "lanh", "vải lanh"], "spec_extra": []},
+    "denim": {"terms": ["denim", "jean", "jeans", "vải bò", "vải jean"], "spec_extra": ["bò"]},
+    "leather": {"terms": ["da bò", "da thật", "da cừu", "da dê", "da lộn", "da cá sấu", "genuine leather", "giày da", "túi da", "áo da", "ví da", "bao da", "cặp da", "thắt lưng da"], "spec_extra": ["da", "leather"]},
+    "synthetic_leather": {"terms": ["da pu", "giày da pu", "túi da pu", "áo da pu", "ví da pu", "pu leather", "da tổng hợp", "da nhân tạo", "da công nghiệp", "simili", "giả da", "faux leather", "leatherette"], "spec_extra": ["pu"]},
+    "silk": {"terms": ["lụa", "silk", "tơ tằm"], "spec_extra": []},
+    "fleece": {"terms": ["fleece", "nỉ bông", "polar fleece", "lông cừu nhân tạo"], "spec_extra": []},
+    "down": {"terms": ["lông vũ", "lông ngỗng", "lông vịt", "down jacket"], "spec_extra": ["down"]},
+    "nylon": {"terms": ["nylon", "nilon", "ny lon"], "spec_extra": []},
+    "knit": {"terms": ["dệt kim", "knit", "knitted"], "spec_extra": []},
+    "canvas": {"terms": ["canvas", "vải canvas", "vải bố"], "spec_extra": []},
+    "rubber": {"terms": ["cao su", "rubber"], "spec_extra": []},
+    "metal": {"terms": ["kim loại", "inox", "thép không gỉ", "hợp kim", "nhôm", "titan", "titanium", "stainless steel", "metal"], "spec_extra": ["thép"]},
+    "plastic": {"terms": ["nhựa", "plastic", "tritan"], "spec_extra": ["abs", "pp"]}
+  },
+  "gender_name_exclusions": ["việt nam", "nam châm", "nam việt", "nữ hoàng", "nữ thần", "nam phi", "đông nam á", "nam á"],
+  "gender": {
+    "unisex": {"terms": ["unisex", "nam nữ", "nữ nam", "nam và nữ", "nữ và nam", "nam/nữ", "nữ/nam", "nam & nữ", "cả nam và nữ", "nam, nữ"], "spec_extra": ["unisex", "nam/nữ"]},
+    "kids": {"terms": ["trẻ em", "bé trai", "bé gái", "cho bé", "em bé", "thiếu nhi", "kids", "trẻ nhỏ"], "spec_extra": ["kids", "trẻ em"]},
+    "male": {"terms": ["nam", "đàn ông", "nam giới", "quý ông"], "spec_extra": ["male", "men", "man"]},
+    "female": {"terms": ["nữ", "phụ nữ", "nữ giới", "quý cô", "chị em"], "spec_extra": ["female", "women", "woman", "lady"]}
+  }
+}
