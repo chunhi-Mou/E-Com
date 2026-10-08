@@ -18,3 +18,5 @@ backend/dataset/images_full/
 models/
 *.npy
 *.tsbuildinfo
+
+video-intro/
