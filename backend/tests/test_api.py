@@ -92,6 +92,16 @@ def test_orders(client):
     assert client.get("/api/orders/latest", params={"customer_id": "nobody"}).status_code == 404
 
 
+def test_orders_list(client):
+    codes = lambda **params: [o["order_code"] for o in client.get("/api/orders", params=params).json()]
+    assert codes(customer_id="C001") == ["20261005", "20261001", "20260928", "20260915"]
+    assert codes(customer_id="C001", status="SHIPPING") == ["20261001"]
+    assert codes(customer_id="nobody") == []
+    assert codes()[0] == "20261005"  # default customer is C001
+    assert all(ORDER_KEYS <= set(o) for o in client.get("/api/orders").json())
+    assert client.get("/api/orders", params={"status": "BOGUS"}).status_code == 422
+
+
 def test_cors_and_static(client):
     r = client.options("/api/search", headers={"Origin": "http://localhost:3000",
                                                "Access-Control-Request-Method": "POST"})

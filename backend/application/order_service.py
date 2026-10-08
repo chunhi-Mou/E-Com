@@ -28,3 +28,6 @@ class OrderService:
 
     def latest(self, customer_id: str) -> OrderDetail | None:
         return self._detail(self.orders.find_latest_by_customer(customer_id))
+
+    def list_for_customer(self, customer_id: str, status: str | None = None) -> list[OrderDetail]:
+        return [self._detail(o) for o in self.orders.find_by_customer(customer_id, status)]

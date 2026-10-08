@@ -21,3 +21,18 @@ def test_unknown_order(search):
 
 def test_dataset_has_required_order(container):
     assert container.orders.lookup("20261001") is not None
+
+
+def test_list_for_customer_newest_first(container):
+    details = container.orders.list_for_customer("C001")
+    assert [d.order.order_code for d in details] == ["20261005", "20261001", "20260928", "20260915"]
+    assert all(d.products for d in details)
+
+
+def test_list_for_customer_status_filter(container):
+    details = container.orders.list_for_customer("C001", status="DELIVERED")
+    assert [d.order.order_code for d in details] == ["20260928", "20260915"]
+
+
+def test_list_for_unknown_customer_is_empty(container):
+    assert container.orders.list_for_customer("nobody") == []

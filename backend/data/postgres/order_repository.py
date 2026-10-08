@@ -27,3 +27,9 @@ class PostgresOrderRepository(OrderRepository):
         rows = self.db.query(f"{_ORDER_SQL} WHERE customer_id = %s ORDER BY created_at DESC, id DESC LIMIT 1",
                              [customer_id])
         return self._build(rows[0]) if rows else None
+
+    def find_by_customer(self, customer_id: str, status: str | None = None) -> list[Order]:
+        sql, params = f"{_ORDER_SQL} WHERE customer_id = %s", [customer_id]
+        if status is not None:
+            sql, params = sql + " AND status = %s", params + [status]
+        return [self._build(r) for r in self.db.query(sql + " ORDER BY created_at DESC, id DESC", params)]

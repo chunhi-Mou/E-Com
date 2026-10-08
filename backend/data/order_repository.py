@@ -17,6 +17,9 @@ class OrderRepository(ABC):
     @abstractmethod
     def find_latest_by_customer(self, customer_id: str) -> Order | None: ...
 
+    @abstractmethod
+    def find_by_customer(self, customer_id: str, status: str | None = None) -> list[Order]: ...
+
 
 class JsonOrderRepository(OrderRepository):
     def __init__(self, dataset_dir: Path | str = DATASET_DIR) -> None:
@@ -33,3 +36,8 @@ class JsonOrderRepository(OrderRepository):
     def find_latest_by_customer(self, customer_id: str) -> Order | None:
         mine = [o for o in self._orders if o.customer_id == customer_id]
         return max(mine, key=lambda o: o.created_at) if mine else None
+
+    def find_by_customer(self, customer_id: str, status: str | None = None) -> list[Order]:
+        mine = [o for o in self._orders
+                if o.customer_id == customer_id and (status is None or o.status == status)]
+        return sorted(mine, key=lambda o: o.created_at, reverse=True)

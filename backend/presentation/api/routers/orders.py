@@ -2,10 +2,19 @@ from __future__ import annotations
 
 from fastapi import APIRouter, Depends, HTTPException
 
+from domain.models import OrderStatus
 from presentation.api.deps import get_container, get_serializer
 from presentation.api.serializers import Serializer
 
 router = APIRouter(prefix="/api/orders", tags=["orders"])
+
+
+@router.get("")
+def list_orders(customer_id: str | None = None, status: OrderStatus | None = None,
+                c=Depends(get_container), ser: Serializer = Depends(get_serializer)):
+    details = c.orders.list_for_customer(customer_id or c.settings.default_customer_id,
+                                         status.value if status else None)
+    return [ser.order(d) for d in details]
 
 
 @router.get("/latest")

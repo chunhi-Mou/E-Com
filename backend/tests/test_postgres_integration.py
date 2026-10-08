@@ -109,6 +109,8 @@ def test_orders_identical(pg):
         assert orders.find_by_code(code) == js.find_by_code(code)
     for cust in ("C001", "C002", "C404"):
         assert orders.find_latest_by_customer(cust) == js.find_latest_by_customer(cust)
+        assert orders.find_by_customer(cust) == js.find_by_customer(cust)
+        assert orders.find_by_customer(cust, "DELIVERED") == js.find_by_customer(cust, "DELIVERED")
     o = orders.find_by_code("20261001")
     assert o.created_at == "2026-10-01T09:30:00+07:00" and isinstance(o.total, int)
 
