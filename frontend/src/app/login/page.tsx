@@ -76,12 +76,6 @@ export default function LoginPage() {
       { duration: 420, easing: "ease-out" },
     );
 
-  const fillDemo = () => {
-    setUsername("admin");
-    setPassword("admin1234");
-    setErrorMsg(null);
-  };
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (isSubmitting || isSuccess) return;
@@ -231,15 +225,6 @@ export default function LoginPage() {
                 </button>
               </motion.div>
             </form>
-
-            <motion.div variants={rise} className="mt-7 flex items-center justify-between gap-3 border-t border-line pt-5 text-[13.5px]">
-              <p className="text-muted">
-                Tài khoản demo: <span className="font-semibold text-fg">admin</span> / <span className="font-semibold text-fg">admin1234</span>
-              </p>
-              <button type="button" onClick={fillDemo} className="shrink-0 font-semibold text-ink-600 transition-colors hover:text-ink-700">
-                Điền nhanh
-              </button>
-            </motion.div>
           </div>
         </div>
 

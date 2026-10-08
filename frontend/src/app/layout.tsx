@@ -3,6 +3,7 @@ import { Be_Vietnam_Pro } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/Providers";
 import { AuthGuard } from "@/components/AuthGuard";
+import { TopBar } from "@/components/TopBar";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { SearchScrim } from "@/components/SearchScrim";
@@ -31,6 +32,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="flex min-h-dvh flex-col" suppressHydrationWarning>
         <Providers>
           <AuthGuard>
+            <TopBar />
             <Header />
             <SearchScrim />
             <main id="main" className="flex-1">{children}</main>

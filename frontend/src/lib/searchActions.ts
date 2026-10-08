@@ -6,6 +6,11 @@ import { useToasts } from "@/store/toast";
 
 export const MAX_IMAGE_MB = 10;
 
+/** Ask the header search field to focus, listen or open the image picker. */
+export function fireSearch(mode: "focus" | "voice" | "image") {
+  window.dispatchEvent(new CustomEvent("lumina:search", { detail: mode }));
+}
+
 export function searchUrl(opts: { text?: string; modality?: "voice" | "image"; imageId?: number; category?: string; nonce?: number }): string {
   const p = new URLSearchParams();
   if (opts.text) p.set("q", opts.text);

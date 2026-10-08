@@ -21,6 +21,8 @@ type SessionState = {
   };
   patchVoice: (p: Partial<SessionState["voice"]>) => void;
   closeVoice: () => void;
+  /** Forget the whole voice exchange (transcript, reply, count) once the shopper has left the results it was about. */
+  resetVoice: () => void;
   text: string;
   setText: (t: string) => void;
   searchOpen: boolean;
@@ -29,6 +31,8 @@ type SessionState = {
 
 let imageId = 0;
 
+const VOICE_IDLE: SessionState["voice"] = { phase: "idle", transcript: "", reply: null, total: null, error: null, open: false, speaking: false, speakHint: null };
+
 export const useSession = create<SessionState>((set, get) => ({
   image: null,
   setImage: (f) => {
@@ -36,10 +40,11 @@ export const useSession = create<SessionState>((set, get) => ({
     if (prev) URL.revokeObjectURL(prev.url);
     set({ image: f ? { file: f, url: URL.createObjectURL(f), id: ++imageId } : null });
   },
-  voice: { phase: "idle", transcript: "", reply: null, total: null, error: null, open: false, speaking: false, speakHint: null },
+  voice: VOICE_IDLE,
   patchVoice: (p) => set((s) => ({ voice: { ...s.voice, ...p } })),
   closeVoice: () =>
     set((s) => ({ voice: { ...s.voice, open: false, speaking: false, phase: s.voice.phase === "listening" ? "idle" : s.voice.phase } })),
+  resetVoice: () => set({ voice: VOICE_IDLE }),
   text: "",
   setText: (t) => set({ text: t }),
   searchOpen: false,

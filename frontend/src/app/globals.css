@@ -36,6 +36,15 @@
   --color-hl-soft: #F8F5FF;
   --color-hl-ink: #4A2AA8;
 
+  /* Sale: the one warm colour. Only for promotions: banners, flash sale, discount badges and sale prices. */
+  --color-sale-50: #FFF3F0;
+  --color-sale-100: #FFE1DA;
+  --color-sale-200: #FFC4B6;
+  --color-sale-500: #F25A3E;
+  --color-sale-600: #D93A24;
+  --color-sale-700: #B52C1A;
+  --color-sun: #FFD25A;
+
   --color-ok: #10B981;
   --color-ok-soft: #ECFDF5;
   --color-star: #F59E0B;

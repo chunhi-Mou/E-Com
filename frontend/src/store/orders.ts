@@ -5,14 +5,19 @@ import type { OrderStatus, PlacedOrder } from "@/lib/types";
 
 type OrdersState = {
   orders: PlacedOrder[];
+  /** order_code -> ISO time the shopper cancelled it. Applies to checkout orders and seeded ones alike. */
+  cancelled: Record<string, string>;
   add: (o: PlacedOrder) => void;
+  cancel: (code: string) => void;
 };
 
 export const useOrders = create<OrdersState>()(
   persist(
     (set) => ({
       orders: [],
+      cancelled: {},
       add: (o) => set((s) => ({ orders: [o, ...s.orders].slice(0, 20) })),
+      cancel: (code) => set((s) => ({ cancelled: { ...s.cancelled, [code]: new Date().toISOString() } })),
     }),
     { name: "sam-orders-v1" },
   ),

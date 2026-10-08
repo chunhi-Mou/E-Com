@@ -2,19 +2,19 @@
 import Link from "next/link";
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { AnimatePresence, motion } from "motion/react";
 import { ImagePlus } from "lucide-react";
 import { getCategories, listProducts, search, searchImage } from "@/lib/api";
 import { buildChips, type Chip } from "@/lib/chips";
 import { categoryFacet, countBy } from "@/lib/facets";
 import { formatSeconds } from "@/lib/format";
-import { useAsync, useHydrated } from "@/lib/hooks";
+import { useAsync } from "@/lib/hooks";
 import { readRefine, useParamPatch } from "@/lib/searchParams";
 import { searchUrl } from "@/lib/searchActions";
 import { finishVoiceFlow } from "@/lib/voiceFlow";
 import type { SearchResponse, SearchResult } from "@/lib/types";
 import { EXAMPLE_QUERIES } from "@/mocks/engine";
 import { useSession } from "@/store/session";
-import { useUi } from "@/store/ui";
 import { EmptyState } from "@/components/EmptyState";
 import { ImagePicker } from "@/components/ImagePicker";
 import { OrderSummary } from "@/components/OrderParts";
@@ -24,9 +24,12 @@ import { FilterPanel } from "@/components/search/FilterPanel";
 import { FilterSheet } from "@/components/search/FilterSheet";
 import { InspectPanel } from "@/components/search/InspectPanel";
 import { SortSelect } from "@/components/search/SortSelect";
+import { ProgressBar } from "@/components/search/ProgressBar";
+import { Roll } from "@/components/search/Roll";
+import { ScanThumb } from "@/components/search/ScanThumb";
 import { UnderstoodBar } from "@/components/search/UnderstoodBar";
 
-type State = { resp: SearchResponse | null; loading: boolean; skeleton: boolean; error: string | null; isNew: boolean };
+type State = { resp: SearchResponse | null; loading: boolean; skeleton: boolean; error: string | null; isNew: boolean; qid: number };
 
 export default function SearchPage() {
   return (
@@ -39,8 +42,8 @@ export default function SearchPage() {
 function SearchInner() {
   const sp = useSearchParams();
   const patch = useParamPatch();
-  const hydrated = useHydrated();
-  const inspectOn = useUi((s) => s.inspect) && hydrated;
+  // Diagnostics (query representation, score breakdown) are only exposed with ?debug in the URL.
+  const inspectOn = sp.has("debug");
 
   const q = (sp.get("q") ?? "").trim();
   const m = sp.get("m");
@@ -52,7 +55,7 @@ function SearchInner() {
   const browse = !q && !isImage;
 
   const cats = useAsync(getCategories, "cats");
-  const [state, setState] = useState<State>({ resp: null, loading: true, skeleton: true, error: null, isNew: false });
+  const [state, setState] = useState<State>({ resp: null, loading: true, skeleton: true, error: null, isNew: false, qid: 0 });
   const [visible, setVisible] = useState(24);
   const lastQuery = useRef<string>("");
   const [retry, setRetry] = useState(0);
@@ -100,8 +103,13 @@ function SearchInner() {
         if (!live) return;
         const isNew = lastQuery.current !== queryId;
         lastQuery.current = queryId;
-        setState({ resp, loading: false, skeleton: false, error: null, isNew });
-        if (m === "voice" && isNew) void finishVoiceFlow(resp);
+        setState((s) => ({ resp, loading: false, skeleton: false, error: null, isNew, qid: isNew ? s.qid + 1 : s.qid }));
+        if (m === "voice" && isNew) {
+          // What was said is full of "tớ muốn…"; the box shows the cleaned query the backend actually searched for.
+          const heard = resp.representation.normalized_text?.trim();
+          if (heard) useSession.getState().setText(heard);
+          void finishVoiceFlow(resp);
+        }
       },
       (e: Error) => {
         if (!live) return;
@@ -169,7 +177,7 @@ function SearchInner() {
   const isOrder = !!resp && resp.representation.intent !== "PRODUCT_SEARCH";
 
   const catName = c ? (cats.data ?? []).find((x) => x.slug === c)?.name : null;
-  const title = browse ? (catName ?? "Tất cả sản phẩm") : isImage ? "Sản phẩm giống ảnh bạn chọn" : `Kết quả cho “${q}”`;
+  const title = browse ? (catName ?? "Tất cả sản phẩm") : isImage ? "Sản phẩm giống ảnh bạn chọn" : `Kết quả cho “${(m === "voice" && resp?.representation.normalized_text?.trim()) || q}”`;
 
   const filterPanel = (
     <FilterPanel facets={facets} refine={refine} activeCat={activeCat} browse={browse} patch={patch} />
@@ -197,6 +205,7 @@ function SearchInner() {
 
   return (
     <div className="shell pb-6 pt-4 md:pt-5">
+      <ProgressBar active={state.loading} />
       <div className={`grid gap-x-6 gap-y-4 ${isOrder ? "" : "lg:grid-cols-[236px_minmax(0,1fr)]"} ${inspectOn ? (isOrder ? "xl:grid-cols-[minmax(0,1fr)_340px]" : "xl:grid-cols-[236px_minmax(0,1fr)_340px]") : ""}`}>
         {!isOrder && (
           <aside className="max-lg:hidden" aria-label="Bộ lọc">
@@ -207,13 +216,13 @@ function SearchInner() {
         <div className="min-w-0 space-y-4">
           <div>
             <div className="flex items-start gap-3">
-              {isImage && image && <img src={image.url} alt="Ảnh bạn chọn" className="size-14 shrink-0 rounded-lg border border-line object-cover" />}
+              {isImage && image && <ScanThumb src={image.url} scanning={state.loading} />}
               <div className="min-w-0 flex-1">
                 <h1 className="balance text-[20px] font-bold leading-tight tracking-[-0.01em] md:text-[24px]">{title}</h1>
                 <p className="num mt-1 text-[13.5px] text-muted" aria-live="polite">
                   {state.skeleton ? "Đang tìm…" : isOrder ? "Tra cứu đơn hàng" : resp ? (
                     <>
-                      <b className="font-semibold text-fg">{shown.length}</b> sản phẩm
+                      <Roll value={shown.length} className="font-semibold text-fg" /> sản phẩm
                       {resp.total > base.length || shown.length !== resp.total ? ` (trong ${resp.total} kết quả)` : ""}
                       {resp.latency_ms > 0 && ` · ${formatSeconds(resp.latency_ms)}`}
                     </>
@@ -227,7 +236,7 @@ function SearchInner() {
           </div>
 
           {resp && !browse && !isOrder && (
-            <UnderstoodBar modality={resp.representation.modality} rawText={resp.representation.raw_text} chips={chips} relaxed={resp.relaxed_filters} onRemove={removeChip} />
+            <UnderstoodBar key={state.qid} modality={resp.representation.modality} rawText={resp.representation.raw_text} chips={chips} relaxed={resp.relaxed_filters} onRemove={removeChip} />
           )}
 
           {/* Mobile controls */}
@@ -271,16 +280,26 @@ function SearchInner() {
               ) : (
                 <div className={`transition-opacity duration-200 ${state.loading ? "opacity-55" : ""}`}>
                   <div className={`grid gap-3 md:gap-4 ${gridCols}`}>
-                    {shown.slice(0, visible).map((r, i) => (
-                      <ProductCard
-                        key={r.product.id}
-                        product={r.product}
-                        index={i}
-                        animate={state.isNew}
-                        scores={inspectOn && !browse ? r.scores : undefined}
-                        rank={r.rank}
-                      />
-                    ))}
+                    {/* Filtering or sorting reflows the grid: cards glide to their new cell, dropped ones fade. */}
+                    <AnimatePresence mode="popLayout" initial={false}>
+                      {shown.slice(0, visible).map((r, i) => (
+                        <motion.div
+                          key={r.product.id}
+                          layout="position"
+                          exit={{ opacity: 0, scale: 0.96, transition: { duration: 0.15 } }}
+                          transition={{ layout: { type: "spring", stiffness: 420, damping: 42 } }}
+                          className="flex [&>*]:min-w-0 [&>*]:flex-1"
+                        >
+                          <ProductCard
+                            product={r.product}
+                            index={i}
+                            animate={state.isNew}
+                            scores={inspectOn && !browse ? r.scores : undefined}
+                            rank={r.rank}
+                          />
+                        </motion.div>
+                      ))}
+                    </AnimatePresence>
                   </div>
                   {shown.length > visible && (
                     <div className="mt-6 flex justify-center">

@@ -2,12 +2,12 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { ArrowRight } from "lucide-react";
 
-export function Section({ title, href, aside, children, className = "" }: { title: string; href?: string; aside?: ReactNode; children: ReactNode; className?: string }) {
+export function Section({ title, href, aside, children, className = "", id, tight }: { title: string; href?: string; aside?: ReactNode; children: ReactNode; className?: string; id?: string; tight?: boolean }) {
   return (
-    <section className={`mt-14 md:mt-16 ${className}`}>
+    <section id={id} className={`${tight ? "mt-6 md:mt-8" : "mt-10 md:mt-12"} scroll-mt-[calc(var(--header-h)+8px)] ${className}`}>
       <div className="mb-5 flex items-end justify-between gap-4">
         <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
-          <h2 className="text-[24px] font-extrabold leading-tight tracking-[-0.03em] md:text-[28px]">{title}</h2>
+          <h2 className="text-[20px] font-extrabold leading-tight tracking-[-0.025em] md:text-[24px]">{title}</h2>
           {aside}
         </div>
         {href && (

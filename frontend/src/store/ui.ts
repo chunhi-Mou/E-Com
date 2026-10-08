@@ -3,8 +3,6 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 type UiState = {
-  inspect: boolean;
-  toggleInspect: () => void;
   speakReplies: boolean;
   setSpeakReplies: (v: boolean) => void;
   voiceLang: "vi" | "en";
@@ -17,8 +15,6 @@ type UiState = {
 export const useUi = create<UiState>()(
   persist(
     (set) => ({
-      inspect: false,
-      toggleInspect: () => set((s) => ({ inspect: !s.inspect })),
       speakReplies: true,
       setSpeakReplies: (v) => set({ speakReplies: v }),
       voiceLang: "vi",

@@ -51,9 +51,8 @@ async function run(label, viewport, mobile) {
   await page.waitForSelector("article");
   await shot("01-home", { full: true });
 
-  // Search: Inspect on
-  await page.evaluate(() => localStorage.setItem("sam-ui-v1", JSON.stringify({ state: { inspect: true, speakReplies: true, voiceLang: "vi", recent: [] }, version: 0 })));
-  await page.goto(`${BASE}/search?q=${encodeURIComponent("áo mùa đông dưới 500k")}`);
+  // Search with diagnostics (?debug)
+  await page.goto(`${BASE}/search?q=${encodeURIComponent("áo mùa đông dưới 500k")}&debug=1`);
   await page.waitForSelector("article");
   await shot("02-search-inspect", { wait: 1500 });
 

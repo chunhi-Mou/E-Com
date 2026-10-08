@@ -1,6 +1,6 @@
 ---
 name: Lumina
-description: Vietnamese marketplace storefront whose signature is multimodal search (type, speak, show a photo). White and grey surfaces with one violet accent used sparingly.
+description: Vietnamese marketplace storefront whose signature is multimodal search (type, speak, show a photo). White and grey surfaces, violet as the brand colour, and a warm red-orange reserved for sales.
 colors:
   ink-50: "#F8F5FF"
   ink-100: "#EFE9FF"
@@ -18,6 +18,10 @@ colors:
   fg: "#14131A"
   muted: "#666574"
   faint: "#9A99A9"
+  sale-500: "#F25A3E"
+  sale-600: "#D93A24"
+  sale-700: "#B52C1A"
+  sun: "#FFD25A"
   ok: "#10B981"
   star: "#F59E0B"
 typography:
@@ -66,29 +70,35 @@ components:
   product-card:
     backgroundColor: "{colors.sheet}"
     rounded: "{rounded.2xl}"
-  promo-band:
-    backgroundColor: "{colors.ink-600}"
+  hero-banner:
+    backgroundColor: "{colors.sale-600}"
     textColor: "{colors.sheet}"
-    rounded: "28px"
+    rounded: "{rounded.2xl}"
+  flash-sale:
+    backgroundColor: "{colors.sale-600}"
+    textColor: "{colors.sheet}"
+    rounded: "{rounded.2xl}"
 ---
 
 ## Overview
 
 Lumina is an Operate surface: shoppers scan, compare and buy, so the shell stays familiar (search-first header, category entry, product grid). What changed from the first version is the surface: calm white and grey, big type, generous space, and motion that explains what is happening.
 
-The signature is the search itself: text, voice and image share one field. The system's understanding is shown as "Lumina hiểu" chips, and an Inspect toggle (for the lecturer) exposes the query representation and per-item score bars.
+The signature is the search itself: text, voice and image share one field. The system's understanding is shown as "Lumina hiểu" chips, and a diagnostics view (opened with `?debug` in the URL) exposes the query representation and per-item score bars.
 
 Light theme only. Scene: a shopper on a phone or laptop in daylight, comparing prices.
 
 ## Colors
 
-Strategy: neutral first, one accent, used rarely so it lands.
+Strategy: neutral first, violet for the brand and actions, one warm colour that only ever means "sale".
 
 - **Neutrals** carry the whole interface: `paper` ground, `sheet` white cards, `line` hairlines, `fg` text. They lean slightly cool and violet; no pure black.
-- **Violet (ink-600)** appears only for: the primary action (search, sign in, buy), focus and active states, the logo, one highlighted phrase in a headline, and one saturated block per screen (the promo band on Home, the curtain on login).
-- **ink-800 and up** are rare dark surfaces: the Inspect header, the voice panel header, toasts.
-- **seal-\*** is an alias of the same violet kept so older class names keep working. There is no red in the interface; errors use a rose notice with text and an icon.
-- Price is `fg`, never accent. A discount is shown as a violet-tinted pill, not by colouring the price.
+- **Violet (ink-600)** is the brand: logo, the primary action (search, sign in, buy), focus and active states, category icons, and the signature-search band.
+- **Sale (sale-600, red-orange)** appears only on promotions: the hero banner, the Flash Sale header, voucher stubs, discount badges, the price of a discounted item and the "sold" bar. If it is on screen, something is on offer. It is never used for errors.
+- **Sun (#FFD25A)** is the highlight on sale banners (kicker pill, second headline line, hover state of white CTAs).
+- **ink-800 and up** are rare dark surfaces: the utility top bar, the Inspect header, the voice panel header, toasts, the tech banner.
+- **seal-\*** is an alias of the same violet kept so older class names keep working. Errors use a rose notice with text and an icon.
+- A price without a discount is `fg`. A discounted price is `sale-600` with the original struck through in `faint`, and a `sale-700` on `sale-50` percentage pill where there is room.
 
 ## Typography
 
@@ -100,8 +110,8 @@ Strategy: neutral first, one accent, used rarely so it lands.
 ## Layout
 
 - 1360px max shell, 16px gutter on phones, 24px from 768px.
-- Home order: hero (headline, three ways to search, photo tiles with a floating "Lumina hiểu" card), category cards, deals rail, violet promo band, best sellers, three category rows.
-- Product grids: 2 columns on phones, 3 at 640px, 5 from 1024px.
+- Home order: utility top bar above the header, banner carousel (2/3) beside two promo tiles (1/3), eight shortcut icons, Flash Sale (countdown, deepest discounts, "sold" bar), voucher tickets, category icon grid, a slim signature-search band, "Gợi ý hôm nay" (12 products), three category rows, trust strip. The signature search lives in the header field; it is not the hero.
+- Product grids: 2 columns on phones, 3 at 640px, 5 from 1024px, 6 from 1280px.
 - Login is a split screen: form on the left, a looping demo of the three search modes on the right (hidden on phones).
 - Header is sticky and translucent; on phones the logo row scrolls away and the search row stays.
 
@@ -128,22 +138,25 @@ Motion explains state; it never decorates a wait.
 
 - **Search field**: grey at rest, white with a violet ring and soft glow on focus, grows from 640 to 780px (spring). Holds an image chip, input, clear, camera, mic and the violet submit button. While recording it becomes a listening view with a pulsing mic, 24 level bars, live transcript and VI/EN switch. Other parts of the page can drive it with a `lumina:search` window event (`focus`, `voice`, `image`).
 - **Dropdown**: recent searches, example queries, two rows for "Nói để tìm" and "Tìm bằng ảnh".
-- **Product card**: square image, two-line name, bold price, rating and sold count, discount pill, hover quick-add. With Inspect on, a score block (text, image, business, soft, final).
+- **Product card**: square image, two-line name, bold price (sale colour when discounted), rating and sold count, a solid sale-red percentage tab on the image corner, hover quick-add. The flash variant swaps the rating for a thin progress bar and "Đã bán N". With `?debug`, a score block (text, image, business, soft, final).
 - **Understood chips**: hard filters are solid outlined chips with a remove button; soft preferences are dashed; relaxed filters are struck through with an "đã nới" tag.
-- **Promo band**: the one saturated violet block on Home, with expanding sound-wave rings around a mic.
+- **Hero banner**: auto-advancing carousel (5.5s), paused on hover, focus or with the pause button, never auto-advancing under reduced motion. Each slide is a colour panel with copy and a slanted-edge photo. Photos are Unsplash (free licence), credited in `public/banners/CREDITS.md`. Do not use a real marketplace's banner artwork, except the one permitted slide listed in PRODUCT.md.
+- **Flash Sale**: sale-red header with a lightning mark and countdown, then a snapping rail of flash cards.
+- **Voucher ticket**: sale stub with the amount, dashed tear line, title, minimum spend, code and a copy button. Codes are shown and copied; they are not applied at checkout yet.
 - **Confirm mark**: violet disc, a ring that bursts outward and a check that draws itself. Used when an item is added to the cart and when an order is placed.
 - **Order timeline**: vertical, filled violet dots, ring on the current step.
 
 ## Do's and Don'ts
 
 Do
-- Keep violet for actions, focus and one bold moment per screen; keep everything else white and grey.
-- Show what the system understood (chips, relaxed notice) in the shopper view; keep scores behind Inspect.
+- Keep violet for the brand and actions, sale red only for offers, and everything else white and grey.
+- Show what the system understood (chips, relaxed notice) in the shopper view; keep scores behind `?debug`.
 - Respect reduced motion: replace movement with opacity, keep state feedback.
 
 Don't
-- Use gradient text, glows, orbit rings, particle backgrounds or grids as decoration.
-- Colour prices; use red anywhere except destructive or error text.
+- Use gradient text, glows, orbit rings, particle backgrounds or grids as decoration. (Gradients on banner and sale-header panels are fine.)
+- Use sale red for anything that is not a promotion, or for errors.
+- Imitate a real marketplace's banner artwork, logo or name (the single permitted slide in PRODUCT.md is the exception).
 - Use emoji or Unicode glyphs as icons (Lucide, 1.5 to 2px stroke, one set).
 - Play sound, or run an animation longer than about 3 seconds without a skip.
 - Imitate any real marketplace brand.

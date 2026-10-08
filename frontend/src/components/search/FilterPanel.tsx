@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
 import { Check, ChevronRight } from "lucide-react";
 import { COLOR_HEX, valueLabel } from "@/lib/vocab";
 import { PRICE_BUCKETS, type CatNode } from "@/lib/facets";
@@ -102,7 +103,13 @@ export function FilterPanel({ facets, refine, activeCat, browse, patch }: Props)
                   className={`flex w-full items-center justify-between rounded-md px-2 py-1.5 text-left text-[14px] hover:bg-ink-50 ${on ? "bg-ink-100 font-semibold text-ink-800" : ""}`}
                 >
                   {b.label}
-                  {on && <Check size={15} />}
+                  <AnimatePresence initial={false}>
+                    {on && (
+                      <motion.span key="on" initial={{ scale: 0, rotate: -45 }} animate={{ scale: 1, rotate: 0 }} exit={{ scale: 0 }} transition={{ type: "spring", stiffness: 600, damping: 22 }} className="grid">
+                        <Check size={15} />
+                      </motion.span>
+                    )}
+                  </AnimatePresence>
                 </button>
               </li>
             );
@@ -135,7 +142,7 @@ export function FilterPanel({ facets, refine, activeCat, browse, patch }: Props)
                     type="button"
                     aria-pressed={on}
                     onClick={() => toggle("color", refine.colors, c.key)}
-                    className={`inline-flex h-8 items-center gap-1.5 rounded-full border pl-1.5 pr-2.5 text-[13px] transition-colors ${on ? "border-ink-600 bg-ink-600 text-white" : "border-line-strong bg-white hover:border-ink-300"}`}
+                    className={`inline-flex h-8 items-center gap-1.5 rounded-full border pl-1.5 pr-2.5 text-[13px] transition-[color,background-color,border-color,transform] active:scale-95 ${on ? "border-ink-600 bg-ink-600 text-white" : "border-line-strong bg-white hover:border-ink-300"}`}
                   >
                     <span className="size-4 rounded-full ring-1 ring-black/15" style={{ background: COLOR_HEX[c.key] ?? "#999" }} />
                     {valueLabel("color", c.key)}
@@ -164,19 +171,26 @@ export function FilterPanel({ facets, refine, activeCat, browse, patch }: Props)
         </Group>
       )}
 
-      {anyActive ? (
-        <button
-          type="button"
-          onClick={() => {
-            setLo("");
-            setHi("");
-            patch({ pmin: null, pmax: null, color: null, brand: null, ...(browse ? {} : { fc: null }) });
-          }}
-          className="mt-1 w-full rounded-md border border-line-strong py-2 text-[13.5px] font-semibold text-ink-700 hover:bg-ink-50"
-        >
-          Xóa bộ lọc
-        </button>
-      ) : null}
+      <AnimatePresence initial={false}>
+        {anyActive ? (
+          <motion.button
+            key="clear"
+            type="button"
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 4, transition: { duration: 0.12 } }}
+            transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+            onClick={() => {
+              setLo("");
+              setHi("");
+              patch({ pmin: null, pmax: null, color: null, brand: null, ...(browse ? {} : { fc: null }) });
+            }}
+            className="mt-1 w-full rounded-md border border-line-strong py-2 text-[13.5px] font-semibold text-ink-700 hover:bg-ink-50 active:scale-[0.98]"
+          >
+            Xóa bộ lọc
+          </motion.button>
+        ) : null}
+      </AnimatePresence>
     </div>
   );
 }

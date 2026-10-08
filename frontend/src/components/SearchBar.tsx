@@ -406,7 +406,14 @@ export function SearchBar() {
             )}
             <ul className="py-1">
               {items.map((it, i) => (
-                <li key={`${it.kind}-${it.label}`} role="option" aria-selected={active === i}>
+                <motion.li
+                  key={it.kind === "literal" ? "literal" : `${it.kind}-${it.label}`}
+                  role="option"
+                  aria-selected={active === i}
+                  initial={{ opacity: 0, y: -3 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1], delay: Math.min(i, 6) * 0.03 }}
+                >
                   {!trimmed && it.kind === "example" && i === (hydrated ? Math.min(recent.length, 4) : 0) && (
                     <div className="px-4 pb-1 pt-3 text-[12px] font-semibold text-muted">Thử tìm</div>
                   )}
@@ -417,10 +424,18 @@ export function SearchBar() {
                       setText(it.label);
                       submit(it.label);
                     }}
-                    className={`flex w-full items-center gap-3 px-4 py-2 text-left text-[15px] ${active === i ? "bg-ink-50" : ""}`}
+                    className="relative flex w-full items-center gap-3 px-4 py-2 text-left text-[15px]"
                   >
-                    {it.kind === "recent" ? <Clock size={16} className="shrink-0 text-faint" /> : <Search size={16} className="shrink-0 text-faint" />}
-                    <span className="truncate">
+                    {active === i && (
+                      <motion.span
+                        layoutId="sug-highlight"
+                        aria-hidden
+                        className="absolute inset-x-1.5 inset-y-0.5 rounded-lg bg-ink-50"
+                        transition={{ type: "spring", stiffness: 600, damping: 44 }}
+                      />
+                    )}
+                    {it.kind === "recent" ? <Clock size={16} className="relative shrink-0 text-faint" /> : <Search size={16} className="relative shrink-0 text-faint" />}
+                    <span className="relative truncate">
                       {it.kind === "literal" ? (
                         <>
                           Tìm <b className="font-semibold">“{it.label}”</b>
@@ -430,7 +445,7 @@ export function SearchBar() {
                       )}
                     </span>
                   </button>
-                </li>
+                </motion.li>
               ))}
             </ul>
             {!trimmed && (
@@ -483,13 +498,18 @@ function ListeningView({
   onDone: () => void;
 }) {
   return (
-    <div className="flex h-full min-w-0 flex-1 items-center gap-3" role="status" aria-live="polite">
-      <span className="relative grid size-8 shrink-0 place-items-center">
+    <div className="fade-in flex h-full min-w-0 flex-1 items-center gap-3" role="status" aria-live="polite">
+      <motion.span
+        className="relative grid size-8 shrink-0 place-items-center"
+        initial={{ scale: 0.4, rotate: -20 }}
+        animate={{ scale: 1, rotate: 0 }}
+        transition={{ type: "spring", stiffness: 520, damping: 18 }}
+      >
         <motion.span style={{ scale: ringScale, opacity: ringOpacity }} className="absolute inset-0 rounded-full bg-seal-500" aria-hidden />
         <span className="relative grid size-8 place-items-center rounded-full bg-seal-600 text-white">
           <Mic size={16} />
         </span>
-      </span>
+      </motion.span>
       <span className="flex h-7 shrink-0 items-center gap-[2px] max-sm:hidden" aria-hidden>
         {Array.from({ length: BARS }, (_, i) => (
           <span
@@ -497,8 +517,8 @@ function ListeningView({
             ref={(el) => {
               barsRef.current[i] = el;
             }}
-            className="h-full w-[2.5px] origin-center rounded-full bg-seal-500"
-            style={{ transform: "scaleY(0.14)" }}
+            className="fade-in h-full w-[2.5px] origin-center rounded-full bg-seal-500"
+            style={{ transform: "scaleY(0.14)", animationDelay: `${60 + i * 14}ms` }}
           />
         ))}
       </span>

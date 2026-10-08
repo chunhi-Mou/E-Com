@@ -12,6 +12,8 @@ const MODALITY: Record<Modality, { label: string; icon: typeof Mic }> = {
   multimodal: { label: "Ảnh và chữ", icon: Camera },
 };
 
+const EXPO = [0.16, 1, 0.3, 1] as const;
+
 export function UnderstoodBar({
   modality, rawText, chips, relaxed, onRemove,
 }: {
@@ -26,17 +28,34 @@ export function UnderstoodBar({
   return (
     <div className="space-y-2.5">
       <div className="flex flex-wrap items-center gap-2" aria-label="Lumina hiểu truy vấn như sau">
-        <span className="inline-flex h-8 items-center gap-1.5 text-[13px] font-semibold text-ink-800">
-          <Sparkles size={15} className="text-ink-500" />
+        <motion.span
+          className="inline-flex h-8 items-center gap-1.5 text-[13px] font-semibold text-ink-800"
+          initial={{ opacity: 0, x: -6 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.3, ease: EXPO }}
+        >
+          <motion.span
+            className="grid"
+            initial={{ scale: 0.4, rotate: -30 }}
+            animate={{ scale: [0.4, 1.25, 1], rotate: [-30, 12, 0] }}
+            transition={{ duration: 0.55, ease: EXPO, delay: 0.05 }}
+          >
+            <Sparkles size={15} className="text-ink-500" />
+          </motion.span>
           Lumina hiểu
-        </span>
-        <span className="inline-flex h-8 items-center gap-1.5 rounded-full bg-ink-100 px-3 text-[13px] font-medium text-ink-800">
+        </motion.span>
+        <motion.span
+          className="inline-flex h-8 items-center gap-1.5 rounded-full bg-ink-100 px-3 text-[13px] font-medium text-ink-800"
+          initial={{ opacity: 0, scale: 0.85 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ type: "spring", stiffness: 520, damping: 30, delay: 0.14 }}
+        >
           <M.icon size={14} />
           {M.label}
           {rawText && <span className="max-w-[28ch] truncate font-normal text-ink-700">“{rawText}”</span>}
-        </span>
-        <AnimatePresence initial={false} mode="popLayout">
-          {chips.map((c) =>
+        </motion.span>
+        <AnimatePresence mode="popLayout">
+          {chips.map((c, i) =>
             c.kind === "hard" ? (
               <motion.span
                 key={c.id}
@@ -44,7 +63,7 @@ export function UnderstoodBar({
                 initial={{ opacity: 0, scale: 0.85 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.85, transition: { duration: 0.12 } }}
-                transition={{ type: "spring", stiffness: 520, damping: 32 }}
+                transition={{ type: "spring", stiffness: 520, damping: 32, delay: 0.26 + i * 0.09 }}
                 title={isRelaxed(c) ? "Đã nới: bộ lọc này không được áp dụng để có kết quả" : undefined}
                 className={`inline-flex h-8 items-center gap-1 rounded-full border bg-white pl-3 pr-1 text-[13px] ${isRelaxed(c) ? "border-dashed border-hl-ink/40 text-muted" : "border-ink-300"}`}
               >
@@ -66,7 +85,7 @@ export function UnderstoodBar({
                 layout
                 initial={{ opacity: 0, scale: 0.85 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ type: "spring", stiffness: 520, damping: 32 }}
+                transition={{ type: "spring", stiffness: 520, damping: 32, delay: 0.26 + i * 0.09 }}
                 title="Ưu tiên mềm: chỉ ảnh hưởng thứ hạng, không loại sản phẩm"
                 className="inline-flex h-8 items-center gap-1 rounded-full border border-dashed border-ink-300 bg-ink-50 px-3 text-[13px]"
               >
@@ -77,14 +96,25 @@ export function UnderstoodBar({
           )}
         </AnimatePresence>
       </div>
-      {relaxed.length > 0 && (
-        <div role="status" className="flex items-start gap-2.5 rounded-lg bg-hl-soft px-3.5 py-2.5 text-[14px] text-hl-ink ring-1 ring-hl">
-          <Info size={18} className="mt-0.5 shrink-0" />
-          <p className="pretty">
-            Có quá ít sản phẩm khớp tất cả điều kiện, nên Lumina đã bỏ lọc <b>{relaxed.map((r) => FILTER_LABEL[r] ?? r).join(", ")}</b> để vẫn có kết quả. Các sản phẩm bên dưới có thể không đúng hoàn toàn điều kiện này.
-          </p>
-        </div>
-      )}
+      <AnimatePresence initial={false}>
+        {relaxed.length > 0 && (
+          <motion.div
+            key="relaxed"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, ease: EXPO, delay: 0.5 }}
+            className="overflow-hidden"
+          >
+            <div role="status" className="flex items-start gap-2.5 rounded-lg bg-hl-soft px-3.5 py-2.5 text-[14px] text-hl-ink ring-1 ring-hl">
+              <Info size={18} className="mt-0.5 shrink-0" />
+              <p className="pretty">
+                Có quá ít sản phẩm khớp tất cả điều kiện, nên Lumina đã bỏ lọc <b>{relaxed.map((r) => FILTER_LABEL[r] ?? r).join(", ")}</b> để vẫn có kết quả. Các sản phẩm bên dưới có thể không đúng hoàn toàn điều kiện này.
+              </p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

@@ -5,6 +5,7 @@ import { mockOrders } from "@/mocks/orders";
 import { mockSuggest, runSearch, similarTo } from "@/mocks/engine";
 import { useOrders, simulateStatus } from "@/store/orders";
 import { dominantColor } from "./image";
+import { withCancellation, withHistory } from "./orderView";
 import type {
   AssistantReply, AssistantReplyRequest, Category, Order, Product, ProductsPage, SearchFilters,
   SearchRequest, SearchResponse, SortKey, TranscribeResponse,
@@ -73,16 +74,19 @@ function norm(p: Product, mode: ApiMode): Product {
   return out;
 }
 function normResponse(r: SearchResponse, mode: ApiMode): SearchResponse {
-  return { ...r, results: r.results.map((x) => ({ ...x, product: norm(x.product, mode) })), order: r.order ? normOrder(r.order, mode) : null };
+  return { ...r, results: r.results.map((x) => ({ ...x, product: norm(x.product, mode) })), order: r.order ? present(normOrder(r.order, mode)) : null };
 }
 function normOrder(o: Order, mode: ApiMode): Order {
   return { ...o, items: o.items.map((i) => ({ ...i, product: norm(i.product, mode) })) };
 }
 
 // ---------- Orders (local first: checkout is a client-side mock) ----------
+/** Single exit point for every order the UI sees: history filled in, local cancellation applied. */
+const present = (o: Order): Order => withCancellation(withHistory(o), useOrders.getState().cancelled[o.order_code]);
+
 function localOrder(code: string): Order | null {
   const o = useOrders.getState().orders.find((x) => x.order_code === code);
-  return o ? simulateStatus(o) : null;
+  return o ? present(simulateStatus(o)) : null;
 }
 
 // ---------- Search ----------
@@ -219,20 +223,36 @@ export async function getOrder(code: string): Promise<Order> {
     await sleep(160);
     const o = mockOrders.find((x) => x.order_code === code);
     if (!o) throw new ApiError(404, "Không tìm thấy đơn hàng");
-    return o;
+    return present(o);
   }
-  return normOrder(await http<Order>(`/api/orders/${encodeURIComponent(code)}`), mode);
+  return present(normOrder(await http<Order>(`/api/orders/${encodeURIComponent(code)}`), mode));
 }
 
 export async function getLatestOrder(customerId = "C001"): Promise<Order> {
   const local = useOrders.getState().orders[0];
-  if (local) return simulateStatus(local);
+  if (local) return present(simulateStatus(local));
   const mode = await getMode();
   if (mode === "mock") {
     await sleep(160);
-    return [...mockOrders].sort((a, b) => b.created_at.localeCompare(a.created_at))[0];
+    return present([...mockOrders].sort((a, b) => b.created_at.localeCompare(a.created_at))[0]);
   }
-  return normOrder(await http<Order>(`/api/orders/latest?customer_id=${encodeURIComponent(customerId)}`), mode);
+  return present(normOrder(await http<Order>(`/api/orders/latest?customer_id=${encodeURIComponent(customerId)}`), mode));
+}
+
+/** All orders of a customer: backend (or mock) orders merged with orders placed at checkout; local wins on a code clash. */
+export async function listOrders(customerId = "C001"): Promise<Order[]> {
+  const local = useOrders.getState().orders;
+  const mine = new Set(local.map((o) => o.order_code));
+  const mode = await getMode();
+  let base: Order[];
+  if (mode === "mock") {
+    await sleep(160);
+    base = mockOrders;
+  } else {
+    base = (await http<Order[]>(`/api/orders?customer_id=${encodeURIComponent(customerId)}`)).map((o) => normOrder(o, mode));
+  }
+  return [...local.map((o) => present(simulateStatus(o))), ...base.filter((o) => !mine.has(o.order_code)).map(present)]
+    .sort((a, b) => Date.parse(b.created_at) - Date.parse(a.created_at));
 }
 
 // ---------- Phase 2: adapters (each may be missing; callers fall back in the browser) ----------

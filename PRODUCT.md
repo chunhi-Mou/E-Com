@@ -14,7 +14,7 @@
 ## Constraints
 - UI language: Vietnamese first. Search accepts Vietnamese (with or without diacritics) and English.
 - Currency format: `299.000 ₫`. Dates: `07/10/2026`.
-- Must not imitate any real brand (no Tiki/Shopee logos, colors-as-identity, or names).
+- Must not imitate any real brand (no Tiki/Shopee logos, colors-as-identity, or names). One exception: the banner slide `public/banners/flash-fashion.jpg`, shown unedited with permission from the page that reposted it, for this education project only. Remove it before any public release.
 - No real payment, no real personal data.
 - Accessibility: keyboard reachable, visible focus, WCAG AA contrast, `prefers-reduced-motion` respected.
 
@@ -24,4 +24,4 @@ Short, friendly, plain Vietnamese. No marketing fluff, no emoji in UI chrome. Em
 ## Evidence of success
 - A spoken "tôi muốn mua áo mùa đông" goes from mic to relevant results in a few seconds with clear feedback at each step.
 - Photo search feels as easy as pasting an image.
-- The demo viewer can see the query representation and ranking score breakdown on demand (developer/inspect toggle), without cluttering the shopper view.
+- The demo viewer can see the query representation and ranking score breakdown on demand (only when the URL has `?debug`), without cluttering the shopper view.

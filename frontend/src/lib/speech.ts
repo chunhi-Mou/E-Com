@@ -270,9 +270,12 @@ export async function speakReply(opts: { text: string; audioUrl?: string; lang: 
   if (opts.audioUrl) {
     try {
       const a = new Audio(opts.audioUrl);
+      let playing = false;
       a.onended = opts.onEnd;
-      a.onerror = opts.onEnd;
+      // An error before playback began falls through to speechSynthesis below, so it must not report "finished".
+      a.onerror = () => playing && opts.onEnd();
       await a.play();
+      playing = true;
       return { stop: () => { a.pause(); opts.onEnd(); } };
     } catch {
       // file missing or autoplay blocked: fall through to speechSynthesis

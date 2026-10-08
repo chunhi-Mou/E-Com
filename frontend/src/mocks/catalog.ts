@@ -180,7 +180,7 @@ function build(): Product[] {
         out.push({
           id,
           name: `${t.name} màu ${COLOR_NAME_VI[color] ?? color}`,
-          description: `${t.name}, màu ${COLOR_NAME_VI[color] ?? color}. Chất liệu ${t.mat.join(", ")}, phù hợp ${t.occ.join(", ")}. Hàng mẫu dùng cho bản demo, hình minh họa được tạo tự động.`,
+          description: `${t.name}, màu ${COLOR_NAME_VI[color] ?? color}. Chất liệu ${t.mat.join(", ")}, phù hợp ${t.occ.join(", ")}.`,
           brand: rand() < 0.9 ? BRANDS[Math.floor(rand() * BRANDS.length)] : null,
           category: leaf.slug,
           category_path: categoryPath(leaf.slug),

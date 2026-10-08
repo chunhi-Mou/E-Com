@@ -1,6 +1,6 @@
 "use client";
 import { assistantReply } from "./api";
-import { composeReply, spokenName } from "./assistant";
+import { composeReply, MAX_REPLY_WORDS, wordCount } from "./assistant";
 import { speakReply, type SpeakFail, type Speaker } from "./speech";
 import type { SearchResponse } from "./types";
 import { useSession } from "@/store/session";
@@ -39,6 +39,9 @@ export async function speak(text: string, audioUrl: string | undefined, lang: "v
     lang,
     onEnd: () => seq === mine && patch({ speaking: false }),
     onFail: (r) => seq === mine && patch({ speakHint: FAIL_HINT[r] }),
+  }).catch(() => {
+    if (seq === mine) patch({ speaking: false, speakHint: FAIL_HINT.failed }); // never leave the orb stuck on "speaking"
+    return null;
   });
   if (seq !== mine) {
     s?.stop(); // a newer reply took over while voices were loading
@@ -68,13 +71,15 @@ const within = <T,>(p: Promise<T>, ms: number) =>
 export async function finishVoiceFlow(resp: SearchResponse) {
   const patch = useSession.getState().patchVoice;
   const lang = resp.representation.language ?? useUi.getState().voiceLang;
-  const names = resp.results.slice(0, 3).map((r) => spokenName(r.product.name));
-  let text = composeReply(resp.representation, resp.total, names);
+  let text = composeReply(resp.representation, resp.total);
   let audio: string | undefined;
   try {
-    const r = await within(assistantReply({ representation: resp.representation, total: resp.total, top_names: names }), REPLY_BUDGET_MS);
-    text = r.text;
-    audio = r.audio_url || undefined;
+    const r = await within(assistantReply({ representation: resp.representation, total: resp.total, top_names: [] }), REPLY_BUDGET_MS);
+    // An over-long answer (and the audio rendered from it) is dropped for the short local sentence.
+    if (wordCount(r.text) <= MAX_REPLY_WORDS) {
+      text = r.text;
+      audio = r.audio_url || undefined;
+    }
   } catch {
     // slow or unavailable backend: the local sentence is already good enough to read out
   }

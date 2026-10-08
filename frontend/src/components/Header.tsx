@@ -3,12 +3,11 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 import { motion } from "motion/react";
-import { Braces, LogIn, LogOut, ReceiptText, Search, ShoppingBag } from "lucide-react";
+import { LogIn, LogOut, ReceiptText, Search, ShoppingBag } from "lucide-react";
 import { Logo } from "./Logo";
 import { SearchBar } from "./SearchBar";
 import { CategoryNav } from "./CategoryNav";
 import { cartCount, useCart } from "@/store/cart";
-import { useUi } from "@/store/ui";
 import { useAuth } from "@/store/auth";
 import { useCurtain } from "@/store/curtain";
 import { useHydrated } from "@/lib/hooks";
@@ -31,8 +30,6 @@ export function Header() {
   const lines = useCart((s) => s.lines);
   const hydrated = useHydrated();
   const count = hydrated ? cartCount(lines) : 0;
-  const inspect = useUi((s) => s.inspect);
-  const toggle = useUi((s) => s.toggleInspect);
   const user = useAuth((s) => s.user);
   const logout = useAuth((s) => s.logout);
   const authHydrated = useAuth((s) => s.hydrated);
@@ -53,16 +50,6 @@ export function Header() {
 
   const actions = (
     <div className="flex items-center gap-0.5">
-      <button
-        type="button"
-        onClick={toggle}
-        aria-pressed={hydrated && inspect}
-        title="Hiện cách hệ thống hiểu truy vấn và chấm điểm kết quả"
-        className={`${ghost} ${hydrated && inspect ? "!bg-ink-100 !text-ink-700" : ""}`}
-      >
-        <Braces size={18} />
-        <span className="max-xl:hidden">Inspect</span>
-      </button>
       <Link href="/orders" className={ghost} aria-label="Đơn hàng">
         <ReceiptText size={19} />
         <span className="max-xl:hidden">Đơn hàng</span>
