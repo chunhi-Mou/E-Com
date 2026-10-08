@@ -3,6 +3,17 @@ import pytest
 from domain.models import Intent
 
 
+@pytest.mark.parametrize("said", [
+    "Tớ muốn áo mùa đông", "mình đang cần tìm áo mùa đông nhé", "Em muốn mua áo mùa đông", "tui định mua áo mùa đông nha",
+])
+def test_any_pronoun_filler_is_dropped(parser, said):
+    assert parser.parse(said).normalized_text == "áo mùa đông"
+
+
+def test_size_word_is_not_a_filler(parser):
+    assert "to" in parser.parse("áo phông size to").normalized_text.split()
+
+
 def test_filler_and_price_vi(parser):
     rep = parser.parse("tôi muốn mua áo mùa đông dưới 500 nghìn")
     assert rep.normalized_text == "áo mùa đông"

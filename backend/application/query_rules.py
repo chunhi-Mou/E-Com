@@ -75,12 +75,18 @@ _FILLERS = sorted([
     "toi muon mua", "toi muon tim", "toi muon xem", "toi muon", "toi can mua", "toi can tim", "toi can",
     "toi dang tim kiem", "toi dang tim", "minh muon mua", "minh muon", "minh can", "muon mua", "can mua",
     "cho toi xem", "cho toi", "cho minh", "tim giup toi", "tim giup minh", "tim cho toi", "tim kiem", "tim giup",
-    "hay tim", "mua giup", "xin chao", "giup minh", "giup toi", "nhe", "nha",
+    "hay tim", "mua giup", "xin chao", "giup minh", "giup toi", "nhe", "nha", "nhi", "gium",
     "i want to buy", "i want to find", "i want to see", "i want", "i need", "i would like to", "i would like",
     "i'd like", "i am looking for", "i'm looking for", "looking for", "find me", "show me", "give me",
     "search for", "can you find", "can you show", "could you find", "could you show", "please",
 ], key=len, reverse=True)
-_FILLER_RE = re.compile(r"\b(?:" + "|".join(re.escape(f) for f in _FILLERS) + r")\b")
+# "tớ muốn", "mình đang cần tìm", "em muốn mua": any first-person pronoun + want verbs (+ buy/find verb). Matched on
+# unaccented text, so a bare "tớ"/"to" is dropped only when a want verb follows ("áo size to" stays intact).
+_PRONOUN = r"(?:toi|to|minh|tui|tao|em|anh|chi|ban|ad|shop)"
+_WANT = r"(?:dang|muon|can|dinh|thich|hay|se)"
+_DO = r"(?:mua|tim kiem|tim|xem|kiem|lay|dat)"
+_FILLER_RE = re.compile(
+    rf"\b(?:{_PRONOUN}\s+{_WANT}(?:\s+{_WANT})*(?:\s+{_DO})?|" + "|".join(re.escape(f) for f in _FILLERS) + r")\b")
 
 STOPWORDS = {"cho", "va", "voi", "the", "a", "an", "of", "for", "and", "with", "in", "to", "is", "my", "me", "do",
              "nhung", "cac", "mot", "la", "co"}

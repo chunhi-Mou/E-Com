@@ -180,6 +180,55 @@ def test_llm_retries_without_json_mode_when_unsupported():
     assert "response_format" in rec.body(0) and "response_format" not in rec.body(1)
 
 
+def test_llm_repeated_question_is_answered_from_cache():
+    rec = Recorder(completion('{"a": 1}'))
+    llm = make_llm(rec)
+    assert llm.chat_json("s", "u") == llm.chat_json("s", "u") == {"a": 1} and len(rec.requests) == 1
+    llm.chat_json("s", "other")
+    assert len(rec.requests) == 2
+
+
+def test_llm_quota_error_pauses_calls_then_resumes():
+    now = [100.0]
+    rec = Recorder(httpx.Response(429, text="quota"), completion('{"a": 1}'))
+    llm = make_llm(rec, retries=0, cooldown_s=60, clock=lambda: now[0])
+    with pytest.raises(RemoteError) as first:
+        llm.chat("s", "u1")
+    assert first.value.status == 429
+    for q in ("u2", "u3"):  # paused: fails at once, no request is sent
+        with pytest.raises(RemoteError, match="paused"):
+            llm.chat("s", q)
+    assert len(rec.requests) == 1
+    now[0] += 61
+    assert llm.chat_json("s", "u4") == {"a": 1} and len(rec.requests) == 2
+
+
+def test_llm_pauses_after_three_consecutive_failures_only():
+    now = [0.0]
+    rec = Recorder(httpx.Response(401, text="no"), httpx.Response(401, text="no"), completion("ok"),
+                   httpx.Response(401, text="no"), httpx.Response(401, text="no"), httpx.Response(401, text="no"))
+    llm = make_llm(rec, retries=0, clock=lambda: now[0])
+    for q in ("a", "b"):
+        with pytest.raises(RemoteError):
+            llm.chat("s", q)
+    assert llm.chat("s", "c") == "ok"  # a success resets the count
+    for q in ("d", "e", "f"):
+        with pytest.raises(RemoteError):
+            llm.chat("s", q)
+    with pytest.raises(RemoteError, match="paused"):
+        llm.chat("s", "g")
+    assert len(rec.requests) == 6
+
+
+def test_llm_parser_survives_quota_exhaustion(lexicon):
+    rec = Recorder(httpx.Response(429, text="quota"))
+    p = llm_parser(lexicon, rec)
+    for text in ("áo ấm mùa đông", "giày chạy bộ", "túi xách"):
+        rep = p.parse(text)
+        assert rep.parser == "rules" and rep.normalized_text
+    assert len(rec.requests) == 1  # only the first search tried the model
+
+
 def test_llm_bad_outputs_raise():
     for content in ("not json", "[1, 2]", ""):
         with pytest.raises(RemoteError):
@@ -402,18 +451,18 @@ class FakeSynth(SpeechSynthesizer):
 def test_assistant_template_matches_query_language():
     r = AssistantReplier()
     vi = r.reply({"normalized_text": "áo mùa đông", "language": "vi"}, 12, ["Áo len", "Áo phao", "Áo nỉ"])
-    assert "12" in vi.text and "Áo len và Áo phao" in vi.text and "Áo nỉ" not in vi.text and vi.audio_file is None
+    assert "12" in vi.text and "Áo len" not in vi.text and len(vi.text.split()) <= 7 and vi.audio_file is None
     en = r.reply({"raw_text": "black running shoes", "language": "en"}, 3, [])
-    assert en.language == "en" and en.text.startswith("I found 3")
-    assert "chưa tìm thấy" in r.reply({"raw_text": "xyz", "language": "vi"}, 0, []).text
+    assert en.language == "en" and en.text.startswith("Found 3")
+    assert "Chưa có kết quả" in r.reply({"raw_text": "xyz", "language": "vi"}, 0, []).text
     assert r.reply({"raw_text": "where is my order", "intent": "ORDER_LATEST"}, 0, []).language == "en"
 
 
 def test_assistant_uses_llm_then_tts_and_degrades():
-    rec = Recorder(completion("Mình tìm thấy 12 áo ấm cho bạn."))
+    rec = Recorder(completion("Mình tìm được 12 áo ấm đây."))
     synth = FakeSynth()
     r = AssistantReplier(make_llm(rec), synth).reply({"normalized_text": "áo ấm", "language": "vi"}, 12, ["Áo len"])
-    assert r.text == "Mình tìm thấy 12 áo ấm cho bạn." and r.audio_file == "abc.mp3"
+    assert r.text == "Mình tìm được 12 áo ấm đây." and r.audio_file == "abc.mp3"
     assert synth.calls == [(r.text, "vi")]
     assert "Vietnamese" in rec.body()["messages"][0]["content"]
     assert "total_results: 12" in rec.body()["messages"][1]["content"]
@@ -421,3 +470,7 @@ def test_assistant_uses_llm_then_tts_and_degrades():
     r2 = AssistantReplier(make_llm(Recorder(httpx.Response(500, text="x"))), FakeSynth(fail=True)).reply(
         {"normalized_text": "áo ấm", "language": "vi"}, 2, ["Áo len"])
     assert "2 sản phẩm" in r2.text and r2.audio_file is None
+    # an LLM answer longer than the word budget is replaced by the template
+    long = AssistantReplier(make_llm(Recorder(completion("Mình tìm thấy 12 sản phẩm áo ấm rất đẹp cho bạn đây."))), None).reply(
+        {"normalized_text": "áo ấm", "language": "vi"}, 12, [])
+    assert long.text == "Mình tìm được 12 sản phẩm đây."
